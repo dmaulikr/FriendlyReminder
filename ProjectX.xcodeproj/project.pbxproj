@@ -8,22 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		7BF930AF1C7E704800F1794F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF930AE1C7E704800F1794F /* AppDelegate.swift */; };
-		7BF930B11C7E704800F1794F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF930B01C7E704800F1794F /* ViewController.swift */; };
+		7BF930B11C7E704800F1794F /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF930B01C7E704800F1794F /* EventViewController.swift */; };
 		7BF930B41C7E704800F1794F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BF930B21C7E704800F1794F /* Main.storyboard */; };
 		7BF930B71C7E704800F1794F /* ProjectX.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7BF930B51C7E704800F1794F /* ProjectX.xcdatamodeld */; };
 		7BF930B91C7E704800F1794F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BF930B81C7E704800F1794F /* Assets.xcassets */; };
 		7BF930BC1C7E704800F1794F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BF930BA1C7E704800F1794F /* LaunchScreen.storyboard */; };
+		7BF930C41C7E71C000F1794F /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF930C31C7E71C000F1794F /* CoreDataStackManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7BF930AB1C7E704800F1794F /* ProjectX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF930AE1C7E704800F1794F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7BF930B01C7E704800F1794F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7BF930B01C7E704800F1794F /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
 		7BF930B31C7E704800F1794F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7BF930B61C7E704800F1794F /* ProjectX.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectX.xcdatamodel; sourceTree = "<group>"; };
 		7BF930B81C7E704800F1794F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7BF930BB1C7E704800F1794F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7BF930BD1C7E704800F1794F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7BF930C31C7E71C000F1794F /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,8 +58,9 @@
 		7BF930AD1C7E704800F1794F /* ProjectX */ = {
 			isa = PBXGroup;
 			children = (
+				7BF930C31C7E71C000F1794F /* CoreDataStackManager.swift */,
 				7BF930AE1C7E704800F1794F /* AppDelegate.swift */,
-				7BF930B01C7E704800F1794F /* ViewController.swift */,
+				7BF930B01C7E704800F1794F /* EventViewController.swift */,
 				7BF930B21C7E704800F1794F /* Main.storyboard */,
 				7BF930B81C7E704800F1794F /* Assets.xcassets */,
 				7BF930BA1C7E704800F1794F /* LaunchScreen.storyboard */,
@@ -139,7 +142,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BF930B11C7E704800F1794F /* ViewController.swift in Sources */,
+				7BF930B11C7E704800F1794F /* EventViewController.swift in Sources */,
+				7BF930C41C7E71C000F1794F /* CoreDataStackManager.swift in Sources */,
 				7BF930AF1C7E704800F1794F /* AppDelegate.swift in Sources */,
 				7BF930B71C7E704800F1794F /* ProjectX.xcdatamodeld in Sources */,
 			);
