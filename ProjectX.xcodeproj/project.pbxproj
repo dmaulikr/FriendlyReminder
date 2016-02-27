@@ -14,6 +14,8 @@
 		7BF930B91C7E704800F1794F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BF930B81C7E704800F1794F /* Assets.xcassets */; };
 		7BF930BC1C7E704800F1794F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BF930BA1C7E704800F1794F /* LaunchScreen.storyboard */; };
 		7BF930C41C7E71C000F1794F /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF930C31C7E71C000F1794F /* CoreDataStackManager.swift */; };
+		7BF930C61C81470600F1794F /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF930C51C81470600F1794F /* Event.swift */; };
+		7BF930C81C814DE700F1794F /* EventCreatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF930C71C814DE700F1794F /* EventCreatorViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		7BF930BB1C7E704800F1794F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7BF930BD1C7E704800F1794F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7BF930C31C7E71C000F1794F /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
+		7BF930C51C81470600F1794F /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		7BF930C71C814DE700F1794F /* EventCreatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventCreatorViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,7 +47,6 @@
 			isa = PBXGroup;
 			children = (
 				7BF930AD1C7E704800F1794F /* ProjectX */,
-				7BF930AC1C7E704800F1794F /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -53,6 +56,7 @@
 				7BF930AB1C7E704800F1794F /* ProjectX.app */,
 			);
 			name = Products;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		7BF930AD1C7E704800F1794F /* ProjectX */ = {
@@ -61,11 +65,14 @@
 				7BF930C31C7E71C000F1794F /* CoreDataStackManager.swift */,
 				7BF930AE1C7E704800F1794F /* AppDelegate.swift */,
 				7BF930B01C7E704800F1794F /* EventViewController.swift */,
+				7BF930C71C814DE700F1794F /* EventCreatorViewController.swift */,
+				7BF930C51C81470600F1794F /* Event.swift */,
 				7BF930B21C7E704800F1794F /* Main.storyboard */,
 				7BF930B81C7E704800F1794F /* Assets.xcassets */,
 				7BF930BA1C7E704800F1794F /* LaunchScreen.storyboard */,
 				7BF930BD1C7E704800F1794F /* Info.plist */,
 				7BF930B51C7E704800F1794F /* ProjectX.xcdatamodeld */,
+				7BF930AC1C7E704800F1794F /* Products */,
 			);
 			path = ProjectX;
 			sourceTree = "<group>";
@@ -144,8 +151,10 @@
 			files = (
 				7BF930B11C7E704800F1794F /* EventViewController.swift in Sources */,
 				7BF930C41C7E71C000F1794F /* CoreDataStackManager.swift in Sources */,
+				7BF930C81C814DE700F1794F /* EventCreatorViewController.swift in Sources */,
 				7BF930AF1C7E704800F1794F /* AppDelegate.swift in Sources */,
 				7BF930B71C7E704800F1794F /* ProjectX.xcdatamodeld in Sources */,
+				7BF930C61C81470600F1794F /* Event.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
