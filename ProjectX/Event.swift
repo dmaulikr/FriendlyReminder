@@ -7,31 +7,28 @@
 //
 
 import CoreData
+import Firebase
 
-class Event : NSManagedObject {
- /*
-    struct Keys {
-        static let Title = "title"
-        static let Date = "date"
-    }
- */
-    @NSManaged var title: String
-    @NSManaged var date: String
+class Event {
+    var title: String
+    var date: String
     
-    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
-        super.init(entity: entity, insertIntoManagedObjectContext: context)
-    }
-    
-    init(title: String, date: String, context: NSManagedObjectContext) {
-
-        let entity =  NSEntityDescription.entityForName("Event", inManagedObjectContext: context)!
-        super.init(entity: entity,insertIntoManagedObjectContext: context)
-
+    init(title: String, date: String) {
         self.title = title
         self.date = date
     }
     
     func toAnyObject() -> AnyObject {
-        return [ "title": title as String, "date": date as String ]
+        return [
+            "title": title,
+            "date": date
+        ]
+    }
+    
+    init(snapshot: FDataSnapshot) {
+       // key = snapshot.key
+        title = snapshot.value["title"] as! String
+        date = snapshot.value["date"] as! String
+       // ref = snapshot.ref
     }
 }

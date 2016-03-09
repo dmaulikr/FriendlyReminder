@@ -13,7 +13,7 @@ import Firebase
 class EventViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
     let ref = Firebase(url: "https://amber-inferno-4463.firebaseio.com/events/")
-
+    var events = [Event]()
     
 
     override func viewDidLoad() {
@@ -21,12 +21,31 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
         
         navigationItem.leftBarButtonItem = self.editButtonItem()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addEvent")
-        
+ /*
         do {
             try fetchedResultsController.performFetch()
         } catch {}
         
         fetchedResultsController.delegate = self
+*/
+    }
+    
+    // reloads the tableview data and event array
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        ref.queryOrderedByChild("date").observeEventType(.Value, withBlock: { snapshot in
+            
+            var newEvents = [Event]()
+            
+            for event in snapshot.children {
+                
+                let event = Event(snapshot: event as! FDataSnapshot)
+                newEvents.append(event)
+            }
+            
+            self.events = newEvents
+            self.tableView.reloadData()
+        })
     }
     
     
@@ -38,7 +57,7 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
         self.presentViewController(controller, animated: true, completion: nil)
         
     }
-    
+/*
     // MARK: - Core Data Convenience.
     
     var sharedContext: NSManagedObjectContext {
@@ -63,20 +82,20 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
         
     }()
     
-    
+*/
     // MARK: - Table View
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionInfo = self.fetchedResultsController.sections![section]
-        
-        return sectionInfo.numberOfObjects
+        //let sectionInfo = self.fetchedResultsController.sections![section]
+        //return sectionInfo.numberOfObjects
+        return events.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let CellIdentifier = "EventCell"
         
         // Here is how to replace the actors array using objectAtIndexPath
-        let event = fetchedResultsController.objectAtIndexPath(indexPath) as! Event
+        let event = events[indexPath.row]
         
         let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier)! as UITableViewCell//as! TaskCancelingTableViewCell
         
@@ -105,7 +124,14 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
     // MARK: - Configure Cell
     
     func configureCell(cell: UITableViewCell, event: Event) {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        let oldDate = dateFormatter.dateFromString(event.date)
+        dateFormatter.dateFormat = "MMMM d, y"
+        let dateString = dateFormatter.stringFromDate(oldDate!)
         
+        cell.textLabel?.text = event.title
+        cell.detailTextLabel?.text = dateString
     }
 
 }
