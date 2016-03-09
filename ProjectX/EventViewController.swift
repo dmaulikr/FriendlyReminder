@@ -8,8 +8,13 @@
 
 import UIKit
 import CoreData
+import Firebase
 
 class EventViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+    
+    let ref = Firebase(url: "https://https://amber-inferno-4463.firebaseio.com/grocery-items")
+
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

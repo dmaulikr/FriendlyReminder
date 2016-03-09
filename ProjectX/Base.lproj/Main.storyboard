@@ -65,9 +65,16 @@
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="4MZ-Hx-YAB"/>
                                     <barButtonItem systemItem="cancel" id="xNX-pM-v3h">
                                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="cancelEvent:" destination="u1W-hw-Dfs" id="i4b-B1-TnO"/>
+                                        </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="fPW-zH-agX"/>
-                                    <barButtonItem title="Create" id="e7r-wP-0aJ"/>
+                                    <barButtonItem title="Create" id="e7r-wP-0aJ">
+                                        <connections>
+                                            <action selector="createEvent:" destination="u1W-hw-Dfs" id="9xC-XW-shd"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="R0L-ub-gUg"/>
                                 </items>
                             </toolbar>
@@ -102,6 +109,10 @@
                             <constraint firstItem="m4S-Wn-4sc" firstAttribute="leading" secondItem="nQY-sY-K5Y" secondAttribute="leadingMargin" constant="-20" id="q0I-UV-nFd"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="datePicker" destination="9fu-gs-ans" id="PgS-CB-T8b"/>
+                        <outlet property="eventTitle" destination="8cH-V5-qNL" id="6Po-CS-gph"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uDn-gd-L10" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
