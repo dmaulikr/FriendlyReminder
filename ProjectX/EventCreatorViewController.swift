@@ -43,15 +43,9 @@ class EventCreatorViewController: UIViewController {
         
         let event = Event(title: eventTitle.text!, date: dateString)
         
-        let eventItemRef = self.ref.childByAppendingPath(eventTitle.text!.lowercaseString)
-/*
-        let myDict = [
-            "title": event.title,
-            "date": event.date
-        ]
-*/
-      //  eventItemRef.setValue(myDict)
+        let eventItemRef = self.ref.childByAppendingPath(eventTitle.text!.lowercaseString + "/")
         eventItemRef.setValue(event.toAnyObject())
+        
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 }

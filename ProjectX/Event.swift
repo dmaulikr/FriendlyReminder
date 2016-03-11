@@ -12,10 +12,13 @@ import Firebase
 class Event {
     var title: String
     var date: String
+    var ref: Firebase?
+   // var tasks: [Task]?
     
     init(title: String, date: String) {
         self.title = title
         self.date = date
+        self.ref = nil
     }
     
     func toAnyObject() -> AnyObject {
@@ -29,6 +32,6 @@ class Event {
        // key = snapshot.key
         title = snapshot.value["title"] as! String
         date = snapshot.value["date"] as! String
-       // ref = snapshot.ref
+        ref = snapshot.ref
     }
 }

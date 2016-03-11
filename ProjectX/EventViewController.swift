@@ -20,6 +20,7 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = self.editButtonItem()
+        navigationItem.title = "Events"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addEvent")
  /*
         do {
@@ -105,17 +106,26 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
         return cell
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+
+        //let cell = tableView.cellForRowAtIndexPath(indexPath)!
+        
+        let event = events[indexPath.row]
+        
+        let controller = storyboard!.instantiateViewControllerWithIdentifier("TaskViewController") as! TaskViewController
+        
+        // need to pass reference to event title
+        controller.ref = self.ref.childByAppendingPath("\(event.title.lowercaseString)" + "/tasks/")
+        self.navigationController!.pushViewController(controller, animated: true)
+    }
+    
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,
         forRowAtIndexPath indexPath: NSIndexPath) {
             
             switch (editingStyle) {
-            case .Delete: break
-                /*
-                // Here we get the actor, then delete it from core data
-                let movie = fetchedResultsController.objectAtIndexPath(indexPath) as! Movie
-                sharedContext.deleteObject(movie)
-                CoreDataStackManager.sharedInstance().saveContext()
-                */
+            case .Delete:
+                let event = events[indexPath.row]
+                event.ref?.removeValue()
             default:
                 break
             }
