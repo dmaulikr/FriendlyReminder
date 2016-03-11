@@ -19,9 +19,9 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = self.editButtonItem()
         navigationItem.title = "Events"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addEvent")
+        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addTask")
+        navigationItem.rightBarButtonItems = [self.editButtonItem(), addButton]
  /*
         do {
             try fetchedResultsController.performFetch()
