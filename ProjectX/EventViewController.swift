@@ -14,6 +14,7 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
     
     let ref = Firebase(url: "https://amber-inferno-4463.firebaseio.com/events/")
     var events = [Event]()
+    var data: FAuthData?
     
 
     override func viewDidLoad() {
@@ -47,6 +48,8 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
             self.events = newEvents
             self.tableView.reloadData()
         })
+        
+        print("\(data?.providerData)")
     }
     
     
@@ -142,6 +145,7 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
         
         cell.textLabel?.text = event.title
         cell.detailTextLabel?.text = dateString
+        //cell.detailTextLabel?.text = self.data?.providerData["displayName"] as? String
     }
 
 }
