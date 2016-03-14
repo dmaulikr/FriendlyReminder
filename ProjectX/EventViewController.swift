@@ -9,20 +9,23 @@
 import UIKit
 import CoreData
 import Firebase
+import FBSDKLoginKit
 
 class EventViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
     let ref = Firebase(url: "https://amber-inferno-4463.firebaseio.com/events/")
     var events = [Event]()
-    var data: FAuthData?
+    var data: NSDictionary?
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title = "Events"
-        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addTask")
+        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addEvent")
         navigationItem.rightBarButtonItems = [self.editButtonItem(), addButton]
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logoutUser")
+
  /*
         do {
             try fetchedResultsController.performFetch()
@@ -49,7 +52,7 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
             self.tableView.reloadData()
         })
         
-        print("\(data?.providerData)")
+        print("\(data)")
     }
     
     
@@ -60,6 +63,13 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
         
         self.presentViewController(controller, animated: true, completion: nil)
         
+    }
+    
+    func logoutUser() {
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
+        let loginVC = self.storyboard!.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
+        self.presentViewController(loginVC, animated: true, completion: nil)
     }
 /*
     // MARK: - Core Data Convenience.
@@ -144,7 +154,7 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
         let dateString = dateFormatter.stringFromDate(oldDate!)
         
         cell.textLabel?.text = event.title
-        cell.detailTextLabel?.text = dateString
+        cell.detailTextLabel?.text = "Deadline: " + dateString
         //cell.detailTextLabel?.text = self.data?.providerData["displayName"] as? String
     }
 

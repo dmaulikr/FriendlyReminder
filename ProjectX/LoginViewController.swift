@@ -17,7 +17,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var passwordField: UITextField!
     
     let ref = Firebase(url: "https://amber-inferno-4463.firebaseio.com")
-    var authData: FAuthData?
+    var authData: NSDictionary?
 
     
     override func viewDidLoad() {
@@ -29,12 +29,23 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         loginButton.delegate = self
         
         self.view.addSubview(loginButton)
+        
+        // user defaults
+        let prefs = NSUserDefaults.standardUserDefaults()
+        
+        if let data = prefs.dictionaryForKey("authData") {
+            authData = data
+        }else{
+            //Nothing stored in NSUserDefaults yet. Set a value.
+            print("no data found")
+        }
 
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-   /*
+        // if already logged in, go to eventVC
+   
         if(FBSDKAccessToken.currentAccessToken() == nil)
         {
             print("not logged in")
@@ -42,10 +53,10 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         else
         {
             print("logged in")
-            let nextVC = storyboard!.instantiateViewControllerWithIdentifier("NavController") as! UINavigationController
-            self.presentViewController(nextVC, animated: true, completion: nil)
+            self.performSegueWithIdentifier("NavController", sender: nil)
+
         }
-*/
+
     }
     
     // MARK: - Facebook Login
@@ -69,6 +80,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
         //when user logs out
         print("user logged out")
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
     }
     
     @IBAction func loginButtonTouch(sender: AnyObject) {
@@ -88,11 +101,14 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                             print("Login failed. \(error)")
                         } else {
                             print("Logged in! \(authData)")
-                            self.authData = authData
+                            self.authData = authData.providerData
+                            
+                            let prefs = NSUserDefaults.standardUserDefaults()
+                            prefs.setValue(authData.providerData, forKey: "authData")
                             //let nextVC = self.storyboard!.instantiateViewControllerWithIdentifier("NavController") as! UINavigationController
 
                            // self.presentViewController(nextVC, animated: true, completion: nil)
-                            self.performSegueWithIdentifier("NavController", sender: nil)
+                            //self.performSegueWithIdentifier("NavController", sender: nil)
                         }
                 })
             }
@@ -105,7 +121,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        if self.authData == nil {
+        if self.authData == nil || FBSDKAccessToken.currentAccessToken() == nil{
             return false
         }
         return true
