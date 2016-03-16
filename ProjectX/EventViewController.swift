@@ -45,7 +45,11 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
             for event in snapshot.children {
                 
                 let event = Event(snapshot: event as! FDataSnapshot)
-                newEvents.append(event)
+                
+                // only append if user is part of event
+                if event.members["userid"] as? String == self.authID {
+                    newEvents.append(event)
+                }
             }
             
             self.events = newEvents
@@ -130,6 +134,8 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
         
         // need to pass reference to event title
         controller.ref = self.ref.childByAppendingPath("\(event.title.lowercaseString)" + "/tasks/")
+        controller.userRef = Firebase(url: "https://amber-inferno-4463.firebaseio.com/users/\(authID!)/")
+
         self.navigationController!.pushViewController(controller, animated: true)
     }
     

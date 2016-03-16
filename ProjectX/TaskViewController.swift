@@ -12,6 +12,8 @@ import Firebase
 class TaskViewController: UITableViewController {
     var tasks = [Task]()
     var ref: Firebase?
+    var userRef: Firebase?
+    var userName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +21,11 @@ class TaskViewController: UITableViewController {
         navigationItem.title = "Tasks"
         let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addTask")
         navigationItem.rightBarButtonItems = [self.editButtonItem(), addButton]
-
+        
+        
+        userRef!.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            self.userName = snapshot.value["name"] as? String
+        })
     }
     
     // reloads the tableview data and task array
@@ -51,7 +57,7 @@ class TaskViewController: UITableViewController {
             style: .Default) { (action: UIAlertAction) -> Void in
                 
                 let textField = alert.textFields![0]
-                let task = Task(title: textField.text!)
+                let task = Task(title: textField.text!, creator: self.userName!)
                 let taskRef = self.ref!.childByAppendingPath(task.title.lowercaseString + "/")
 
                 taskRef.setValue(task.toAnyObject())
@@ -94,7 +100,7 @@ class TaskViewController: UITableViewController {
         // This is the new configureCell method
         //configureCell(cell, event: event)
         cell.textLabel?.text = task.title
-        //cell.detailTextLabel?.text =
+        cell.detailTextLabel?.text = task.creator
         
         return cell
     }
