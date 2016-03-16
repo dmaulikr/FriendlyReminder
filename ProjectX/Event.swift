@@ -13,18 +13,21 @@ class Event {
     var title: String
     var date: String
     var ref: Firebase?
+    var members: NSDictionary
    // var tasks: [Task]?
     
-    init(title: String, date: String) {
+    init(title: String, date: String, members: NSDictionary) {
         self.title = title
         self.date = date
         self.ref = nil
+        self.members = members
     }
     
     func toAnyObject() -> AnyObject {
         return [
             "title": title,
-            "date": date
+            "date": date,
+            "members": members
         ]
     }
     
@@ -33,5 +36,6 @@ class Event {
         title = snapshot.value["title"] as! String
         date = snapshot.value["date"] as! String
         ref = snapshot.ref
+        members = snapshot.value["members"] as! NSDictionary
     }
 }

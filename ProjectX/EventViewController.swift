@@ -15,7 +15,7 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
     
     let ref = Firebase(url: "https://amber-inferno-4463.firebaseio.com/events/")
     var events = [Event]()
-    var data: NSDictionary?
+    var authID: String?
     
 
     override func viewDidLoad() {
@@ -52,7 +52,7 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
             self.tableView.reloadData()
         })
         
-        print("\(data)")
+        //print("\(data)")
     }
     
     
@@ -60,6 +60,7 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("EventCreatorViewController") as! EventCreatorViewController
         
         //controller.delegate = self
+        controller.currentUserID = authID
         
         self.presentViewController(controller, animated: true, completion: nil)
         

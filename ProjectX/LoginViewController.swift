@@ -16,8 +16,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
-    let ref = Firebase(url: "https://amber-inferno-4463.firebaseio.com")
-    var authData: NSDictionary?
+    let ref = Firebase(url: "https://amber-inferno-4463.firebaseio.com/users/")
+    var authID: String?
 
     
     override func viewDidLoad() {
@@ -33,8 +33,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         // user defaults
         let prefs = NSUserDefaults.standardUserDefaults()
         
-        if let data = prefs.dictionaryForKey("authData") {
-            authData = data
+        if let data = prefs.stringForKey("authID") {
+            authID = data
         }else{
             //Nothing stored in NSUserDefaults yet. Set a value.
             print("no data found")
@@ -46,7 +46,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         super.viewDidAppear(animated)
         // if already logged in, go to eventVC
    
-        if(FBSDKAccessToken.currentAccessToken() == nil)
+        if(FBSDKAccessToken.currentAccessToken() == nil || authID == nil)
         {
             print("not logged in")
         }
@@ -101,10 +101,25 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                             print("Login failed. \(error)")
                         } else {
                             print("Logged in! \(authData)")
-                            self.authData = authData.providerData
+                            
+                            
+
+                            
+                            //store data onto firebase
+                            
+                            let user = User(name: authData.providerData["displayName"] as! String)
+                            
+                            self.authID = authData.uid
+                            
                             
                             let prefs = NSUserDefaults.standardUserDefaults()
-                            prefs.setValue(authData.providerData, forKey: "authData")
+                            prefs.setValue(self.authID, forKey: "authID")
+
+        
+                            // updates user reference
+                            let userRef = self.ref.childByAppendingPath(self.authID)
+                            userRef.updateChildValues(["name": user.name, "userid": self.authID!])
+                        
                             //let nextVC = self.storyboard!.instantiateViewControllerWithIdentifier("NavController") as! UINavigationController
 
                            // self.presentViewController(nextVC, animated: true, completion: nil)
@@ -121,7 +136,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        if self.authData == nil || FBSDKAccessToken.currentAccessToken() == nil{
+        if self.authID == nil || FBSDKAccessToken.currentAccessToken() == nil{
             return false
         }
         return true
@@ -131,6 +146,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         let navVC = segue.destinationViewController as! UINavigationController
         
         let eventVC = navVC.viewControllers.first as! EventViewController
-            eventVC.data = authData
+            eventVC.authID = authID
     }
 }

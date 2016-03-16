@@ -14,7 +14,8 @@ class EventCreatorViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var eventTitle: UITextField!
     
-    let ref = Firebase(url: "https://amber-inferno-4463.firebaseio.com/events/")
+    let ref = Firebase(url: "https://amber-inferno-4463.firebaseio.com/")
+    var currentUserID: String?
 
     
     override func viewDidLoad() {
@@ -33,7 +34,20 @@ class EventCreatorViewController: UIViewController {
     
     
     @IBAction func createEvent(sender: AnyObject) {
-        // TODO: Create an Alert if title is nil
+        // Throw alert if title is nil
+        if eventTitle.text == "" {
+            let alert = UIAlertController(title: "Event title",
+                message: "Event title can't be empty!",
+                preferredStyle: .Alert)
+            
+            let cancelAction = UIAlertAction(title: "OK",
+                style: .Default) { (action: UIAlertAction) -> Void in
+            }
+            alert.addAction(cancelAction)
+            
+            presentViewController(alert, animated: true, completion: nil)
+            return
+        }
         
         // save to Firebase
         let date = datePicker.date
@@ -41,11 +55,16 @@ class EventCreatorViewController: UIViewController {
         dateFormatter.dateFormat = "yyyyMMdd"
         let dateString = dateFormatter.stringFromDate(date)
         
-        let event = Event(title: eventTitle.text!, date: dateString)
+        let event = Event(title: eventTitle.text!, date: dateString, members: ["userid": currentUserID!])
         
-        let eventItemRef = self.ref.childByAppendingPath(eventTitle.text!.lowercaseString + "/")
-        eventItemRef.setValue(event.toAnyObject())
+        // set event
+        let eventRef = self.ref.childByAppendingPath("events/" + eventTitle.text!.lowercaseString + "/")
+        eventRef.setValue(event.toAnyObject())
         
+        // update user
+        let userRef = self.ref.childByAppendingPath("users/" + currentUserID! + "/events/")
+        userRef.updateChildValues([event.title: true])
+
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
