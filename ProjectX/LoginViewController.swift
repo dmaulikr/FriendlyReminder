@@ -80,8 +80,11 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
         //when user logs out
         print("user logged out")
-        let loginManager = FBSDKLoginManager()
-        loginManager.logOut()
+        /*
+        let ref2 = Firebase(url: "https://amber-inferno-4463.firebaseio.com/")
+        ref2.unauth()
+*/
+
     }
     
     @IBAction func loginButtonTouch(sender: AnyObject) {
@@ -124,6 +127,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
 
                            // self.presentViewController(nextVC, animated: true, completion: nil)
                             //self.performSegueWithIdentifier("NavController", sender: nil)
+                            
                         }
                 })
             }

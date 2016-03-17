@@ -56,7 +56,7 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
             self.tableView.reloadData()
         })
         
-        //print("\(data)")
+        FacebookClient.sharedInstance().searchForFriendsList()
     }
     
     
