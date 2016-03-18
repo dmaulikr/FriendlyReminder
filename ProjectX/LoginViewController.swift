@@ -23,6 +23,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /*
         let loginButton = FBSDKLoginButton()
         loginButton.readPermissions = ["public_profile", "email", "user_friends"]
         loginButton.center = self.view.center
@@ -30,6 +31,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         self.view.addSubview(loginButton)
         
+*/
         // user defaults
         let prefs = NSUserDefaults.standardUserDefaults()
         

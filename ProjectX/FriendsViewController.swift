@@ -1,38 +1,32 @@
 //
-//  TaskViewController.swift
+//  FriendsViewController.swift
 //  ProjectX
 //
-//  Created by Jonathan Chou on 3/10/16.
+//  Created by Jonathan Chou on 3/17/16.
 //  Copyright © 2016 Jonathan Chou. All rights reserved.
 //
 
 import UIKit
 import Firebase
 
-class TaskViewController: UITableViewController {
-    var tasks = [Task]()
+class FriendsViewController: UITableViewController {
+    
+    var friends = [Friend]()
     var ref: Firebase?
-    var userRef: Firebase?
-    var userName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        navigationItem.title = "Tasks"
-        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addTask")
-        let addFriends = UIBarButtonItem(title: "Friends", style: .Plain, target: self, action: "addFriends")
-
-        navigationItem.rightBarButtonItems = [addFriends, addButton]
         
-        
-        userRef!.observeSingleEventOfType(.Value, withBlock: { snapshot in
-            self.userName = snapshot.value["name"] as? String
-        })
+        navigationItem.title = "Friends"
+        navigationItem.rightBarButtonItems = [self.editButtonItem()]
+       // let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addTask")
+        //navigationItem.rightBarButtonItems = [self.editButtonItem(), addButton]
     }
     
     // reloads the tableview data and task array
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        /*
         ref!.observeEventType(.Value, withBlock: { snapshot in
             
             var newTasks = [Task]()
@@ -45,8 +39,22 @@ class TaskViewController: UITableViewController {
             self.tasks = newTasks
             self.tableView.reloadData()
         })
+*/
+        FacebookClient.sharedInstance().searchForFriendsList() {
+            (result, error) -> Void in
+            var newFriends = [Friend]()
+            for friend in result {
+                print(friend)
+                print(result)
+                let friend = Friend(name: friend["name"] as! String)
+                newFriends.append(friend)
+            }
+            
+            self.friends = newFriends
+            self.tableView.reloadData()
+        }
     }
-    
+ /*
     func addTask() {
         // alert to add task
         
@@ -61,7 +69,7 @@ class TaskViewController: UITableViewController {
                 let textField = alert.textFields![0]
                 let task = Task(title: textField.text!, creator: self.userName!)
                 let taskRef = self.ref!.childByAppendingPath(task.title.lowercaseString + "/")
-
+                
                 taskRef.setValue(task.toAnyObject())
                 //self.tableView.reloadData()
         }
@@ -82,32 +90,27 @@ class TaskViewController: UITableViewController {
         
         presentViewController(alert, animated: true, completion: nil)
     }
-    
-    func addFriends() {
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("FriendsViewController") as! FriendsViewController        
-        self.navigationController!.pushViewController(controller, animated: true)
-    }
-    
+  */
     
     // MARK: - Table View
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //let sectionInfo = self.fetchedResultsController.sections![section]
         //return sectionInfo.numberOfObjects
-        return tasks.count
+        return friends.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let CellIdentifier = "TaskCell"
+        let CellIdentifier = "FriendCell"
         
-        let task = tasks[indexPath.row]
+        let friend = friends[indexPath.row]
         
         let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier)! as UITableViewCell//as! TaskCancelingTableViewCell
         
         // This is the new configureCell method
         //configureCell(cell, event: event)
-        cell.textLabel?.text = task.title
-        cell.detailTextLabel?.text = task.creator
+        cell.textLabel?.text = friend.name
+        //cell.detailTextLabel?.text = task.creator
         
         return cell
     }
@@ -116,10 +119,10 @@ class TaskViewController: UITableViewController {
         forRowAtIndexPath indexPath: NSIndexPath) {
             
             switch (editingStyle) {
-            case .Delete:
-                let task = tasks[indexPath.row]
-                print("\(task.ref)")
-                task.ref!.removeValue()
+            case .Delete: break
+                //let task = friends[indexPath.row]
+                //print("\(task.ref)")
+                //task.ref!.removeValue()
             default:
                 break
             }

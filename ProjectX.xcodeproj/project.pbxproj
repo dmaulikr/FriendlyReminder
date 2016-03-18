@@ -16,6 +16,8 @@
 		7BECB5761C9637B200C30DAA /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BECB5751C9637B200C30DAA /* FBSDKShareKit.framework */; };
 		7BECB5781C97909700C30DAA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BECB5771C97909600C30DAA /* User.swift */; };
 		7BECB57D1C9A49B500C30DAA /* FacebookClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BECB57C1C9A49B500C30DAA /* FacebookClient.swift */; };
+		7BECB57F1C9B7D9D00C30DAA /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BECB57E1C9B7D9D00C30DAA /* FriendsViewController.swift */; };
+		7BECB5811C9B7E1600C30DAA /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BECB5801C9B7E1600C30DAA /* Friend.swift */; };
 		7BF930AF1C7E704800F1794F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF930AE1C7E704800F1794F /* AppDelegate.swift */; };
 		7BF930B11C7E704800F1794F /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF930B01C7E704800F1794F /* EventViewController.swift */; };
 		7BF930B41C7E704800F1794F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BF930B21C7E704800F1794F /* Main.storyboard */; };
@@ -39,6 +41,8 @@
 		7BECB5751C9637B200C30DAA /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		7BECB5771C97909600C30DAA /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7BECB57C1C9A49B500C30DAA /* FacebookClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookClient.swift; sourceTree = "<group>"; };
+		7BECB57E1C9B7D9D00C30DAA /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		7BECB5801C9B7E1600C30DAA /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		7BF930AB1C7E704800F1794F /* ProjectX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF930AE1C7E704800F1794F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7BF930B01C7E704800F1794F /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +87,7 @@
 				7BF930B01C7E704800F1794F /* EventViewController.swift */,
 				7BF930C71C814DE700F1794F /* EventCreatorViewController.swift */,
 				7BECB56B1C92319C00C30DAA /* TaskViewController.swift */,
+				7BECB57E1C9B7D9D00C30DAA /* FriendsViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -93,6 +98,7 @@
 				7BF930C51C81470600F1794F /* Event.swift */,
 				7BECB56D1C9236AC00C30DAA /* Task.swift */,
 				7BECB5771C97909600C30DAA /* User.swift */,
+				7BECB5801C9B7E1600C30DAA /* Friend.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -279,12 +285,14 @@
 				7BECB56E1C9236AC00C30DAA /* Task.swift in Sources */,
 				7BF930B11C7E704800F1794F /* EventViewController.swift in Sources */,
 				7BECB56C1C92319C00C30DAA /* TaskViewController.swift in Sources */,
+				7BECB57F1C9B7D9D00C30DAA /* FriendsViewController.swift in Sources */,
 				7BF930C41C7E71C000F1794F /* CoreDataStackManager.swift in Sources */,
 				7BF930C81C814DE700F1794F /* EventCreatorViewController.swift in Sources */,
 				7BF930AF1C7E704800F1794F /* AppDelegate.swift in Sources */,
 				7BF930B71C7E704800F1794F /* ProjectX.xcdatamodeld in Sources */,
 				7BECB5781C97909700C30DAA /* User.swift in Sources */,
 				7BECB57D1C9A49B500C30DAA /* FacebookClient.swift in Sources */,
+				7BECB5811C9B7E1600C30DAA /* Friend.swift in Sources */,
 				7BF930C61C81470600F1794F /* Event.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
