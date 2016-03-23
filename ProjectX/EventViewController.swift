@@ -38,34 +38,22 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
     // reloads the tableview data and event array
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        ref.queryOrderedByChild("date").observeEventType(.Value, withBlock: { snapshot in
-            
-            var newEvents = [Event]()
-            
-            for event in snapshot.children {
-                
-                let event = Event(snapshot: event as! FDataSnapshot)
-                
-                // only append if user is part of event
-                if event.members["userid"] as? String == self.authID {
-                    newEvents.append(event)
-                }
-            }
-            
+        
+        // get this user's events that the user is a part of
+        FirebaseClient.sharedInstance().getEvents(authID!) {
+            (newEvents) -> Void in
             self.events = newEvents
             self.tableView.reloadData()
-        })
+        }
     }
     
     
     func addEvent() {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("EventCreatorViewController") as! EventCreatorViewController
         
-        //controller.delegate = self
         controller.currentUserID = authID
         
         self.presentViewController(controller, animated: true, completion: nil)
-        
     }
     
     func logoutUser() {

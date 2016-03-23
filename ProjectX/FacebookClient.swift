@@ -12,9 +12,13 @@ import FBSDKCoreKit
 
 class FacebookClient {
     
+    func login() {
+        
+    }
+    
     func searchForFriendsList(completionHandler: (result: NSArray, error: NSError?) ->  Void) {
 
-        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me/friends", parameters: ["fields": "name"])
+        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me/friends", parameters: ["fields": "name, picture"])
         graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
             
             if ((error) != nil)

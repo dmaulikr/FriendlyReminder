@@ -55,7 +55,7 @@
     <string>ProjectX</string>
     
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>United States</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

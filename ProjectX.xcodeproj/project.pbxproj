@@ -18,6 +18,7 @@
 		7BECB57D1C9A49B500C30DAA /* FacebookClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BECB57C1C9A49B500C30DAA /* FacebookClient.swift */; };
 		7BECB57F1C9B7D9D00C30DAA /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BECB57E1C9B7D9D00C30DAA /* FriendsViewController.swift */; };
 		7BECB5811C9B7E1600C30DAA /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BECB5801C9B7E1600C30DAA /* Friend.swift */; };
+		7BECB5841CA21B2A00C30DAA /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BECB5831CA21B2A00C30DAA /* FirebaseClient.swift */; };
 		7BF930AF1C7E704800F1794F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF930AE1C7E704800F1794F /* AppDelegate.swift */; };
 		7BF930B11C7E704800F1794F /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF930B01C7E704800F1794F /* EventViewController.swift */; };
 		7BF930B41C7E704800F1794F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BF930B21C7E704800F1794F /* Main.storyboard */; };
@@ -43,6 +44,7 @@
 		7BECB57C1C9A49B500C30DAA /* FacebookClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookClient.swift; sourceTree = "<group>"; };
 		7BECB57E1C9B7D9D00C30DAA /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		7BECB5801C9B7E1600C30DAA /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
+		7BECB5831CA21B2A00C30DAA /* FirebaseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
 		7BF930AB1C7E704800F1794F /* ProjectX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF930AE1C7E704800F1794F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7BF930B01C7E704800F1794F /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
@@ -111,6 +113,14 @@
 			name = FacebookAPI;
 			sourceTree = "<group>";
 		};
+		7BECB5821CA21A9F00C30DAA /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				7BECB5831CA21B2A00C30DAA /* FirebaseClient.swift */,
+			);
+			name = Firebase;
+			sourceTree = "<group>";
+		};
 		7BF930A21C7E704800F1794F = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +147,7 @@
 				7BECB5791C9A492E00C30DAA /* ViewControllers */,
 				7BECB57A1C9A495A00C30DAA /* Classes */,
 				7BECB57B1C9A497F00C30DAA /* FacebookAPI */,
+				7BECB5821CA21A9F00C30DAA /* Firebase */,
 				7BF930B21C7E704800F1794F /* Main.storyboard */,
 				7BF930B81C7E704800F1794F /* Assets.xcassets */,
 				7BF930BA1C7E704800F1794F /* LaunchScreen.storyboard */,
@@ -292,6 +303,7 @@
 				7BF930B71C7E704800F1794F /* ProjectX.xcdatamodeld in Sources */,
 				7BECB5781C97909700C30DAA /* User.swift in Sources */,
 				7BECB57D1C9A49B500C30DAA /* FacebookClient.swift in Sources */,
+				7BECB5841CA21B2A00C30DAA /* FirebaseClient.swift in Sources */,
 				7BECB5811C9B7E1600C30DAA /* Friend.swift in Sources */,
 				7BF930C61C81470600F1794F /* Event.swift in Sources */,
 			);

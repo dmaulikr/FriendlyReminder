@@ -8,10 +8,10 @@
 
 import UIKit
 import Firebase
-import FBSDKCoreKit
+//import FBSDKCoreKit
 import FBSDKLoginKit
 
-class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
+class LoginViewController: UIViewController {
     
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -62,7 +62,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     // MARK: - Facebook Login
-    
+/*
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         //when user logs in
         
@@ -82,13 +82,12 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
         //when user logs out
         print("user logged out")
-        /*
+        
         let ref2 = Firebase(url: "https://amber-inferno-4463.firebaseio.com/")
         ref2.unauth()
+    }
 */
 
-    }
-    
     @IBAction func loginButtonTouch(sender: AnyObject) {
         let facebookLogin = FBSDKLoginManager()
 
