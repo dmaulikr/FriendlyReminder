@@ -16,7 +16,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
-    let ref = Firebase(url: "https://amber-inferno-4463.firebaseio.com/users/")
+    //let ref = Firebase(url: "https://amber-inferno-4463.firebaseio.com/users/")
     var authID: String?
 
     
@@ -89,6 +89,11 @@ class LoginViewController: UIViewController {
 */
 
     @IBAction func loginButtonTouch(sender: AnyObject) {
+        FacebookClient.sharedInstance().login(self) {
+            (authID) in
+            self.authID = authID
+        }
+        /*
         let facebookLogin = FBSDKLoginManager()
 
         facebookLogin.logInWithReadPermissions(["public_profile","email", "user_friends"], fromViewController: self ,handler: {
@@ -133,6 +138,7 @@ class LoginViewController: UIViewController {
                 })
             }
         })
+*/
     }
     
     
@@ -146,6 +152,7 @@ class LoginViewController: UIViewController {
         }
         return true
     }
+
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {        
         let navVC = segue.destinationViewController as! UINavigationController

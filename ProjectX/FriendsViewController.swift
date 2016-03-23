@@ -18,79 +18,19 @@ class FriendsViewController: UITableViewController {
         super.viewDidLoad()
         
         navigationItem.title = "Friends"
-        navigationItem.rightBarButtonItems = [self.editButtonItem()]
-       // let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addTask")
-        //navigationItem.rightBarButtonItems = [self.editButtonItem(), addButton]
     }
     
     // reloads the tableview data and task array
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        /*
-        ref!.observeEventType(.Value, withBlock: { snapshot in
-            
-            var newTasks = [Task]()
-            
-            for task in snapshot.children {
-                let task = Task(snapshot: task as! FDataSnapshot)
-                newTasks.append(task)
-            }
-            
-            self.tasks = newTasks
-            self.tableView.reloadData()
-        })
-*/
+
         FacebookClient.sharedInstance().searchForFriendsList() {
-            (result, error) -> Void in
-            var newFriends = [Friend]()
-            for friend in result {
-                print(friend)
-                print(result)
-                let friend = Friend(name: friend["name"] as! String)
-                newFriends.append(friend)
-            }
+            (friends, error) -> Void in
             
-            self.friends = newFriends
+            self.friends = friends
             self.tableView.reloadData()
         }
     }
- /*
-    func addTask() {
-        // alert to add task
-        
-        // Alert View for input
-        let alert = UIAlertController(title: "Task creation",
-            message: "Add a task",
-            preferredStyle: .Alert)
-        
-        let createAction = UIAlertAction(title: "Create",
-            style: .Default) { (action: UIAlertAction) -> Void in
-                
-                let textField = alert.textFields![0]
-                let task = Task(title: textField.text!, creator: self.userName!)
-                let taskRef = self.ref!.childByAppendingPath(task.title.lowercaseString + "/")
-                
-                taskRef.setValue(task.toAnyObject())
-                //self.tableView.reloadData()
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel",
-            style: .Default) { (action: UIAlertAction) -> Void in
-        }
-        
-        alert.addTextFieldWithConfigurationHandler {
-            (textField: UITextField!) -> Void in
-        }
-        
-        alert.addAction(createAction)
-        alert.addAction(cancelAction)
-        
-        // fixes collection view error
-        alert.view.setNeedsLayout()
-        
-        presentViewController(alert, animated: true, completion: nil)
-    }
-  */
     
     // MARK: - Table View
     

@@ -13,7 +13,6 @@ import FBSDKLoginKit
 
 class EventViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
-    let ref = Firebase(url: "https://amber-inferno-4463.firebaseio.com/events/")
     var events = [Event]()
     var authID: String?
     
@@ -51,7 +50,7 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
     func addEvent() {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("EventCreatorViewController") as! EventCreatorViewController
         
-        controller.currentUserID = authID
+        controller.authID = authID
         
         self.presentViewController(controller, animated: true, completion: nil)
     }
@@ -59,8 +58,11 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
     func logoutUser() {
         let loginManager = FBSDKLoginManager()
         loginManager.logOut()
+        self.dismissViewControllerAnimated(true, completion: nil)
+        /*
         let loginVC = self.storyboard!.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
         self.presentViewController(loginVC, animated: true, completion: nil)
+*/
     }
 /*
     // MARK: - Core Data Convenience.
@@ -119,8 +121,8 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
         let controller = storyboard!.instantiateViewControllerWithIdentifier("TaskViewController") as! TaskViewController
         
         // need to pass reference to event title
-        controller.ref = self.ref.childByAppendingPath("\(event.title.lowercaseString)" + "/tasks/")
-        controller.userRef = Firebase(url: "https://amber-inferno-4463.firebaseio.com/users/\(authID!)/")
+        controller.ref = FirebaseClient.Constants.EVENT_REF.childByAppendingPath("\(event.title.lowercaseString)" + "/tasks/")
+        controller.userRef = FirebaseClient.Constants.USER_REF.childByAppendingPath("\(authID!)/")
 
         self.navigationController!.pushViewController(controller, animated: true)
     }

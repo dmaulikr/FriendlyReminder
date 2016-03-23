@@ -11,22 +11,18 @@ import Firebase
 
 class FirebaseClient {
     
-    let ref = Firebase(url: "https://amber-inferno-4463.firebaseio.com/events/")
-    
     func getEvents(authID: String, completionHandler: (newEvents: [Event]) -> Void) {
-        ref.queryOrderedByChild("date").observeEventType(.Value, withBlock: { snapshot in
+        Constants.EVENT_REF.queryOrderedByChild("date").observeEventType(.Value, withBlock: { snapshot in
             var newEvents = [Event]()
             
             for event in snapshot.children {
                 let event = Event(snapshot: event as! FDataSnapshot)
-                
-                if event.members["userid"] as? String == authID {
+                if event.members[authID] as? Bool == true {
                     newEvents.append(event)
                 }
-                completionHandler(newEvents: newEvents)
             }
+            completionHandler(newEvents: newEvents)
         })
-
     }
     
     class func sharedInstance() -> FirebaseClient {

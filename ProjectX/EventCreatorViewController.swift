@@ -14,8 +14,7 @@ class EventCreatorViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var eventTitle: UITextField!
     
-    let ref = Firebase(url: "https://amber-inferno-4463.firebaseio.com/")
-    var currentUserID: String?
+    var authID: String?
 
     
     override func viewDidLoad() {
@@ -55,14 +54,14 @@ class EventCreatorViewController: UIViewController {
         dateFormatter.dateFormat = "yyyyMMdd"
         let dateString = dateFormatter.stringFromDate(date)
         
-        let event = Event(title: eventTitle.text!, date: dateString, members: ["userid": currentUserID!])
+        let event = Event(title: eventTitle.text!, date: dateString, members: [authID!: true])
         
         // set event
-        let eventRef = self.ref.childByAppendingPath("events/" + eventTitle.text!.lowercaseString + "/")
+        let eventRef = FirebaseClient.Constants.EVENT_REF.childByAppendingPath(eventTitle.text!.lowercaseString + "/")
         eventRef.setValue(event.toAnyObject())
         
         // update user
-        let userRef = self.ref.childByAppendingPath("users/" + currentUserID! + "/events/")
+        let userRef = FirebaseClient.Constants.USER_REF.childByAppendingPath(authID! + "/events/")
         userRef.updateChildValues([event.title: true])
 
         self.dismissViewControllerAnimated(true, completion: nil)
