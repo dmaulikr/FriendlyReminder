@@ -92,15 +92,26 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
 */
     // MARK: - Table View
     
+    // one for group todos and one for personal todos
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2
+    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //let sectionInfo = self.fetchedResultsController.sections![section]
         //return sectionInfo.numberOfObjects
-        return events.count
+        if section == 0 {
+            return events.count
+        } else {
+            //let sectionInfo = self.fetchedResultsController.sections![section]
+            //return sectionInfo.numberOfObjects
+            return 0
+        }
+        
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let CellIdentifier = "EventCell"
-        
         // Here is how to replace the actors array using objectAtIndexPath
         let event = events[indexPath.row]
         
@@ -114,17 +125,33 @@ class EventViewController: UITableViewController, NSFetchedResultsControllerDele
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
-        //let cell = tableView.cellForRowAtIndexPath(indexPath)!
-        
-        let event = events[indexPath.row]
-        
-        let controller = storyboard!.instantiateViewControllerWithIdentifier("TaskViewController") as! TaskViewController
-        
-        // need to pass reference to event title
-        controller.ref = FirebaseClient.Constants.EVENT_REF.childByAppendingPath("\(event.title.lowercaseString)" + "/tasks/")
-        controller.userRef = FirebaseClient.Constants.USER_REF.childByAppendingPath("\(authID!)/")
+        if indexPath.section == 0 {
+            let event = events[indexPath.row]
+            let controller = storyboard!.instantiateViewControllerWithIdentifier("TaskViewController") as! TaskViewController
+            
+            // need to pass reference to event title
+            controller.ref = FirebaseClient.Constants.EVENT_REF.childByAppendingPath("\(event.title.lowercaseString)" + "/tasks/")
+            controller.userRef = FirebaseClient.Constants.USER_REF.childByAppendingPath("\(authID!)/")
+            
+            self.navigationController!.pushViewController(controller, animated: true)
+        } else {
+            // core data -- personal array
+        }
 
-        self.navigationController!.pushViewController(controller, animated: true)
+    }
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerCell = tableView.dequeueReusableCellWithIdentifier("EventCell")! as UITableViewCell
+        headerCell.backgroundColor = UIColor.cyanColor()
+        //headerCell.textLabel?.textAlignment = .Center
+        
+        if section == 0 {
+            headerCell.textLabel?.text = "Group";
+        } else {
+            headerCell.textLabel?.text = "Personal";
+        }
+        
+        return headerCell
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,

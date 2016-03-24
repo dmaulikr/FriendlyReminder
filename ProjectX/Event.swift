@@ -23,6 +23,13 @@ class Event {
         self.members = members
     }
     
+    init(title: String, date: String) {
+        self.title = title
+        self.date = date
+        self.ref = nil
+        self.members = [:]
+    }
+    
     func toAnyObject() -> AnyObject {
         return [
             "title": title,
