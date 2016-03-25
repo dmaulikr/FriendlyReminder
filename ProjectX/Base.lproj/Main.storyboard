@@ -145,12 +145,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7IR-Go-XgL">
-                                <rect key="frame" x="20" y="70" width="560" height="21"/>
+                                <rect key="frame" x="20" y="50" width="560" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deadline" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3j-OK-QVq">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date of Event" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3j-OK-QVq">
                                 <rect key="frame" x="20" y="309" width="560" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -182,10 +182,19 @@
                                 </date>
                             </datePicker>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What's your event called?" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8cH-V5-qNL">
-                                <rect key="frame" x="20" y="99" width="560" height="30"/>
+                                <rect key="frame" x="20" y="79" width="560" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Public" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cGv-K7-OAA">
+                                <rect key="frame" x="30" y="119" width="87" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6DK-uo-gsQ">
+                                <rect key="frame" x="511" y="124" width="51" height="31"/>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" red="0.99607843139999996" green="0.80007179741074763" blue="0.62723007762267491" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -194,21 +203,26 @@
                             <constraint firstItem="7IR-Go-XgL" firstAttribute="leading" secondItem="nQY-sY-K5Y" secondAttribute="leadingMargin" id="4Zf-Lh-Cbz"/>
                             <constraint firstItem="m4S-Wn-4sc" firstAttribute="top" secondItem="9fu-gs-ans" secondAttribute="bottom" id="8a8-gZ-zux"/>
                             <constraint firstItem="k3j-OK-QVq" firstAttribute="leading" secondItem="nQY-sY-K5Y" secondAttribute="leadingMargin" id="8dd-2S-nOu"/>
+                            <constraint firstItem="cGv-K7-OAA" firstAttribute="leading" secondItem="nQY-sY-K5Y" secondAttribute="leadingMargin" constant="10" id="AU1-Wy-V0c"/>
                             <constraint firstItem="9fu-gs-ans" firstAttribute="leading" secondItem="nQY-sY-K5Y" secondAttribute="leadingMargin" constant="-20" id="EBk-7W-zTt"/>
                             <constraint firstItem="8cH-V5-qNL" firstAttribute="leading" secondItem="nQY-sY-K5Y" secondAttribute="leadingMargin" id="IiV-cp-jpx"/>
                             <constraint firstAttribute="trailingMargin" secondItem="m4S-Wn-4sc" secondAttribute="trailing" constant="-20" id="MyV-z4-jFd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8cH-V5-qNL" secondAttribute="trailing" id="RwY-IO-igZ"/>
-                            <constraint firstItem="7IR-Go-XgL" firstAttribute="top" secondItem="Fow-A6-rJg" secondAttribute="bottom" constant="50" id="VPu-BG-Bqt"/>
+                            <constraint firstItem="7IR-Go-XgL" firstAttribute="top" secondItem="Fow-A6-rJg" secondAttribute="bottom" constant="30" id="VPu-BG-Bqt"/>
+                            <constraint firstItem="6DK-uo-gsQ" firstAttribute="top" secondItem="8cH-V5-qNL" secondAttribute="bottom" constant="15" id="X7O-7Q-OzL"/>
                             <constraint firstItem="9fu-gs-ans" firstAttribute="top" secondItem="k3j-OK-QVq" secondAttribute="bottom" constant="10" id="YpG-zp-gVT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9fu-gs-ans" secondAttribute="trailing" constant="-20" id="egi-i7-iQT"/>
                             <constraint firstItem="8cH-V5-qNL" firstAttribute="top" secondItem="7IR-Go-XgL" secondAttribute="bottom" constant="8" id="gyd-Rs-NP0"/>
                             <constraint firstItem="Nbl-Hh-3wH" firstAttribute="top" secondItem="m4S-Wn-4sc" secondAttribute="bottom" id="mJg-h2-iZb"/>
                             <constraint firstItem="m4S-Wn-4sc" firstAttribute="leading" secondItem="nQY-sY-K5Y" secondAttribute="leadingMargin" constant="-20" id="q0I-UV-nFd"/>
+                            <constraint firstItem="cGv-K7-OAA" firstAttribute="top" secondItem="8cH-V5-qNL" secondAttribute="bottom" constant="10" id="wcZ-GX-4Et"/>
+                            <constraint firstItem="6DK-uo-gsQ" firstAttribute="trailing" secondItem="nQY-sY-K5Y" secondAttribute="trailingMargin" constant="-20" id="yql-Er-F7g"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="datePicker" destination="9fu-gs-ans" id="PgS-CB-T8b"/>
                         <outlet property="eventTitle" destination="8cH-V5-qNL" id="6Po-CS-gph"/>
+                        <outlet property="publicSwitch" destination="6DK-uo-gsQ" id="ONP-z0-ZYB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uDn-gd-L10" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import CoreData
 import Firebase
 
 class EventCreatorViewController: UIViewController {
     
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var eventTitle: UITextField!
+    @IBOutlet weak var publicSwitch: UISwitch!
     
     var authID: String?
 
@@ -48,23 +50,38 @@ class EventCreatorViewController: UIViewController {
             return
         }
         
-        // save to Firebase
         let date = datePicker.date
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
         let dateString = dateFormatter.stringFromDate(date)
         
-        let event = Event(title: eventTitle.text!, date: dateString, members: [authID!: true])
-        
-        // set event
-        let eventRef = FirebaseClient.Constants.EVENT_REF.childByAppendingPath(eventTitle.text!.lowercaseString + "/")
-        eventRef.setValue(event.toAnyObject())
-        
-        // update user
-        let userRef = FirebaseClient.Constants.USER_REF.childByAppendingPath(authID! + "/events/")
-        userRef.updateChildValues([event.title: true])
+        if publicSwitch.on {
+            // save to Firebase
 
+            
+            let event = Event(title: eventTitle.text!, date: dateString, members: [authID!: true])
+            
+            // set event
+            let eventRef = FirebaseClient.Constants.EVENT_REF.childByAppendingPath(eventTitle.text!.lowercaseString + "/")
+            eventRef.setValue(event.toAnyObject())
+            
+            // update user
+            let userRef = FirebaseClient.Constants.USER_REF.childByAppendingPath(authID! + "/events/")
+            userRef.updateChildValues([event.title: true])
+            
+        } else {
+            // save to coreData
+            let _ = UserEvent(title: eventTitle.text!, date: dateString, context: self.sharedContext)
+            CoreDataStackManager.sharedInstance().saveContext()
+        }
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    // MARK: - Core Data Convenience.
+    
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext
     }
 }
 

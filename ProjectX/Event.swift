@@ -6,7 +6,6 @@
 //  Copyright © 2016 Jonathan Chou. All rights reserved.
 //
 
-import CoreData
 import Firebase
 
 class Event {
@@ -14,20 +13,12 @@ class Event {
     var date: String
     var ref: Firebase?
     var members: NSDictionary
-   // var tasks: [Task]?
     
     init(title: String, date: String, members: NSDictionary) {
         self.title = title
         self.date = date
         self.ref = nil
         self.members = members
-    }
-    
-    init(title: String, date: String) {
-        self.title = title
-        self.date = date
-        self.ref = nil
-        self.members = [:]
     }
     
     func toAnyObject() -> AnyObject {
