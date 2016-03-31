@@ -49,11 +49,11 @@ class FacebookClient {
         })
     }
     
-    func searchForFriendsList(completionHandler: (result: [Friend], error: NSError?) ->  Void) {
+    func searchForFriendsList(completionHandler: (result: [Friend], picture: UIImage?, error: NSError?) ->  Void) {
 
-        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me/friends", parameters: ["fields": "name, picture"])
+        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me/friends", parameters: ["fields": "name, picture.type(large)"])
         graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
-            
+            var profileImage: UIImage?
             if ((error) != nil)
             {
                 // Process error
@@ -62,14 +62,26 @@ class FacebookClient {
             else
             {
                 // returns friend array
+                //print(result)
+                //print(result["picture"])
                 var newFriends = [Friend]()
                 for friend in result["data"] as! NSArray {
-                    //print(friend)
-                    //print(result)
-                    let friend = Friend(name: friend["name"] as! String)
+                    if let friendPicture = friend["picture"]! {
+                        if let pictureData = friendPicture["data"]! {
+                            let pictureURLString = pictureData["url"] as! String
+                            // might have to make url into nsurl here?
+                            let pictureURL = NSURL(string: pictureURLString)
+
+                            
+                            if let image = NSData(contentsOfURL: pictureURL!) {
+                                profileImage = UIImage(data: image)!
+                            }
+                        }
+                    }
+                    let friend = Friend(name: friend["name"] as! String, image: profileImage)
                     newFriends.append(friend)
                 }
-                completionHandler(result: newFriends, error: error)
+                completionHandler(result: newFriends, picture: profileImage, error: error)
             }
         })
         

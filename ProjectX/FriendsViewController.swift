@@ -25,32 +25,31 @@ class FriendsViewController: UITableViewController {
         super.viewDidAppear(animated)
 
         FacebookClient.sharedInstance().searchForFriendsList() {
-            (friends, error) -> Void in
+            (friends, picture, error) -> Void in
             
             self.friends = friends
             self.tableView.reloadData()
         }
     }
     
+    @IBAction func addFriend(sender: AnyObject) {
+        //add to firebase, make the button unclickable and say ADDED!, change background tableviewcell to green?
+        // make friend a member of event
+        
+    }
     // MARK: - Table View
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //let sectionInfo = self.fetchedResultsController.sections![section]
-        //return sectionInfo.numberOfObjects
         return friends.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let CellIdentifier = "FriendCell"
-        
         let friend = friends[indexPath.row]
+        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! FriendCell//as! TaskCancelingTableViewCell
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier)! as UITableViewCell//as! TaskCancelingTableViewCell
-        
-        // This is the new configureCell method
-        //configureCell(cell, event: event)
-        cell.textLabel?.text = friend.name
-        //cell.detailTextLabel?.text = task.creator
+        cell.friendName.text = friend.name
+        cell.profilePic.image = friend.image
         
         return cell
     }

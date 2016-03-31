@@ -205,27 +205,61 @@
         <scene sceneID="bCk-FH-N8G">
             <objects>
                 <tableViewController storyboardIdentifier="FriendsViewController" title="Friends View Controller" id="Yep-am-t3V" customClass="FriendsViewController" customModule="ProjectX" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="qFJ-4U-IK1">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="76" sectionHeaderHeight="28" sectionFooterHeight="28" id="qFJ-4U-IK1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendCell" textLabel="CoI-b3-AG9" style="IBUITableViewCellStyleDefault" id="q9c-xH-joE">
-                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendCell" rowHeight="76" id="q9c-xH-joE" customClass="FriendCell" customModule="ProjectX" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="600" height="76"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q9c-xH-joE" id="Kar-qC-NTN">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="75"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CoI-b3-AG9">
-                                            <rect key="frame" x="15" y="0.0" width="570" height="43"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mhj-T4-B6k">
+                                            <rect key="frame" x="0.0" y="0.0" width="74" height="75"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="74" id="B0n-Rc-0wf"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Fz-rx-HOb">
+                                            <rect key="frame" x="82" y="9" width="510" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V0F-C9-TZE">
+                                            <rect key="frame" x="82" y="36" width="89" height="34"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="89" id="vuA-kx-cU3"/>
+                                            </constraints>
+                                            <state key="normal" title="Add Friend">
+                                                <color key="titleColor" red="0.0" green="0.028106128130000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="addFriend:" destination="Yep-am-t3V" eventType="touchUpInside" id="tOS-CH-07h"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
+                                    <color key="backgroundColor" red="0.77123170483768411" green="1" blue="0.97390516160928287" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="7Fz-rx-HOb" firstAttribute="leading" secondItem="mhj-T4-B6k" secondAttribute="trailing" constant="8" id="3qQ-0z-7je"/>
+                                        <constraint firstItem="mhj-T4-B6k" firstAttribute="centerY" secondItem="Kar-qC-NTN" secondAttribute="centerY" id="NYW-W7-wQy"/>
+                                        <constraint firstItem="7Fz-rx-HOb" firstAttribute="top" secondItem="mhj-T4-B6k" secondAttribute="top" constant="9" id="OeV-Bn-txu"/>
+                                        <constraint firstItem="7Fz-rx-HOb" firstAttribute="trailing" secondItem="Kar-qC-NTN" secondAttribute="trailingMargin" id="Qce-zm-tG4"/>
+                                        <constraint firstItem="mhj-T4-B6k" firstAttribute="leading" secondItem="Kar-qC-NTN" secondAttribute="leadingMargin" constant="-8" id="Vzc-rk-doA"/>
+                                        <constraint firstItem="mhj-T4-B6k" firstAttribute="top" secondItem="Kar-qC-NTN" secondAttribute="topMargin" constant="-8" id="axt-Jl-e9V"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="7Fz-rx-HOb" secondAttribute="bottom" constant="37" id="fZd-eo-8dm"/>
+                                        <constraint firstItem="V0F-C9-TZE" firstAttribute="leading" secondItem="mhj-T4-B6k" secondAttribute="trailing" constant="8" id="tB5-S8-Yz7"/>
+                                        <constraint firstItem="V0F-C9-TZE" firstAttribute="top" secondItem="7Fz-rx-HOb" secondAttribute="bottom" constant="6" id="y1c-Pa-BU5"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="addFriendButton" destination="V0F-C9-TZE" id="FLq-iV-uhC"/>
+                                    <outlet property="friendName" destination="7Fz-rx-HOb" id="IrT-Ly-hhP"/>
+                                    <outlet property="profilePic" destination="mhj-T4-B6k" id="acG-2i-Fdf"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

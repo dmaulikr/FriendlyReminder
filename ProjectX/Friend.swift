@@ -11,10 +11,12 @@ import Firebase
 
 class Friend {
     var name: String
+    var image: UIImage?
     // var tasks: [Task]?
     
-    init(name: String) {
+    init(name: String, image: UIImage?) {
         self.name = name
+        self.image = image
     }
     
     func toAnyObject() -> AnyObject {

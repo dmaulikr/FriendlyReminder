@@ -55,6 +55,7 @@ class LoginViewController: UIViewController {
         FacebookClient.sharedInstance().login(self) {
             (authID) in
             self.authID = authID
+            self.performSegueWithIdentifier("Login", sender: nil)
         }
     }
     
