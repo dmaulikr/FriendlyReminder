@@ -19,10 +19,10 @@ class EventViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tabBarController?.navigationItem.title = "Group Events"
+        navigationItem.title = "Group Events"
         let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addEvent")
-        tabBarController?.navigationItem.rightBarButtonItems = [addButton]
-        tabBarController?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logoutUser")
+        navigationItem.rightBarButtonItems = [addButton]
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logoutUser")
 
     }
     
@@ -45,6 +45,7 @@ class EventViewController: UITableViewController {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("EventCreatorViewController") as! EventCreatorViewController
         
         controller.authID = authID
+        controller.groupEvent = true
         
         self.presentViewController(controller, animated: true, completion: nil)
     }
@@ -84,16 +85,6 @@ class EventViewController: UITableViewController {
         
         self.navigationController!.pushViewController(controller, animated: true)
 
-    }
-    
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerCell = tableView.dequeueReusableCellWithIdentifier("EventCell")! as UITableViewCell
-        headerCell.backgroundColor = UIColor.cyanColor()
-        //headerCell.textLabel?.textAlignment = .Center
-        
-        headerCell.textLabel?.text = "Group"
-
-        return headerCell
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,

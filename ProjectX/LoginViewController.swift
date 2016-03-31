@@ -45,7 +45,7 @@ class LoginViewController: UIViewController {
         else
         {
             print("logged in")
-            self.performSegueWithIdentifier("NavController", sender: nil)
+            self.performSegueWithIdentifier("Login", sender: nil)
 
         }
 
@@ -72,10 +72,12 @@ class LoginViewController: UIViewController {
 
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {        
-        let navVC = segue.destinationViewController as! UINavigationController
         
-        let tabBarVC = navVC.viewControllers.first as! UITabBarController
-        let eventVC = tabBarVC.viewControllers?.first as! EventViewController
+        let tabBarVC = segue.destinationViewController as! UITabBarController
+        let navVC = tabBarVC.viewControllers?.first as! UINavigationController
+        let eventVC = navVC.viewControllers.first as! EventViewController
+        
         eventVC.authID = authID
     }
+    
 }

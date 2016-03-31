@@ -14,9 +14,10 @@ class EventCreatorViewController: UIViewController {
     
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var eventTitle: UITextField!
-    @IBOutlet weak var publicSwitch: UISwitch!
+    //@IBOutlet weak var publicSwitch: UISwitch!
     
     var authID: String?
+    var groupEvent: Bool?
 
     
     override func viewDidLoad() {
@@ -55,7 +56,7 @@ class EventCreatorViewController: UIViewController {
         dateFormatter.dateFormat = "yyyyMMdd"
         let dateString = dateFormatter.stringFromDate(date)
         
-        if publicSwitch.on {
+        if groupEvent == true {
             // save to Firebase
 
             

@@ -13,17 +13,17 @@ import FBSDKLoginKit
 
 class UserEventViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
-    var events = [Event]()
+    //var events = [Event]()
     var authID: String?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tabBarController?.navigationItem.title = "User Events"
-        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addEvent")
-        tabBarController?.navigationItem.rightBarButtonItems = [addButton]
-        tabBarController?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logoutUser")
+        navigationItem.title = "User Events"
+        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addUserEvent")
+        navigationItem.rightBarButtonItems = [self.editButtonItem(), addButton]
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logoutUser")
         
         
         do {
@@ -34,16 +34,16 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
         
     }
     
-    // reloads the tableview data and event array
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
     }
     
     
-    func addEvent() {
+    func addUserEvent() {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("EventCreatorViewController") as! EventCreatorViewController
         
         controller.authID = authID
+        controller.groupEvent = false
         
         self.presentViewController(controller, animated: true, completion: nil)
     }
@@ -86,6 +86,7 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
             
         case .Insert:
             print("insert")
+            tableView.reloadData()
             break
         case .Delete:
             print("delete")
@@ -126,30 +127,20 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
             */
         
     }
-    
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerCell = tableView.dequeueReusableCellWithIdentifier("EventCell")! as UITableViewCell
-        headerCell.backgroundColor = UIColor.cyanColor()
-        //headerCell.textLabel?.textAlignment = .Center
-        
-        headerCell.textLabel?.text = "Personal"
-        
-        return headerCell
-    }
-    
+
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,
         forRowAtIndexPath indexPath: NSIndexPath) {
             
             switch (editingStyle) {
             case .Delete:
 
-                    /*
+                
                     let userEvent = fetchedResultsController.objectAtIndexPath(indexPath) as! UserEvent
                     
                     // iterate through fetchedResultsController to find the event then delete it
                     sharedContext.deleteObject(userEvent)
                     CoreDataStackManager.sharedInstance().saveContext()
-                    */
+                    
                 break
                 
             default:
