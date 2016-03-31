@@ -74,7 +74,8 @@ class LoginViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {        
         let navVC = segue.destinationViewController as! UINavigationController
         
-        let eventVC = navVC.viewControllers.first as! EventViewController
-            eventVC.authID = authID
+        let tabBarVC = navVC.viewControllers.first as! UITabBarController
+        let eventVC = tabBarVC.viewControllers?.first as! EventViewController
+        eventVC.authID = authID
     }
 }

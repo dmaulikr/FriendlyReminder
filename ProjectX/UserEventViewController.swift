@@ -1,43 +1,42 @@
 //
-//  EventViewController.swift
+//  UserEventViewController.swift
 //  ProjectX
 //
-//  Created by Jonathan Chou on 2/24/16.
+//  Created by Jonathan Chou on 3/30/16.
 //  Copyright © 2016 Jonathan Chou. All rights reserved.
 //
 
 import UIKit
+import CoreData
 import Firebase
 import FBSDKLoginKit
 
-class EventViewController: UITableViewController {
+class UserEventViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
     var events = [Event]()
     var authID: String?
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tabBarController?.navigationItem.title = "Group Events"
+        tabBarController?.navigationItem.title = "User Events"
         let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addEvent")
         tabBarController?.navigationItem.rightBarButtonItems = [addButton]
         tabBarController?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logoutUser")
-
+        
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {}
+        
+        fetchedResultsController.delegate = self
+        
     }
     
     // reloads the tableview data and event array
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-
-        
-        // get this user's events that the user is a part of
-        FirebaseClient.sharedInstance().getEvents(authID!) {
-            (newEvents) -> Void in
-            self.events = newEvents
-            self.tableView.reloadData()
-        }
-        
     }
     
     
@@ -54,13 +53,55 @@ class EventViewController: UITableViewController {
         loginManager.logOut()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-  
-
+    
+    // MARK: - Core Data Convenience.
+    
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext
+    }
+    
+    // Step 1 - Add the lazy fetchedResultsController property. See the reference sheet in the lesson if you
+    // want additional help creating this property.
+    
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        
+        let fetchRequest = NSFetchRequest(entityName: "UserEvent")
+        
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+            managedObjectContext: self.sharedContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        
+        return fetchedResultsController
+        
+    }()
+    
+    // MARK: - Fetched Results Controller Delegate - Need to have this or else NSFetchedResultsController won't update
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        
+        switch type{
+            
+        case .Insert:
+            print("insert")
+            break
+        case .Delete:
+            print("delete")
+            tableView.reloadData()
+            break
+        default:
+            break
+        }
+    }
+    
+    
     // MARK: - Table View
     
-    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events.count
+        let sectionInfo = self.fetchedResultsController.sections![section]
+        return sectionInfo.numberOfObjects
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -69,21 +110,21 @@ class EventViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier)! as UITableViewCell//as! TaskCancelingTableViewCell
         
         configureCell(cell, indexPath: indexPath)
-
         
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let event = events[indexPath.row]
-        let controller = storyboard!.instantiateViewControllerWithIdentifier("TaskViewController") as! TaskViewController
+            // core data -- personal array
+            //fetchedResultsController.fetchedObjects
+            /*
+            let userEvent = fetchedResultsController.objectAtIndexPath(indexPath) as! UserEvent
+            
+            // iterate through fetchedResultsController to find the event then delete it
+            sharedContext.deleteObject(userEvent)
+            CoreDataStackManager.sharedInstance().saveContext()
+            */
         
-        // need to pass reference to event title
-        controller.ref = FirebaseClient.Constants.EVENT_REF.childByAppendingPath("\(event.title.lowercaseString)" + "/tasks/")
-        controller.userRef = FirebaseClient.Constants.USER_REF.childByAppendingPath("\(authID!)/")
-        
-        self.navigationController!.pushViewController(controller, animated: true)
-
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -91,8 +132,8 @@ class EventViewController: UITableViewController {
         headerCell.backgroundColor = UIColor.cyanColor()
         //headerCell.textLabel?.textAlignment = .Center
         
-        headerCell.textLabel?.text = "Group"
-
+        headerCell.textLabel?.text = "Personal"
+        
         return headerCell
     }
     
@@ -101,9 +142,16 @@ class EventViewController: UITableViewController {
             
             switch (editingStyle) {
             case .Delete:
-                let event = events[indexPath.row]
-                event.ref?.removeValue()
 
+                    /*
+                    let userEvent = fetchedResultsController.objectAtIndexPath(indexPath) as! UserEvent
+                    
+                    // iterate through fetchedResultsController to find the event then delete it
+                    sharedContext.deleteObject(userEvent)
+                    CoreDataStackManager.sharedInstance().saveContext()
+                    */
+                break
+                
             default:
                 break
             }
@@ -112,8 +160,9 @@ class EventViewController: UITableViewController {
     // MARK: - Configure Cell
     
     func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) {
-        let event = events[indexPath.row]
-
+        let event = fetchedResultsController.objectAtIndexPath(indexPath) as! UserEvent
+ 
+        
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
         let oldDate = dateFormatter.dateFromString(event.date)
@@ -124,6 +173,5 @@ class EventViewController: UITableViewController {
         cell.detailTextLabel?.text = "Date of Event: " + dateString
         //cell.detailTextLabel?.text = self.data?.providerData["displayName"] as? String
     }
-
+    
 }
-
