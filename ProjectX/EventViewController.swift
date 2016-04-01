@@ -81,6 +81,7 @@ class EventViewController: UITableViewController {
         
         // need to pass reference to event title
         controller.ref = FirebaseClient.Constants.EVENT_REF.childByAppendingPath("\(event.title.lowercaseString)" + "/tasks/")
+        controller.eventRef = FirebaseClient.Constants.EVENT_REF.childByAppendingPath("\(event.title.lowercaseString)" + "/")
         controller.userRef = FirebaseClient.Constants.USER_REF.childByAppendingPath("\(authID!)/")
         
         self.navigationController!.pushViewController(controller, animated: true)

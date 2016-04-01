@@ -12,6 +12,7 @@ import Firebase
 class TaskViewController: UITableViewController {
     var tasks = [Task]()
     var ref: Firebase?
+    var eventRef: Firebase? // for friendVC
     var userRef: Firebase?
     var userName: String?
     
@@ -84,7 +85,8 @@ class TaskViewController: UITableViewController {
     }
     
     func addFriends() {
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("FriendsViewController") as! FriendsViewController        
+        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("FriendsViewController") as! FriendsViewController
+        controller.membersRef = eventRef?.childByAppendingPath("members/")
         self.navigationController!.pushViewController(controller, animated: true)
     }
     

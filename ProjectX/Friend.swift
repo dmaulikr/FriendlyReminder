@@ -11,12 +11,16 @@ import Firebase
 
 class Friend {
     var name: String
+    var id: String
     var image: UIImage?
+    var isMember: Bool
     // var tasks: [Task]?
     
-    init(name: String, image: UIImage?) {
+    init(name: String, id: String, image: UIImage?, isMember: Bool) {
         self.name = name
+        self.id = id
         self.image = image
+        self.isMember = isMember
     }
     
     func toAnyObject() -> AnyObject {
@@ -24,9 +28,11 @@ class Friend {
             "name": name,
         ]
     }
-    
+    /*
     init(snapshot: FDataSnapshot) {
         // key = snapshot.key
         name = snapshot.value["name"] as! String
+        
     }
+*/
 }

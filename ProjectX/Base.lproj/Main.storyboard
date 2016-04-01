@@ -209,9 +209,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="Mxv-KZ-MzD">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap friends to add them to the event" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aad-XN-wwZ">
+                                    <rect key="frame" x="5" y="5" width="590" height="34"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="aad-XN-wwZ" firstAttribute="leading" secondItem="Mxv-KZ-MzD" secondAttribute="leading" constant="5" id="0NX-ZQ-FPn"/>
+                                <constraint firstAttribute="bottom" secondItem="aad-XN-wwZ" secondAttribute="bottom" constant="5" id="4BO-Ha-kfa"/>
+                                <constraint firstItem="aad-XN-wwZ" firstAttribute="top" secondItem="Mxv-KZ-MzD" secondAttribute="top" constant="5" id="8nh-bz-Kse"/>
+                                <constraint firstAttribute="trailing" secondItem="aad-XN-wwZ" secondAttribute="trailing" constant="5" id="Zp7-ng-Xda"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendCell" rowHeight="76" id="q9c-xH-joE" customClass="FriendCell" customModule="ProjectX" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="600" height="76"/>
+                                <rect key="frame" x="0.0" y="72" width="600" height="76"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q9c-xH-joE" id="Kar-qC-NTN">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="75"/>
@@ -224,23 +243,11 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Fz-rx-HOb">
-                                            <rect key="frame" x="82" y="9" width="510" height="21"/>
+                                            <rect key="frame" x="82" y="9" width="510" height="38"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V0F-C9-TZE">
-                                            <rect key="frame" x="82" y="36" width="89" height="34"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="89" id="vuA-kx-cU3"/>
-                                            </constraints>
-                                            <state key="normal" title="Add Friend">
-                                                <color key="titleColor" red="0.0" green="0.028106128130000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="addFriend:" destination="Yep-am-t3V" eventType="touchUpInside" id="tOS-CH-07h"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" red="0.77123170483768411" green="1" blue="0.97390516160928287" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
@@ -250,13 +257,10 @@
                                         <constraint firstItem="7Fz-rx-HOb" firstAttribute="trailing" secondItem="Kar-qC-NTN" secondAttribute="trailingMargin" id="Qce-zm-tG4"/>
                                         <constraint firstItem="mhj-T4-B6k" firstAttribute="leading" secondItem="Kar-qC-NTN" secondAttribute="leadingMargin" constant="-8" id="Vzc-rk-doA"/>
                                         <constraint firstItem="mhj-T4-B6k" firstAttribute="top" secondItem="Kar-qC-NTN" secondAttribute="topMargin" constant="-8" id="axt-Jl-e9V"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="7Fz-rx-HOb" secondAttribute="bottom" constant="37" id="fZd-eo-8dm"/>
-                                        <constraint firstItem="V0F-C9-TZE" firstAttribute="leading" secondItem="mhj-T4-B6k" secondAttribute="trailing" constant="8" id="tB5-S8-Yz7"/>
-                                        <constraint firstItem="V0F-C9-TZE" firstAttribute="top" secondItem="7Fz-rx-HOb" secondAttribute="bottom" constant="6" id="y1c-Pa-BU5"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="7Fz-rx-HOb" secondAttribute="bottom" constant="20" id="fZd-eo-8dm"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="addFriendButton" destination="V0F-C9-TZE" id="FLq-iV-uhC"/>
                                     <outlet property="friendName" destination="7Fz-rx-HOb" id="IrT-Ly-hhP"/>
                                     <outlet property="profilePic" destination="mhj-T4-B6k" id="acG-2i-Fdf"/>
                                 </connections>

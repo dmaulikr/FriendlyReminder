@@ -12,7 +12,7 @@ import Firebase
 class FriendsViewController: UITableViewController {
     
     var friends = [Friend]()
-    var ref: Firebase?
+    var membersRef: Firebase?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,19 +23,17 @@ class FriendsViewController: UITableViewController {
     // reloads the tableview data and task array
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-
-        FacebookClient.sharedInstance().searchForFriendsList() {
+        
+        FacebookClient.sharedInstance().searchForFriendsList(self.membersRef!) {
             (friends, picture, error) -> Void in
-            
             self.friends = friends
             self.tableView.reloadData()
+            
         }
     }
     
     @IBAction func addFriend(sender: AnyObject) {
-        //add to firebase, make the button unclickable and say ADDED!, change background tableviewcell to green?
-        // make friend a member of event
-        
+
     }
     // MARK: - Table View
     
@@ -50,8 +48,25 @@ class FriendsViewController: UITableViewController {
         
         cell.friendName.text = friend.name
         cell.profilePic.image = friend.image
+        if friend.isMember {
+            cell.contentView.backgroundColor = UIColor.greenColor()
+        } else {
+            cell.contentView.backgroundColor = UIColor.blueColor()
+        }
         
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // TODO: make the button unclickable and say ADDED!
+        let friend = friends[indexPath.row]
+        if friend.isMember == false {
+            self.membersRef?.updateChildValues([friend.id: true])
+            tableView.cellForRowAtIndexPath(indexPath)?.contentView.backgroundColor = UIColor.cyanColor()
+        } else {
+            tableView.cellForRowAtIndexPath(indexPath)?.contentView.backgroundColor = UIColor.greenColor()
+
+        }
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,
