@@ -151,7 +151,9 @@
                     <tabBarItem key="tabBarItem" title="Personal" id="0ZC-td-iYM">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-15"/>
                     </tabBarItem>
-                    <navigationItem key="navigationItem" id="hjr-gV-Z5g"/>
+                    <navigationItem key="navigationItem" id="hjr-gV-Z5g">
+                        <nil key="title"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y8N-hG-m01" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -405,26 +407,8 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rq0-Jg-w4p">
-                                <rect key="frame" x="70" y="206" width="460" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KYk-nl-y42">
-                                <rect key="frame" x="70" y="256" width="460" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qLb-2G-MID">
-                                <rect key="frame" x="70" y="360" width="460" height="30"/>
-                                <color key="backgroundColor" red="1" green="0.83061471348886762" blue="0.82468442820040988" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Signup!"/>
-                                <connections>
-                                    <action selector="signupButtonTouch:" destination="mES-dq-jEz" eventType="touchUpInside" id="qMX-2L-2OF"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kRP-vc-vuf">
-                                <rect key="frame" x="70" y="306" width="460" height="34"/>
+                                <rect key="frame" x="70" y="283" width="460" height="34"/>
                                 <color key="backgroundColor" red="0.62137840621542306" green="1" blue="0.62950044725616605" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Login"/>
@@ -436,27 +420,14 @@
                         </subviews>
                         <color key="backgroundColor" red="0.41703906299999999" green="0.81002040639999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="Rq0-Jg-w4p" secondAttribute="trailing" constant="50" id="5bv-LL-JkH"/>
-                            <constraint firstItem="Rq0-Jg-w4p" firstAttribute="leading" secondItem="wUB-hc-vgc" secondAttribute="leadingMargin" constant="50" id="5c7-Nb-G05"/>
                             <constraint firstItem="zLk-Ej-AK4" firstAttribute="leading" secondItem="wUB-hc-vgc" secondAttribute="leadingMargin" constant="100" id="61j-gs-Clz"/>
                             <constraint firstItem="kRP-vc-vuf" firstAttribute="leading" secondItem="wUB-hc-vgc" secondAttribute="leadingMargin" constant="50" id="ACh-cZ-zLK"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="KYk-nl-y42" secondAttribute="trailing" constant="50" id="F6q-zl-H2D"/>
-                            <constraint firstItem="qLb-2G-MID" firstAttribute="leading" secondItem="wUB-hc-vgc" secondAttribute="leadingMargin" constant="50" id="Q9P-Pk-o5L"/>
                             <constraint firstAttribute="trailingMargin" secondItem="kRP-vc-vuf" secondAttribute="trailing" constant="50" id="Y2d-ba-ETK"/>
-                            <constraint firstItem="KYk-nl-y42" firstAttribute="top" secondItem="Rq0-Jg-w4p" secondAttribute="bottom" constant="20" id="aYs-cR-RpX"/>
-                            <constraint firstItem="Rq0-Jg-w4p" firstAttribute="top" secondItem="zLk-Ej-AK4" secondAttribute="bottom" constant="100" id="ds6-QL-ODC"/>
+                            <constraint firstItem="kRP-vc-vuf" firstAttribute="centerY" secondItem="wUB-hc-vgc" secondAttribute="centerY" id="foc-4K-6Gy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="zLk-Ej-AK4" secondAttribute="trailing" constant="100" id="iT8-Vo-rJb"/>
-                            <constraint firstItem="kRP-vc-vuf" firstAttribute="top" secondItem="KYk-nl-y42" secondAttribute="bottom" constant="20" id="k0D-b2-X2r"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="qLb-2G-MID" secondAttribute="trailing" constant="50" id="ntT-Ls-USy"/>
-                            <constraint firstItem="qLb-2G-MID" firstAttribute="top" secondItem="kRP-vc-vuf" secondAttribute="bottom" constant="20" id="s6o-yr-81d"/>
                             <constraint firstItem="zLk-Ej-AK4" firstAttribute="top" secondItem="hbr-fX-Wby" secondAttribute="bottom" constant="50" id="uV8-TW-g9e"/>
-                            <constraint firstItem="KYk-nl-y42" firstAttribute="leading" secondItem="wUB-hc-vgc" secondAttribute="leadingMargin" constant="50" id="woq-hA-UNN"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="passwordField" destination="KYk-nl-y42" id="T12-PH-QPL"/>
-                        <outlet property="usernameField" destination="Rq0-Jg-w4p" id="Gr3-a0-Zan"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2bE-sj-yKB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

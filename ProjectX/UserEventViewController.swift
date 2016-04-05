@@ -13,18 +13,13 @@ import FBSDKLoginKit
 
 class UserEventViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
-    //var events = [Event]()
     var authID: String?
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "User Events"
-        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addUserEvent")
-        navigationItem.rightBarButtonItems = [addButton]
-        
-        
+        initNavBar()
+
         do {
             try fetchedResultsController.performFetch()
         } catch {}
@@ -37,6 +32,30 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
         super.viewDidAppear(animated)
     }
     
+    func initNavBar() {
+        navigationItem.title = "User Events"
+        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addUserEvent")
+        let infoButton = UIButton(type: UIButtonType.InfoLight) as UIButton
+        let leftBarButton = UIBarButtonItem()
+        infoButton.frame = CGRectMake(0,0,30,30)
+        infoButton.addTarget(self, action: "showInfo", forControlEvents: .TouchUpInside)
+        leftBarButton.customView = infoButton
+        navigationItem.rightBarButtonItem = addButton
+        navigationItem.leftBarButtonItem = leftBarButton
+    }
+    
+    func showInfo() {
+        let alert = UIAlertController(title: "Instructions",
+            message: "Swipe left to delete",
+            preferredStyle: .Alert)
+        
+        let cancelAction = UIAlertAction(title: "OK",
+            style: .Default) { (action: UIAlertAction) -> Void in
+        }
+        
+        alert.addAction(cancelAction)
+        presentViewController(alert, animated: true, completion: nil)
+    }
     
     func addUserEvent() {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("EventCreatorViewController") as! EventCreatorViewController

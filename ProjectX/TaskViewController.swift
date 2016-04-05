@@ -15,11 +15,12 @@ class TaskViewController: UITableViewController {
     var eventRef: Firebase? // for friendVC
     var userRef: Firebase?
     var userName: String?
+    var eventTitle: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "Tasks"
+        navigationItem.title = eventTitle
         let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addTask")
         let addFriends = UIBarButtonItem(title: "Friends", style: .Plain, target: self, action: "addFriends")
 

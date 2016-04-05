@@ -16,7 +16,7 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "User Tasks"
+        navigationItem.title = userEvent.title
         let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addTask")
         
         navigationItem.rightBarButtonItems = [addButton]

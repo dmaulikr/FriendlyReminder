@@ -10,25 +10,44 @@ import UIKit
 import CoreData
 import Firebase
 
-class EventCreatorViewController: UIViewController {
+class EventCreatorViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var eventTitle: UITextField!
-    //@IBOutlet weak var publicSwitch: UISwitch!
     
     var authID: String?
     var groupEvent: Bool?
+    var tapRecognizer: UITapGestureRecognizer? = nil
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        eventTitle.delegate = self
+        
         // set minimum date to today (can't go back in time)
         let date = NSDate()
         datePicker.minimumDate = date
+        configureTapRecognizer()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        addKeyboardDismissRecognizer()
+    }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        removeKeyboardDismissRecognizer()
+    }
+    
+    // MARK: - TextFieldDelegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        eventTitle.resignFirstResponder()
+        return true
+    }
+    
+    // MARK: - Buttons
 
     @IBAction func cancelEvent(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -82,7 +101,27 @@ class EventCreatorViewController: UIViewController {
     var sharedContext: NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext
     }
+    
+    // MARK: - Keyboard Tap Recognizer
+    
+    func configureTapRecognizer() {
+        tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
+        tapRecognizer?.numberOfTapsRequired = 1
+    }
+    
+    func addKeyboardDismissRecognizer() {
+        view.addGestureRecognizer(tapRecognizer!)
+    }
+    
+    func removeKeyboardDismissRecognizer() {
+        view.removeGestureRecognizer(tapRecognizer!)
+    }
+    
+    func handleSingleTap(recognizer: UITapGestureRecognizer) {
+        view.endEditing(true)
+    }
 }
+
 
 
 
