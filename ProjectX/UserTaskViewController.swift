@@ -11,6 +11,8 @@ import CoreData
 
 class UserTaskViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
+    var userEvent: UserEvent!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,7 +64,8 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
                 dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                 let createdAt = dateFormatter.stringFromDate(NSDate())
                 // create a UserTask into CoreData
-                let _ = UserTask(title: textField.text!, created: createdAt, context: self.sharedContext)
+                let _ = UserTask(title: textField.text!, created: createdAt, event: self.userEvent,
+                                 context: self.sharedContext)
                 CoreDataStackManager.sharedInstance().saveContext()
         }
         
@@ -94,6 +97,7 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
         let fetchRequest = NSFetchRequest(entityName: "UserTask")
         
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "created", ascending: true)]
+        fetchRequest.predicate = NSPredicate(format: "event == %@", self.userEvent)
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
             managedObjectContext: self.sharedContext,
@@ -146,6 +150,11 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
             
             switch (editingStyle) {
             case .Delete:
+                let userTask = fetchedResultsController.objectAtIndexPath(indexPath) as! UserTask
+                
+                // iterate through fetchedResultsController to find the task then delete it
+                sharedContext.deleteObject(userTask)
+                CoreDataStackManager.sharedInstance().saveContext()
                 break
             default:
                 break

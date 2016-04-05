@@ -11,6 +11,7 @@ import CoreData
 class UserEvent: NSManagedObject {
     @NSManaged var title: String
     @NSManaged var date: String
+    @NSManaged var tasks: [UserTask]
     
     override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
         super.init(entity: entity, insertIntoManagedObjectContext: context)

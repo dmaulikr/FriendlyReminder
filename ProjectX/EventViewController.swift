@@ -88,6 +88,14 @@ class EventViewController: UITableViewController {
 
     }
     
+    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        
+        // no one can edit for now
+        // TODO: make it so only the creator can delete the event... and tasks?
+        return UITableViewCellEditingStyle.None
+
+    }
+    
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,
         forRowAtIndexPath indexPath: NSIndexPath) {
             

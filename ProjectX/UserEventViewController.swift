@@ -23,7 +23,6 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
         navigationItem.title = "User Events"
         let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addUserEvent")
         navigationItem.rightBarButtonItems = [addButton]
-        navigationItem.leftBarButtonItem = self.editButtonItem()// UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logoutUser")
         
         
         do {
@@ -67,7 +66,7 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
         
         let fetchRequest = NSFetchRequest(entityName: "UserEvent")
         
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
             managedObjectContext: self.sharedContext,
@@ -117,6 +116,8 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let controller = storyboard!.instantiateViewControllerWithIdentifier("UserTaskViewController") as! UserTaskViewController
+        
+        controller.userEvent = fetchedResultsController.objectAtIndexPath(indexPath) as! UserEvent
         
         self.navigationController!.pushViewController(controller, animated: true)
     }
