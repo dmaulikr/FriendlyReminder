@@ -58,8 +58,6 @@ class EventCreatorViewController: UIViewController {
         
         if groupEvent == true {
             // save to Firebase
-
-            
             let event = Event(title: eventTitle.text!, date: dateString, members: [authID!: true])
             
             // set event

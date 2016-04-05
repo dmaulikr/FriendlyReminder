@@ -22,8 +22,8 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
         
         navigationItem.title = "User Events"
         let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addUserEvent")
-        navigationItem.rightBarButtonItems = [self.editButtonItem(), addButton]
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logoutUser")
+        navigationItem.rightBarButtonItems = [addButton]
+        navigationItem.leftBarButtonItem = self.editButtonItem()// UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logoutUser")
         
         
         do {
@@ -116,16 +116,9 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-            // core data -- personal array
-            //fetchedResultsController.fetchedObjects
-            /*
-            let userEvent = fetchedResultsController.objectAtIndexPath(indexPath) as! UserEvent
-            
-            // iterate through fetchedResultsController to find the event then delete it
-            sharedContext.deleteObject(userEvent)
-            CoreDataStackManager.sharedInstance().saveContext()
-            */
+        let controller = storyboard!.instantiateViewControllerWithIdentifier("UserTaskViewController") as! UserTaskViewController
         
+        self.navigationController!.pushViewController(controller, animated: true)
     }
 
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,
@@ -133,16 +126,12 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
             
             switch (editingStyle) {
             case .Delete:
-
+                let userEvent = fetchedResultsController.objectAtIndexPath(indexPath) as! UserEvent
                 
-                    let userEvent = fetchedResultsController.objectAtIndexPath(indexPath) as! UserEvent
-                    
-                    // iterate through fetchedResultsController to find the event then delete it
-                    sharedContext.deleteObject(userEvent)
-                    CoreDataStackManager.sharedInstance().saveContext()
-                    
+                // iterate through fetchedResultsController to find the event then delete it
+                sharedContext.deleteObject(userEvent)
+                CoreDataStackManager.sharedInstance().saveContext()
                 break
-                
             default:
                 break
             }
@@ -153,7 +142,6 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
     func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) {
         let event = fetchedResultsController.objectAtIndexPath(indexPath) as! UserEvent
  
-        
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
         let oldDate = dateFormatter.dateFromString(event.date)
@@ -162,7 +150,6 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
         
         cell.textLabel?.text = event.title
         cell.detailTextLabel?.text = "Date of Event: " + dateString
-        //cell.detailTextLabel?.text = self.data?.providerData["displayName"] as? String
     }
     
 }

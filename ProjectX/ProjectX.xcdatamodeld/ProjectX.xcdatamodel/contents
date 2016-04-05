@@ -4,7 +4,12 @@
         <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="UserTask" representedClassName=".UserTask" syncable="YES">
+        <attribute name="created" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="UserEvent" positionX="-54" positionY="-9" width="128" height="75"/>
+        <element name="UserTask" positionX="-36" positionY="27" width="128" height="75"/>
     </elements>
 </model>

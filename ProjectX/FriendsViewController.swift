@@ -62,10 +62,7 @@ class FriendsViewController: UITableViewController {
         let friend = friends[indexPath.row]
         if friend.isMember == false {
             self.membersRef?.updateChildValues([friend.id: true])
-            tableView.cellForRowAtIndexPath(indexPath)?.contentView.backgroundColor = UIColor.cyanColor()
-        } else {
             tableView.cellForRowAtIndexPath(indexPath)?.contentView.backgroundColor = UIColor.greenColor()
-
         }
     }
     

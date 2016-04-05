@@ -1,51 +1,34 @@
 //
-//  TaskViewController.swift
+//  UserTaskViewController.swift
 //  ProjectX
 //
-//  Created by Jonathan Chou on 3/10/16.
+//  Created by Jonathan Chou on 4/1/16.
 //  Copyright © 2016 Jonathan Chou. All rights reserved.
 //
 
 import UIKit
-import Firebase
+import CoreData
 
-class TaskViewController: UITableViewController {
-    var tasks = [Task]()
-    var ref: Firebase?
-    var eventRef: Firebase? // for friendVC
-    var userRef: Firebase?
-    var userName: String?
+class UserTaskViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        navigationItem.title = "Tasks"
+        
+        navigationItem.title = "User Tasks"
         let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addTask")
-        let addFriends = UIBarButtonItem(title: "Friends", style: .Plain, target: self, action: "addFriends")
-
-        navigationItem.rightBarButtonItems = [addFriends, addButton]
         
+        navigationItem.rightBarButtonItems = [addButton]
         
-        userRef!.observeSingleEventOfType(.Value, withBlock: { snapshot in
-            self.userName = snapshot.value["name"] as? String
-        })
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {}
+        
+        fetchedResultsController.delegate = self
     }
     
     // reloads the tableview data and task array
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        ref!.observeEventType(.Value, withBlock: { snapshot in
-            
-            var newTasks = [Task]()
-            
-            for task in snapshot.children {
-                let task = Task(snapshot: task as! FDataSnapshot)
-                newTasks.append(task)
-            }
-            
-            self.tasks = newTasks
-            self.tableView.reloadData()
-        })
     }
     
     func addTask() {
@@ -75,11 +58,12 @@ class TaskViewController: UITableViewController {
                     
                 }
                 let textField = alert.textFields![0]
-                let task = Task(title: textField.text!, creator: self.userName!)
-                let taskRef = self.ref!.childByAppendingPath(task.title.lowercaseString + "/")
-
-                taskRef.setValue(task.toAnyObject())
-                //self.tableView.reloadData()
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                let createdAt = dateFormatter.stringFromDate(NSDate())
+                // create a UserTask into CoreData
+                let _ = UserTask(title: textField.text!, created: createdAt, context: self.sharedContext)
+                CoreDataStackManager.sharedInstance().saveContext()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel",
@@ -99,32 +83,60 @@ class TaskViewController: UITableViewController {
         presentViewController(alert, animated: true, completion: nil)
     }
     
-    func addFriends() {
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("FriendsViewController") as! FriendsViewController
-        controller.membersRef = eventRef?.childByAppendingPath("members/")
-        self.navigationController!.pushViewController(controller, animated: true)
+    // MARK: - Core Data Convenience.
+    
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext
     }
     
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        
+        let fetchRequest = NSFetchRequest(entityName: "UserTask")
+        
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "created", ascending: true)]
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+            managedObjectContext: self.sharedContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        
+        return fetchedResultsController
+        
+    }()
+    
+    // MARK: - Fetched Results Controller Delegate - Need to have this or else NSFetchedResultsController won't update
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        
+        switch type{
+            
+        case .Insert:
+            print("insert")
+            tableView.reloadData()
+            break
+        case .Delete:
+            print("delete")
+            tableView.reloadData()
+            break
+        default:
+            break
+        }
+    }
     
     // MARK: - Table View
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //let sectionInfo = self.fetchedResultsController.sections![section]
-        //return sectionInfo.numberOfObjects
-        return tasks.count
+        let sectionInfo = self.fetchedResultsController.sections![section]
+        return sectionInfo.numberOfObjects
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let CellIdentifier = "TaskCell"
         
-        let task = tasks[indexPath.row]
-        
         let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier)! as UITableViewCell//as! TaskCancelingTableViewCell
         
         // This is the new configureCell method
-        //configureCell(cell, event: event)
-        cell.textLabel?.text = task.title
-        cell.detailTextLabel?.text = task.creator
+        configureCell(cell, indexPath: indexPath)
         
         return cell
     }
@@ -134,11 +146,16 @@ class TaskViewController: UITableViewController {
             
             switch (editingStyle) {
             case .Delete:
-                let task = tasks[indexPath.row]
-                print("\(task.ref)")
-                task.ref!.removeValue()
+                break
             default:
                 break
             }
     }
+    
+    func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) {
+        let task = fetchedResultsController.objectAtIndexPath(indexPath) as! UserTask
+        
+        cell.textLabel?.text = task.title
+    }
+    
 }

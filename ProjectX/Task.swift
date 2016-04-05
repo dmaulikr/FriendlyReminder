@@ -6,7 +6,6 @@
 //  Copyright © 2016 Jonathan Chou. All rights reserved.
 //
 
-import CoreData
 import Firebase
 
 class Task {

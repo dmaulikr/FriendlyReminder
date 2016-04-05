@@ -157,6 +157,34 @@
             </objects>
             <point key="canvasLocation" x="1014" y="1311"/>
         </scene>
+        <!--User Task View Controller-->
+        <scene sceneID="J1I-bg-fZh">
+            <objects>
+                <tableViewController storyboardIdentifier="UserTaskViewController" id="g4i-H1-0Xq" customClass="UserTaskViewController" customModule="ProjectX" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="53t-fF-fns">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" id="0eg-F9-gry">
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0eg-F9-gry" id="ckS-mM-yX4">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="g4i-H1-0Xq" id="2mx-fA-xyq"/>
+                            <outlet property="delegate" destination="g4i-H1-0Xq" id="2fl-C3-xDd"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eul-DE-U22" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1702" y="1311"/>
+        </scene>
         <!--Task View Controller-->
         <scene sceneID="nJl-AK-LiY">
             <objects>

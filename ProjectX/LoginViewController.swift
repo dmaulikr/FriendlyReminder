@@ -54,8 +54,11 @@ class LoginViewController: UIViewController {
     @IBAction func loginButtonTouch(sender: AnyObject) {
         FacebookClient.sharedInstance().login(self) {
             (authID) in
-            self.authID = authID
-            self.performSegueWithIdentifier("Login", sender: nil)
+            if self.authID == nil {
+                self.authID = authID
+                self.performSegueWithIdentifier("Login", sender: nil)
+            }
+
         }
     }
     
