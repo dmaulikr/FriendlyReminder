@@ -14,6 +14,8 @@ class FriendsViewController: UITableViewController {
     var friends = [Friend]()
     var membersRef: Firebase?
     
+    @IBOutlet weak var activityView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,7 +30,7 @@ class FriendsViewController: UITableViewController {
             (friends, picture, error) -> Void in
             self.friends = friends
             self.tableView.reloadData()
-            
+            self.activityView.hidden = true
         }
     }
     

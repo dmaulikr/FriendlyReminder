@@ -16,6 +16,8 @@ class EventViewController: UITableViewController {
     var authID: String?
     
 
+    @IBOutlet weak var activityView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,13 +31,13 @@ class EventViewController: UITableViewController {
     // reloads the tableview data and event array
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-
         
         // get this user's events that the user is a part of
         FirebaseClient.sharedInstance().getEvents(authID!) {
             (newEvents) -> Void in
             self.events = newEvents
             self.tableView.reloadData()
+            self.activityView.hidden = true
         }
         
     }

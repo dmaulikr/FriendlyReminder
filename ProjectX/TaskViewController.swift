@@ -17,6 +17,8 @@ class TaskViewController: UITableViewController {
     var userName: String?
     var eventTitle: String!
     
+    @IBOutlet weak var activityView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -46,6 +48,7 @@ class TaskViewController: UITableViewController {
             
             self.tasks = newTasks
             self.tableView.reloadData()
+            self.activityView.hidden = true
         })
     }
     
