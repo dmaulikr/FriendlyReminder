@@ -25,6 +25,7 @@
 		7BECB5991CADC8FB00C30DAA /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BECB5981CADC8FB00C30DAA /* FriendCell.swift */; };
 		7BECB59B1CAF61E600C30DAA /* UserTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BECB59A1CAF61E600C30DAA /* UserTask.swift */; };
 		7BECB59D1CAF667F00C30DAA /* UserTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BECB59C1CAF667F00C30DAA /* UserTaskViewController.swift */; };
+		7BECB59F1CB5BF3600C30DAA /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BECB59E1CB5BF3600C30DAA /* TaskCell.swift */; };
 		7BF930AF1C7E704800F1794F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF930AE1C7E704800F1794F /* AppDelegate.swift */; };
 		7BF930B11C7E704800F1794F /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF930B01C7E704800F1794F /* EventViewController.swift */; };
 		7BF930B41C7E704800F1794F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BF930B21C7E704800F1794F /* Main.storyboard */; };
@@ -57,6 +58,7 @@
 		7BECB5981CADC8FB00C30DAA /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		7BECB59A1CAF61E600C30DAA /* UserTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTask.swift; sourceTree = "<group>"; };
 		7BECB59C1CAF667F00C30DAA /* UserTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTaskViewController.swift; sourceTree = "<group>"; };
+		7BECB59E1CB5BF3600C30DAA /* TaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		7BF930AB1C7E704800F1794F /* ProjectX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF930AE1C7E704800F1794F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7BF930B01C7E704800F1794F /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				7BECB5981CADC8FB00C30DAA /* FriendCell.swift */,
+				7BECB59E1CB5BF3600C30DAA /* TaskCell.swift */,
 			);
 			name = CustomViewCells;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BECB5701C92529200C30DAA /* LoginViewController.swift in Sources */,
+				7BECB59F1CB5BF3600C30DAA /* TaskCell.swift in Sources */,
 				7BECB56E1C9236AC00C30DAA /* Task.swift in Sources */,
 				7BF930B11C7E704800F1794F /* EventViewController.swift in Sources */,
 				7BECB56C1C92319C00C30DAA /* TaskViewController.swift in Sources */,

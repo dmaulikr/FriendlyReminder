@@ -11,7 +11,7 @@ import Firebase
 
 class TaskViewController: UITableViewController {
     var tasks = [Task]()
-    var ref: Firebase?
+    var ref: Firebase? // reference to all tasks
     var eventRef: Firebase? // for friendVC
     var userRef: Firebase?
     var userName: String?
@@ -52,6 +52,24 @@ class TaskViewController: UITableViewController {
         })
     }
     
+    // MARK: - Take Task
+    @IBAction func takeTask(sender: AnyObject) {
+        let button = sender as! UIButton
+        let view = button.superview!
+        let cell = view.superview as! TaskCell
+        
+        let indexPath = tableView.indexPathForCell(cell)
+        let task = tasks[indexPath!.row]
+
+        cell.takeTask.hidden = true
+        cell.assignedToLabel.hidden = false
+        cell.assignedPeople.hidden = false
+        if cell.assignedPeople.text == "" {
+            task.ref?.childByAppendingPath("inCharge").setValue([self.userName!])
+            //cell.assignedPeople.text?.appendContentsOf(self.userName!)
+        }
+    }
+    
     func addTask() {
         // alert to add task
         
@@ -79,8 +97,9 @@ class TaskViewController: UITableViewController {
                     
                 }
                 let textField = alert.textFields![0]
-                let task = Task(title: textField.text!, creator: self.userName!)
-                let taskRef = self.ref!.childByAppendingPath(task.title.lowercaseString + "/")
+                let taskRef = self.ref!.childByAppendingPath(textField.text!.lowercaseString + "/")
+
+                let task = Task(title: textField.text!, creator: self.userName!, ref: taskRef)
 
                 taskRef.setValue(task.toAnyObject())
                 //self.tableView.reloadData()
@@ -123,13 +142,30 @@ class TaskViewController: UITableViewController {
         
         let task = tasks[indexPath.row]
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier)! as UITableViewCell//as! TaskCancelingTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! TaskCell
         
         // This is the new configureCell method
         //configureCell(cell, event: event)
-        cell.textLabel?.text = task.title
-        cell.detailTextLabel?.text = task.creator
+        cell.taskDescription.text = task.title
+        cell.creator.text = task.creator
+        cell.selectionStyle = .None
         
+        if task.inCharge == ["noone"] {
+            // no one assigned yet
+            print("noone")
+        } else {
+            //var assigned: String
+            cell.takeTask.hidden = true
+            cell.assignedToLabel.hidden = false
+            cell.assignedPeople.hidden = false
+            for name in task.inCharge {
+               // print(name)
+               // print(name as String)
+                cell.assignedPeople.text? = name + ", "
+            }
+            cell.assignedPeople.text? = String(cell.assignedPeople.text!.characters.dropLast().dropLast())
+        }
+
         return cell
     }
     

@@ -15,6 +15,7 @@ class EventViewController: UITableViewController {
     var events = [Event]()
     var authID: String?
     
+    @IBOutlet weak var dateLabel: UILabel!
 
     @IBOutlet weak var activityView: UIView!
     
@@ -31,6 +32,10 @@ class EventViewController: UITableViewController {
     // reloads the tableview data and event array
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MMMM d, y"
+        let today = dateFormatter.stringFromDate(NSDate())
+        dateLabel.text = today
         
         // get this user's events that the user is a part of
         FirebaseClient.sharedInstance().getEvents(authID!) {

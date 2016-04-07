@@ -14,7 +14,8 @@ import FBSDKLoginKit
 class UserEventViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
     var authID: String?
-
+    @IBOutlet weak var dateLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,10 +31,14 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MMMM d, y"
+        let today = dateFormatter.stringFromDate(NSDate())
+        dateLabel.text = today
     }
     
     func initNavBar() {
-        navigationItem.title = "User Events"
+        navigationItem.title = "Personal"
         let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addUserEvent")
         let infoButton = UIButton(type: UIButtonType.InfoLight) as UIButton
         let leftBarButton = UIBarButtonItem()

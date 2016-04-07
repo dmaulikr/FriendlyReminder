@@ -18,8 +18,7 @@ class FriendsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.title = "Friends"
+        initNavBar()
     }
     
     // reloads the tableview data and task array
@@ -34,9 +33,46 @@ class FriendsViewController: UITableViewController {
         }
     }
     
-    @IBAction func addFriend(sender: AnyObject) {
-
+    func initNavBar() {
+        navigationItem.title = "Friends"
+        let infoButton = UIButton(type: UIButtonType.InfoLight) as UIButton
+        let rightBarButton = UIBarButtonItem()
+        infoButton.frame = CGRectMake(0,0,30,30)
+        infoButton.addTarget(self, action: "showInfo", forControlEvents: .TouchUpInside)
+        rightBarButton.customView = infoButton
+        navigationItem.rightBarButtonItem = rightBarButton
     }
+    
+    func showInfo() {
+        let alert = UIAlertController(title: "Instructions",
+            message: "Tap friends to add them to the event! It will change their background to green.",
+            preferredStyle: .Alert)
+        
+        let cancelAction = UIAlertAction(title: "OK",
+            style: .Default) { (action: UIAlertAction) -> Void in
+        }
+        
+        alert.addAction(cancelAction)
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func configureCell(cell: FriendCell, indexPath: NSIndexPath) {
+        let friend = friends[indexPath.row]
+
+        cell.friendName.text = friend.name
+        cell.profilePic.image = friend.image
+        if friend.isMember {
+            cell.tintColor = UIColor.redColor()
+            cell.backgroundColor = UIColor.greenColor()
+            cell.accessoryType = .Checkmark
+            cell.contentView.backgroundColor = UIColor.greenColor()
+            cell.selectionStyle = .None
+        } else {
+            cell.contentView.backgroundColor = UIColor.blueColor()
+        }
+        
+    }
+    
     // MARK: - Table View
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -45,22 +81,14 @@ class FriendsViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let CellIdentifier = "FriendCell"
-        let friend = friends[indexPath.row]
         let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! FriendCell//as! TaskCancelingTableViewCell
         
-        cell.friendName.text = friend.name
-        cell.profilePic.image = friend.image
-        if friend.isMember {
-            cell.contentView.backgroundColor = UIColor.greenColor()
-        } else {
-            cell.contentView.backgroundColor = UIColor.blueColor()
-        }
+        configureCell(cell, indexPath: indexPath)
         
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        // TODO: make the button unclickable and say ADDED!
         let friend = friends[indexPath.row]
         if friend.isMember == false {
             self.membersRef?.updateChildValues([friend.id: true])
@@ -68,16 +96,7 @@ class FriendsViewController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,
-        forRowAtIndexPath indexPath: NSIndexPath) {
-            
-            switch (editingStyle) {
-            case .Delete: break
-                //let task = friends[indexPath.row]
-                //print("\(task.ref)")
-                //task.ref!.removeValue()
-            default:
-                break
-            }
+    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return UITableViewCellEditingStyle.None
     }
 }
