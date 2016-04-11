@@ -61,12 +61,8 @@ class TaskViewController: UITableViewController {
         let indexPath = tableView.indexPathForCell(cell)
         let task = tasks[indexPath!.row]
 
-        cell.takeTask.hidden = true
-        cell.assignedToLabel.hidden = false
-        cell.assignedPeople.hidden = false
         if cell.assignedPeople.text == "" {
             task.ref?.childByAppendingPath("inCharge").setValue([self.userName!])
-            //cell.assignedPeople.text?.appendContentsOf(self.userName!)
         }
     }
     
@@ -93,8 +89,6 @@ class TaskViewController: UITableViewController {
                     
                     self.presentViewController(alert2, animated: true, completion: nil)
                     return
-                    
-                    
                 }
                 let textField = alert.textFields![0]
                 let taskRef = self.ref!.childByAppendingPath(textField.text!.lowercaseString + "/")
@@ -128,6 +122,26 @@ class TaskViewController: UITableViewController {
         self.navigationController!.pushViewController(controller, animated: true)
     }
     
+    func configureCell(cell: TaskCell, indexPath: NSIndexPath) {
+        let task = tasks[indexPath.row]
+
+        cell.taskDescription.text = task.title
+        cell.creator.text = task.creator
+        cell.selectionStyle = .None
+        
+        if task.inCharge == ["noone"] {
+            // no one assigned yet
+        } else {
+            cell.takeTask.hidden = true
+            cell.assignedToLabel.hidden = false
+            cell.assignedPeople.hidden = false
+            for name in task.inCharge {
+                cell.assignedPeople.text? = name + ", "
+            }
+            cell.assignedPeople.text? = String(cell.assignedPeople.text!.characters.dropLast().dropLast())
+        }
+    }
+    
     
     // MARK: - Table View
     
@@ -139,32 +153,9 @@ class TaskViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let CellIdentifier = "TaskCell"
-        
-        let task = tasks[indexPath.row]
-        
         let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! TaskCell
         
-        // This is the new configureCell method
-        //configureCell(cell, event: event)
-        cell.taskDescription.text = task.title
-        cell.creator.text = task.creator
-        cell.selectionStyle = .None
-        
-        if task.inCharge == ["noone"] {
-            // no one assigned yet
-            print("noone")
-        } else {
-            //var assigned: String
-            cell.takeTask.hidden = true
-            cell.assignedToLabel.hidden = false
-            cell.assignedPeople.hidden = false
-            for name in task.inCharge {
-               // print(name)
-               // print(name as String)
-                cell.assignedPeople.text? = name + ", "
-            }
-            cell.assignedPeople.text? = String(cell.assignedPeople.text!.characters.dropLast().dropLast())
-        }
+        configureCell(cell, indexPath: indexPath)
 
         return cell
     }

@@ -104,6 +104,8 @@
 				7BF930C71C814DE700F1794F /* EventCreatorViewController.swift */,
 				7BECB56B1C92319C00C30DAA /* TaskViewController.swift */,
 				7BECB57E1C9B7D9D00C30DAA /* FriendsViewController.swift */,
+				7BECB5951CACB8B200C30DAA /* UserEventViewController.swift */,
+				7BECB59C1CAF667F00C30DAA /* UserTaskViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -112,9 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				7BECB5931CA48F5600C30DAA /* UserEvent.swift */,
-				7BECB5951CACB8B200C30DAA /* UserEventViewController.swift */,
 				7BECB59A1CAF61E600C30DAA /* UserTask.swift */,
-				7BECB59C1CAF667F00C30DAA /* UserTaskViewController.swift */,
 			);
 			name = UserTodo;
 			sourceTree = "<group>";

@@ -56,8 +56,6 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
                     
                     self.presentViewController(alert2, animated: true, completion: nil)
                     return
-                    
-                    
                 }
                 let textField = alert.textFields![0]
                 let dateFormatter = NSDateFormatter()
