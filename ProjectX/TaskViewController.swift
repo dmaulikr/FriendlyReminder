@@ -130,7 +130,12 @@ class TaskViewController: UITableViewController {
         cell.selectionStyle = .None
         
         if task.inCharge == ["noone"] {
-            // no one assigned yet
+            // reset the cell
+            cell.takeTask.hidden = false
+            cell.assignedToLabel.hidden = true
+            cell.assignedPeople.hidden = true
+            cell.assignedPeople.text? = ""
+
         } else {
             cell.takeTask.hidden = true
             cell.assignedToLabel.hidden = false

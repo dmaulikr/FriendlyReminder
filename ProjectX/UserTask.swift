@@ -10,6 +10,7 @@ import CoreData
 class UserTask: NSManagedObject {
     @NSManaged var title: String
     @NSManaged var created: String
+    @NSManaged var isDone: Bool
     @NSManaged var event: UserEvent
     
     override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
@@ -22,6 +23,7 @@ class UserTask: NSManagedObject {
         self.title = title
         self.created = created
         self.event = event
+        self.isDone = false
     }
 }
 

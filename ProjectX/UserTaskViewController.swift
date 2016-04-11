@@ -106,7 +106,7 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
         
     }()
     
-    // MARK: - Fetched Results Controller Delegate - Need to have this or else NSFetchedResultsController won't update
+    // MARK: - Fetched Results Controller Delegate
     
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         
@@ -114,15 +114,26 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
             
         case .Insert:
             print("insert")
-            tableView.reloadData()
-            break
+            
         case .Delete:
             print("delete")
-            tableView.reloadData()
-            break
+
+            
+        case .Update:
+            print("update")
+            let cell = tableView.cellForRowAtIndexPath(indexPath!)!
+            let task = controller.objectAtIndexPath(indexPath!) as! UserTask
+            toggleCellCheckbox(cell, completed: task.isDone)
+            
         default:
             break
         }
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        // need to reload tableView and save changes to core data
+        tableView.reloadData()
+        CoreDataStackManager.sharedInstance().saveContext()
     }
     
     // MARK: - Table View
@@ -133,14 +144,22 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let CellIdentifier = "TaskCell"
+        let CellIdentifier = "UserTaskCell"
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier)! as UITableViewCell//as! TaskCancelingTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier)! as UITableViewCell
         
         // This is the new configureCell method
         configureCell(cell, indexPath: indexPath)
         
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        let userTask = fetchedResultsController.objectAtIndexPath(indexPath) as! UserTask
+        let completed = userTask.isDone
+        userTask.isDone = !completed
+
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,
@@ -152,7 +171,7 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
                 
                 // iterate through fetchedResultsController to find the task then delete it
                 sharedContext.deleteObject(userTask)
-                CoreDataStackManager.sharedInstance().saveContext()
+           //     CoreDataStackManager.sharedInstance().saveContext()
                 break
             default:
                 break
@@ -163,6 +182,15 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
         let task = fetchedResultsController.objectAtIndexPath(indexPath) as! UserTask
         
         cell.textLabel?.text = task.title
+        toggleCellCheckbox(cell, completed: task.isDone)
+    }
+    
+    func toggleCellCheckbox(cell: UITableViewCell, completed: Bool) {
+        if !completed {
+            cell.accessoryType = UITableViewCellAccessoryType.None
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+        }
     }
     
 }
