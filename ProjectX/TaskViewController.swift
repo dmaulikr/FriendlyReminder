@@ -53,6 +53,7 @@ class TaskViewController: UITableViewController {
     }
     
     // MARK: - Take Task
+    // MODIFY TO ADD QUIT TASK
     @IBAction func takeTask(sender: AnyObject) {
         let button = sender as! UIButton
         let view = button.superview!
@@ -60,11 +61,30 @@ class TaskViewController: UITableViewController {
         
         let indexPath = tableView.indexPathForCell(cell)
         let task = tasks[indexPath!.row]
-
-        if cell.assignedPeople.text == "" {
-            task.ref?.childByAppendingPath("inCharge").setValue([self.userName!])
+        
+        if button.titleLabel!.text == "Take task" {
+            task.inCharge.append(self.userName!)
+        } else {
+            var newArray: [String] = []
+            // remove user from incharge list
+            for name in task.inCharge {
+                if name != self.userName {
+                    newArray.append(name)
+                }
+            }
+            if newArray == [] {
+                newArray.append("no one")
+            }
+            task.inCharge = newArray
+            button.setTitle("Take task", forState: .Normal)
         }
+        task.ref?.childByAppendingPath("inCharge").setValue(task.inCharge)
     }
+    
+    @IBAction func assignTask(sender: AnyObject) {
+        
+    }
+    
     
     func addTask() {
         // alert to add task
@@ -129,7 +149,7 @@ class TaskViewController: UITableViewController {
         cell.creator.text = task.creator
         cell.selectionStyle = .None
         
-        if task.inCharge == ["noone"] {
+        if task.inCharge == ["no one"] {
             // reset the cell
             cell.takeTask.hidden = false
             cell.assignedToLabel.hidden = true
@@ -137,10 +157,14 @@ class TaskViewController: UITableViewController {
             cell.assignedPeople.text? = ""
 
         } else {
-            cell.takeTask.hidden = true
+
+            //cell.takeTask.hidden = true
             cell.assignedToLabel.hidden = false
             cell.assignedPeople.hidden = false
             for name in task.inCharge {
+                if name == userName {
+                    cell.takeTask.setTitle("Quit Task", forState: .Normal)
+                }
                 cell.assignedPeople.text? = name + ", "
             }
             cell.assignedPeople.text? = String(cell.assignedPeople.text!.characters.dropLast().dropLast())

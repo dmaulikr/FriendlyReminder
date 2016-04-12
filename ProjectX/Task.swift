@@ -18,7 +18,7 @@ class Task {
         self.title = title
         self.ref = ref
         self.creator = creator
-        self.inCharge = ["noone"]
+        self.inCharge = ["no one"]
     }
     
     init(snapshot: FDataSnapshot) {
