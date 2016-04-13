@@ -45,7 +45,7 @@ class FriendsViewController: UITableViewController {
     
     func showInfo() {
         let alert = UIAlertController(title: "Instructions",
-            message: "Tap friends to add them to the event! It will change their background to green.",
+            message: "Tap friends to add them to the event!",
             preferredStyle: .Alert)
         
         let cancelAction = UIAlertAction(title: "OK",
@@ -62,15 +62,12 @@ class FriendsViewController: UITableViewController {
         cell.friendName.text = friend.name
         cell.profilePic.image = friend.image
         if friend.isMember {
-            cell.tintColor = UIColor.redColor()
-            cell.backgroundColor = UIColor.greenColor()
+            cell.tintColor = UIColor.orangeColor()
+            cell.backgroundColor = UIColor.blackColor()
             cell.accessoryType = .Checkmark
-            cell.contentView.backgroundColor = UIColor.greenColor()
+            cell.contentView.backgroundColor = UIColor.blackColor()
             cell.selectionStyle = .None
-        } else {
-            cell.contentView.backgroundColor = UIColor.blueColor()
         }
-        
     }
     
     // MARK: - Table View
@@ -92,7 +89,9 @@ class FriendsViewController: UITableViewController {
         let friend = friends[indexPath.row]
         if friend.isMember == false {
             self.membersRef?.updateChildValues([friend.id: true])
-            tableView.cellForRowAtIndexPath(indexPath)?.contentView.backgroundColor = UIColor.greenColor()
+            //tableView.cellForRowAtIndexPath(indexPath)?.contentView.backgroundColor = UIColor.greenColor()
+            friend.isMember = true
+            tableView.reloadData()
         }
     }
     

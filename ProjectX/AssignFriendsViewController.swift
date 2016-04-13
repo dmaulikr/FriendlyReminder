@@ -15,6 +15,7 @@ class AssignFriendsViewController: UITableViewController {
     var membersRef: Firebase?
     var task: Task!
     var selectedFriends: [String] = []
+    var counter: Int = 0
         
     @IBOutlet weak var activityView: UIView!
     
@@ -30,8 +31,27 @@ class AssignFriendsViewController: UITableViewController {
         FacebookClient.sharedInstance().searchForFriendsList(self.membersRef!) {
             (friends, picture, error) -> Void in
             self.friends = friends
-            self.tableView.reloadData()
             self.activityView.hidden = true
+            for friend in friends {
+                if friend.isMember {
+                    self.counter++
+                }
+            }
+            if self.counter == 0 {
+                // present alert
+                let alert = UIAlertController(title: "No Friends Found",
+                    message: "Add friends to the event first!",
+                    preferredStyle: .Alert)
+                
+                let cancelAction = UIAlertAction(title: "OK",
+                    style: .Default) { (action: UIAlertAction) -> Void in
+                        self.navigationController?.popViewControllerAnimated(true)
+                }
+                alert.addAction(cancelAction)
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+            self.tableView.reloadData()
+
         }
     }
     
@@ -65,20 +85,24 @@ class AssignFriendsViewController: UITableViewController {
         let friend = friends[indexPath.row]
         var isAssigned: Bool = false
         
-        cell.friendName.text = friend.name
-        cell.profilePic.image = friend.image
+        // only if friend has been added to the event
+        if friend.isMember {
+            cell.friendName.text = friend.name
+            cell.profilePic.image = friend.image
+            
+            for name in task.inCharge {
+                if name == friend.name {
+                    isAssigned = true
+                }
+            }
+            for name in selectedFriends {
+                if name == friend.name {
+                    isAssigned = true
+                }
+            }
+            toggleCellCheckbox(cell, isAssigned: isAssigned)
+        }
 
-        for name in task.inCharge {
-            if name == friend.name {
-                isAssigned = true
-            }
-        }
-        for name in selectedFriends {
-            if name == friend.name {
-                isAssigned = true
-            }
-        }
-        toggleCellCheckbox(cell, isAssigned: isAssigned)
     }
     
     
@@ -86,6 +110,7 @@ class AssignFriendsViewController: UITableViewController {
         if !isAssigned {
             cell.accessoryType = UITableViewCellAccessoryType.None
         } else {
+            cell.tintColor = UIColor.orangeColor()
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
             cell.userInteractionEnabled = false
             cell.backgroundColor = UIColor.blackColor()
@@ -95,7 +120,7 @@ class AssignFriendsViewController: UITableViewController {
     // MARK: - Table View
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friends.count
+        return counter
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -113,8 +138,6 @@ class AssignFriendsViewController: UITableViewController {
         selectedFriends.append(friend.name)
         let cell = tableView.cellForRowAtIndexPath(indexPath)
         cell!.userInteractionEnabled = false
-        print("hi")
-
         tableView.reloadData()
     }
     

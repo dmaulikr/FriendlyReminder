@@ -67,7 +67,9 @@ class TaskViewController: UITableViewController {
         
         if button.titleLabel!.text == "Take task" {
             task.inCharge.append(self.userName!)
-        } else { // Quit Task
+            button.setTitle("Quit task", forState: .Normal)
+
+        } else { // Quit task
             var newArray: [String] = []
             // remove user from incharge list
             for name in task.inCharge {
@@ -176,7 +178,7 @@ class TaskViewController: UITableViewController {
 
             for name in task.inCharge {
                 if name == userName {
-                    cell.takeTask.setTitle("Quit Task", forState: .Normal)
+                    cell.takeTask.setTitle("Quit task", forState: .Normal)
                 }
                 cell.assignedPeople.text?.appendContentsOf(name + ", ")
             }
