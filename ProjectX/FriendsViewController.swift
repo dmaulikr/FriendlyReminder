@@ -61,12 +61,13 @@ class FriendsViewController: UITableViewController {
 
         cell.friendName.text = friend.name
         cell.profilePic.image = friend.image
+        cell.tintColor = UIColor.orangeColor()
+        cell.backgroundColor = UIColor.blackColor()
         if friend.isMember {
-            cell.tintColor = UIColor.orangeColor()
-            cell.backgroundColor = UIColor.blackColor()
             cell.accessoryType = .Checkmark
-            cell.contentView.backgroundColor = UIColor.blackColor()
-            cell.selectionStyle = .None
+        } else {
+            // remove checkmark
+            cell.accessoryType = .None
         }
     }
     
@@ -89,10 +90,13 @@ class FriendsViewController: UITableViewController {
         let friend = friends[indexPath.row]
         if friend.isMember == false {
             self.membersRef?.updateChildValues([friend.id: true])
-            //tableView.cellForRowAtIndexPath(indexPath)?.contentView.backgroundColor = UIColor.greenColor()
             friend.isMember = true
-            tableView.reloadData()
+        } else {
+            // removing friend from event
+            self.membersRef?.updateChildValues([friend.id: false])
+            friend.isMember = false
         }
+        tableView.reloadData()
     }
     
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {

@@ -24,8 +24,7 @@ class TaskViewController: UITableViewController {
 
         navigationItem.title = eventTitle
         let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addTask")
-        let addFriends = UIBarButtonItem(title: "Friends", style: .Plain, target: self, action: "addFriends")
-
+        let addFriends = UIBarButtonItem(title: "Add Friends", style: .Plain, target: self, action: "addFriends")
         navigationItem.rightBarButtonItems = [addFriends, addButton]
         
         
@@ -54,13 +53,9 @@ class TaskViewController: UITableViewController {
     
     // MARK: - Take Task
     @IBAction func takeTask(sender: AnyObject) {
+        let task = getTask(sender)
         let button = sender as! UIButton
-        let view = button.superview!
-        let cell = view.superview as! TaskCell
-        
-        let indexPath = tableView.indexPathForCell(cell)
-        let task = tasks[indexPath!.row]
-        
+
         if task.inCharge[0] == "no one" {
             task.inCharge = []
         }
@@ -87,18 +82,56 @@ class TaskViewController: UITableViewController {
     }
     
     @IBAction func assignTask(sender: AnyObject) {
-        let button = sender as! UIButton
-        let view = button.superview!
-        let cell = view.superview as! TaskCell
-        
-        let indexPath = tableView.indexPathForCell(cell)
-        let task = tasks[indexPath!.row]
+        let task = getTask(sender)
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("AssignFriendsViewController") as! AssignFriendsViewController
         controller.membersRef = eventRef?.childByAppendingPath("members/")
         controller.task = task
         self.navigationController!.pushViewController(controller, animated: true)
         
     }
+    
+    @IBAction func completeTask(sender: AnyObject) {
+        //change background of button to green
+        // strikethrough task description
+        let button = sender as! UIButton
+        let view = button.superview!
+        let cell = view.superview as! TaskCell
+        let indexPath = tableView.indexPathForCell(cell)
+        let task = tasks[indexPath!.row]
+        
+        // if complete and want to undo
+        if task.complete {
+           // UIColor *color = [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
+            let pinkColor = UIColor(colorLiteralRed: 1, green: 0.481462, blue: 0.53544, alpha: 1)
+            //cell.checkmarkButton.backgroundColor = UIDeviceRGBColorSpace(
+            cell.checkmarkButton.backgroundColor = pinkColor
+            cell.taskDescription.attributedText = nil
+            task.ref?.childByAppendingPath("complete").setValue(false)
+            cell.takeTask.userInteractionEnabled = true
+            cell.assignButton.userInteractionEnabled = true
+            
+        } else {
+            cell.checkmarkButton.backgroundColor = UIColor.greenColor()
+            let attributes = [
+                // NSStrikethroughColorAttributeName: UIColor.blackColor(),
+                NSStrikethroughStyleAttributeName: NSNumber(integer: NSUnderlineStyle.StyleSingle.rawValue)
+            ]
+            cell.taskDescription.attributedText = NSAttributedString(string: cell.taskDescription.text!, attributes: attributes)
+            cell.userInteractionEnabled = false
+            task.ref?.childByAppendingPath("complete").setValue(true)
+        }
+
+    }
+    
+    func getTask(sender: AnyObject) -> Task {
+        let button = sender as! UIButton
+        let view = button.superview!
+        let cell = view.superview as! TaskCell
+        let indexPath = tableView.indexPathForCell(cell)
+        let task = tasks[indexPath!.row]
+        return task
+    }
+    
     
     func addFriends() {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("FriendsViewController") as! FriendsViewController
@@ -163,10 +196,32 @@ class TaskViewController: UITableViewController {
         cell.taskDescription.text = task.title
         cell.creator.text = task.creator
         cell.selectionStyle = .None
+        cell.checkmarkButton.hidden = true
+        // if task is done, show check button that is green and strikethrough description
+        // cant interact with cell unless you are part of the assigned people
+        if task.complete {
+            cell.checkmarkButton.hidden = false
+            cell.checkmarkButton.backgroundColor = UIColor.greenColor()
+            let attributes = [
+                NSStrikethroughStyleAttributeName: NSNumber(integer: NSUnderlineStyle.StyleSingle.rawValue)
+            ]
+            cell.taskDescription.attributedText = NSAttributedString(string: cell.taskDescription.text!, attributes: attributes)
+            cell.userInteractionEnabled = false
+            for name in task.inCharge {
+                // can interact with only checkmark button
+                if name == userName {
+                    cell.userInteractionEnabled = true
+                    cell.takeTask.userInteractionEnabled = false
+                    cell.assignButton.userInteractionEnabled = false
+                }
+            }
+        }
+
         
         if task.inCharge == ["no one"] {
             // reset the cell
             cell.takeTask.hidden = false
+            cell.takeTask.setTitle("Take task", forState: .Normal)
             cell.assignedToLabel.hidden = true
             cell.assignedPeople.hidden = true
            // cell.assignedPeople.text? = ""
@@ -175,10 +230,12 @@ class TaskViewController: UITableViewController {
             cell.assignedPeople.text? = ""
             cell.assignedToLabel.hidden = false
             cell.assignedPeople.hidden = false
+            
 
             for name in task.inCharge {
                 if name == userName {
                     cell.takeTask.setTitle("Quit task", forState: .Normal)
+                    cell.checkmarkButton.hidden = false
                 }
                 cell.assignedPeople.text?.appendContentsOf(name + ", ")
             }

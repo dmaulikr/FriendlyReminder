@@ -90,7 +90,6 @@ class FacebookClient {
                         let friend = Friend(name: friend["name"] as! String, id: id!, image: profileImage, isMember: isMember)
                         newFriends.append(friend)
                         dispatch_group_leave(group)
-
                     }
                     // gets notified once firebase finishes call
                     dispatch_group_notify(group, dispatch_get_main_queue()) {
@@ -105,9 +104,9 @@ class FacebookClient {
     }
     
     func isMember(membersRef: Firebase, id: String, completionHandler: (isMember: Bool) -> Void){
-        membersRef.observeEventType(.Value, withBlock: {
+        membersRef.observeSingleEventOfType(.Value, withBlock: {
             snapshot in
-            if snapshot.value[id]! != nil {
+            if snapshot.value[id] as! Bool == true {
                 completionHandler(isMember: true)
             } else {
                 completionHandler(isMember: false)

@@ -69,6 +69,18 @@ class AssignFriendsViewController: UITableViewController {
     
     func assignFriends() {
         // use selectedFriends to add to task.incharge
+        if selectedFriends == [] {
+            let alert = UIAlertController(title: "No Friends Selected",
+                message: "Select friends to add!",
+                preferredStyle: .Alert)
+            
+            let cancelAction = UIAlertAction(title: "OK",
+                style: .Default) { (action: UIAlertAction) -> Void in
+            }
+            alert.addAction(cancelAction)
+            self.presentViewController(alert, animated: true, completion: nil)
+            return
+        }
         if task.inCharge[0] == "no one" {
             task.inCharge = []
         }

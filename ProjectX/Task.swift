@@ -13,12 +13,14 @@ class Task {
     var ref: Firebase?
     var creator: String
     var inCharge: [String]
+    var complete: Bool
     
     init(title: String, creator: String, ref: Firebase) {
         self.title = title
         self.ref = ref
         self.creator = creator
         self.inCharge = ["no one"]
+        self.complete = false
     }
     
     init(snapshot: FDataSnapshot) {
@@ -26,13 +28,15 @@ class Task {
         ref = snapshot.ref
         creator = snapshot.value["creator"] as! String
         inCharge = snapshot.value["inCharge"] as! [String]
+        complete = snapshot.value["complete"] as! Bool
     }
     
     func toAnyObject() -> AnyObject {
         return [
             "title": title,
             "creator": creator,
-            "inCharge": inCharge
+            "inCharge": inCharge,
+            "complete": complete
         ]
     }
 }

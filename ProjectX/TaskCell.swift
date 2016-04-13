@@ -15,4 +15,6 @@ class TaskCell: UITableViewCell {
     @IBOutlet weak var creator: UILabel!
     @IBOutlet weak var assignedToLabel: UILabel!
     @IBOutlet weak var assignedPeople: UILabel!
+    @IBOutlet weak var checkmarkButton: UIButton!
+    @IBOutlet weak var assignButton: UIButton!
 }

@@ -304,10 +304,10 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hb6-UU-Vwf">
-                                            <rect key="frame" x="77" y="83" width="89" height="30"/>
+                                            <rect key="frame" x="64" y="83" width="69" height="30"/>
                                             <color key="backgroundColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="89" id="Inc-fR-bUo"/>
+                                                <constraint firstAttribute="width" constant="69" id="Inc-fR-bUo"/>
                                             </constraints>
                                             <state key="normal" title="Take task">
                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -317,7 +317,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cja-0b-xI2">
-                                            <rect key="frame" x="8" y="83" width="64" height="30"/>
+                                            <rect key="frame" x="8" y="83" width="48" height="30"/>
                                             <color key="backgroundColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <state key="normal" title="Assign">
                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -341,10 +341,23 @@
                                             <color key="textColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zpY-Ni-JbI">
+                                            <rect key="frame" x="141" y="83" width="33" height="30"/>
+                                            <color key="backgroundColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="YgN-j4-qX7"/>
+                                            </constraints>
+                                            <state key="normal" image="pinkCheck">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="completeTask:" destination="f3S-QD-KIo" eventType="touchUpInside" id="87G-b7-L2l"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="hb6-UU-Vwf" firstAttribute="baseline" secondItem="cja-0b-xI2" secondAttribute="baseline" id="153-jd-rfK"/>
-                                        <constraint firstItem="hb6-UU-Vwf" firstAttribute="leading" secondItem="cja-0b-xI2" secondAttribute="trailing" constant="5" id="3Iw-ug-Ky3"/>
+                                        <constraint firstItem="hb6-UU-Vwf" firstAttribute="leading" secondItem="cja-0b-xI2" secondAttribute="trailing" constant="8" id="3Iw-ug-Ky3"/>
                                         <constraint firstItem="xcj-gd-1Oc" firstAttribute="centerY" secondItem="yWp-kP-QPf" secondAttribute="centerY" constant="1.5" id="4rg-7m-bMm"/>
                                         <constraint firstItem="Atj-0t-VcO" firstAttribute="top" secondItem="bPi-4A-9R0" secondAttribute="topMargin" constant="-8" id="5Vh-ro-0tE"/>
                                         <constraint firstItem="cja-0b-xI2" firstAttribute="leading" secondItem="yWp-kP-QPf" secondAttribute="leading" id="8HS-b9-g5L"/>
@@ -354,20 +367,24 @@
                                         <constraint firstItem="Zdb-2Y-kyC" firstAttribute="trailing" secondItem="bPi-4A-9R0" secondAttribute="trailingMargin" id="Hqp-Wd-nz2"/>
                                         <constraint firstItem="cja-0b-xI2" firstAttribute="top" secondItem="yWp-kP-QPf" secondAttribute="bottom" constant="8" symbolic="YES" id="ILu-XI-MSo"/>
                                         <constraint firstItem="7iU-CV-ebe" firstAttribute="leading" secondItem="bPi-4A-9R0" secondAttribute="leadingMargin" constant="69" id="Kek-Bd-bda"/>
+                                        <constraint firstItem="zpY-Ni-JbI" firstAttribute="leading" secondItem="hb6-UU-Vwf" secondAttribute="trailing" constant="8" id="KyC-5O-uTQ"/>
                                         <constraint firstItem="Zdb-2Y-kyC" firstAttribute="top" secondItem="xcj-gd-1Oc" secondAttribute="bottom" id="cuY-0N-Nld"/>
                                         <constraint firstItem="Atj-0t-VcO" firstAttribute="leading" secondItem="bPi-4A-9R0" secondAttribute="leadingMargin" constant="-4" id="f36-04-ytl"/>
                                         <constraint firstAttribute="trailing" secondItem="Atj-0t-VcO" secondAttribute="trailing" constant="4" id="ixu-JT-yAy"/>
                                         <constraint firstItem="xcj-gd-1Oc" firstAttribute="top" secondItem="7iU-CV-ebe" secondAttribute="top" constant="1" id="mKx-AM-w5e"/>
-                                        <constraint firstItem="hb6-UU-Vwf" firstAttribute="leading" secondItem="7iU-CV-ebe" secondAttribute="leading" id="nXn-PM-W1w"/>
+                                        <constraint firstItem="hb6-UU-Vwf" firstAttribute="leading" secondItem="7iU-CV-ebe" secondAttribute="leading" constant="-13" id="nXn-PM-W1w"/>
                                         <constraint firstItem="yWp-kP-QPf" firstAttribute="leading" secondItem="bPi-4A-9R0" secondAttribute="leadingMargin" id="rKD-dN-BcL"/>
                                         <constraint firstItem="cja-0b-xI2" firstAttribute="centerY" secondItem="Zdb-2Y-kyC" secondAttribute="centerY" id="sJv-yH-7MC"/>
                                         <constraint firstItem="7iU-CV-ebe" firstAttribute="baseline" secondItem="yWp-kP-QPf" secondAttribute="baseline" id="xgi-gE-aS9"/>
+                                        <constraint firstItem="zpY-Ni-JbI" firstAttribute="top" secondItem="hb6-UU-Vwf" secondAttribute="top" id="xjJ-qG-ZM1"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
+                                    <outlet property="assignButton" destination="cja-0b-xI2" id="z6U-Db-Dwp"/>
                                     <outlet property="assignedPeople" destination="Zdb-2Y-kyC" id="Cjm-Wc-hbs"/>
                                     <outlet property="assignedToLabel" destination="xcj-gd-1Oc" id="RwJ-R5-XuF"/>
+                                    <outlet property="checkmarkButton" destination="zpY-Ni-JbI" id="4R1-cC-nZW"/>
                                     <outlet property="creator" destination="7iU-CV-ebe" id="cPI-Q8-Hw4"/>
                                     <outlet property="takeTask" destination="hb6-UU-Vwf" id="bEg-FH-nfC"/>
                                     <outlet property="taskDescription" destination="Atj-0t-VcO" id="Ybl-i5-ucq"/>
@@ -379,6 +396,8 @@
                             <outlet property="delegate" destination="f3S-QD-KIo" id="XtK-PW-LMd"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activityView" destination="FSR-p1-GGw" id="Lop-2c-dvS"/>
                     </connections>
@@ -613,6 +632,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="RGi-R7-jfK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="4jA-cc-QYF" kind="relationship" relationship="rootViewController" id="jcR-lP-Zvj"/>
@@ -632,6 +652,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YEC-4a-rI8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="qJH-OF-OXe" kind="relationship" relationship="rootViewController" id="woC-25-x6M"/>
@@ -726,4 +747,7 @@
             <point key="canvasLocation" x="1702" y="-164"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="pinkCheck" width="33" height="33"/>
+    </resources>
 </document>
