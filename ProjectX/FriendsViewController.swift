@@ -81,7 +81,7 @@ class FriendsViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let CellIdentifier = "FriendCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! FriendCell//as! TaskCancelingTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! FriendCell
         
         configureCell(cell, indexPath: indexPath)
         

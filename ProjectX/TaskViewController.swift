@@ -53,7 +53,6 @@ class TaskViewController: UITableViewController {
     }
     
     // MARK: - Take Task
-    // MODIFY TO ADD QUIT TASK
     @IBAction func takeTask(sender: AnyObject) {
         let button = sender as! UIButton
         let view = button.superview!
@@ -62,9 +61,13 @@ class TaskViewController: UITableViewController {
         let indexPath = tableView.indexPathForCell(cell)
         let task = tasks[indexPath!.row]
         
+        if task.inCharge[0] == "no one" {
+            task.inCharge = []
+        }
+        
         if button.titleLabel!.text == "Take task" {
             task.inCharge.append(self.userName!)
-        } else {
+        } else { // Quit Task
             var newArray: [String] = []
             // remove user from incharge list
             for name in task.inCharge {
@@ -82,9 +85,24 @@ class TaskViewController: UITableViewController {
     }
     
     @IBAction func assignTask(sender: AnyObject) {
+        let button = sender as! UIButton
+        let view = button.superview!
+        let cell = view.superview as! TaskCell
+        
+        let indexPath = tableView.indexPathForCell(cell)
+        let task = tasks[indexPath!.row]
+        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("AssignFriendsViewController") as! AssignFriendsViewController
+        controller.membersRef = eventRef?.childByAppendingPath("members/")
+        controller.task = task
+        self.navigationController!.pushViewController(controller, animated: true)
         
     }
     
+    func addFriends() {
+        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("FriendsViewController") as! FriendsViewController
+        controller.membersRef = eventRef?.childByAppendingPath("members/")
+        self.navigationController!.pushViewController(controller, animated: true)
+    }
     
     func addTask() {
         // alert to add task
@@ -136,11 +154,6 @@ class TaskViewController: UITableViewController {
         presentViewController(alert, animated: true, completion: nil)
     }
     
-    func addFriends() {
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("FriendsViewController") as! FriendsViewController
-        controller.membersRef = eventRef?.childByAppendingPath("members/")
-        self.navigationController!.pushViewController(controller, animated: true)
-    }
     
     func configureCell(cell: TaskCell, indexPath: NSIndexPath) {
         let task = tasks[indexPath.row]
@@ -154,18 +167,18 @@ class TaskViewController: UITableViewController {
             cell.takeTask.hidden = false
             cell.assignedToLabel.hidden = true
             cell.assignedPeople.hidden = true
-            cell.assignedPeople.text? = ""
+           // cell.assignedPeople.text? = ""
 
         } else {
-
-            //cell.takeTask.hidden = true
+            cell.assignedPeople.text? = ""
             cell.assignedToLabel.hidden = false
             cell.assignedPeople.hidden = false
+
             for name in task.inCharge {
                 if name == userName {
                     cell.takeTask.setTitle("Quit Task", forState: .Normal)
                 }
-                cell.assignedPeople.text? = name + ", "
+                cell.assignedPeople.text?.appendContentsOf(name + ", ")
             }
             cell.assignedPeople.text? = String(cell.assignedPeople.text!.characters.dropLast().dropLast())
         }
@@ -175,8 +188,6 @@ class TaskViewController: UITableViewController {
     // MARK: - Table View
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //let sectionInfo = self.fetchedResultsController.sections![section]
-        //return sectionInfo.numberOfObjects
         return tasks.count
     }
     

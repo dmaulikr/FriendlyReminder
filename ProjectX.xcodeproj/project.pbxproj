@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3EC7512F1179258AE2F75F36 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 344182E63163010DD51F7D7E /* Pods.framework */; };
+		7B3631591CBDC8AF00CE9E35 /* AssignFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3631581CBDC8AE00CE9E35 /* AssignFriendsViewController.swift */; };
 		7BECB56C1C92319C00C30DAA /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BECB56B1C92319C00C30DAA /* TaskViewController.swift */; };
 		7BECB56E1C9236AC00C30DAA /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BECB56D1C9236AC00C30DAA /* Task.swift */; };
 		7BECB5701C92529200C30DAA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BECB56F1C92529200C30DAA /* LoginViewController.swift */; };
@@ -41,6 +42,7 @@
 		344182E63163010DD51F7D7E /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		436F31AF3903F1FB98F8E0EA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		643E731707CD34EAE0E1BC27 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		7B3631581CBDC8AE00CE9E35 /* AssignFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignFriendsViewController.swift; sourceTree = "<group>"; };
 		7BECB56B1C92319C00C30DAA /* TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		7BECB56D1C9236AC00C30DAA /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		7BECB56F1C92529200C30DAA /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				7BECB57E1C9B7D9D00C30DAA /* FriendsViewController.swift */,
 				7BECB5951CACB8B200C30DAA /* UserEventViewController.swift */,
 				7BECB59C1CAF667F00C30DAA /* UserTaskViewController.swift */,
+				7B3631581CBDC8AE00CE9E35 /* AssignFriendsViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				7BECB5861CA2265700C30DAA /* FirebaseConstants.swift in Sources */,
 				7BF930B71C7E704800F1794F /* ProjectX.xcdatamodeld in Sources */,
 				7BECB5781C97909700C30DAA /* User.swift in Sources */,
+				7B3631591CBDC8AF00CE9E35 /* AssignFriendsViewController.swift in Sources */,
 				7BECB59D1CAF667F00C30DAA /* UserTaskViewController.swift in Sources */,
 				7BECB5941CA48F5600C30DAA /* UserEvent.swift in Sources */,
 				7BECB57D1C9A49B500C30DAA /* FacebookClient.swift in Sources */,

@@ -155,12 +155,13 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let userTask = fetchedResultsController.objectAtIndexPath(indexPath) as! UserTask
         let completed = userTask.isDone
         userTask.isDone = !completed
 
     }
+    
+
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,
         forRowAtIndexPath indexPath: NSIndexPath) {
