@@ -72,7 +72,8 @@ class EventCreatorViewController: UIViewController, UITextFieldDelegate {
         
         let date = datePicker.date
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyyMMdd"
+        dateFormatter.timeStyle = .LongStyle
+        dateFormatter.dateFormat = "yyyyMMdd h:mm a"
         let dateString = dateFormatter.stringFromDate(date)
         
         if groupEvent == true {

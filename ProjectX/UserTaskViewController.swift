@@ -156,8 +156,8 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let userTask = fetchedResultsController.objectAtIndexPath(indexPath) as! UserTask
-        let completed = userTask.isDone
-        userTask.isDone = !completed
+        // triggers update
+        userTask.isDone = !userTask.isDone
 
     }
     
@@ -190,6 +190,7 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
         if !completed {
             cell.accessoryType = UITableViewCellAccessoryType.None
         } else {
+            cell.tintColor = UIColor.orangeColor()
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
         }
     }

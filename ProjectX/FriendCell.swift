@@ -11,5 +11,5 @@ import UIKit
 class FriendCell: UITableViewCell {
     @IBOutlet weak var profilePic: UIImageView!
     @IBOutlet weak var friendName: UILabel!
-
+    @IBOutlet weak var addedLabel: UILabel!
 }

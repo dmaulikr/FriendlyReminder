@@ -121,13 +121,14 @@ class EventViewController: UITableViewController {
     
     func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) {
         let event = events[indexPath.row]
-
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyyMMdd"
-        let oldDate = dateFormatter.dateFromString(event.date)
-        dateFormatter.dateFormat = "MMMM d, y"
-        let dateString = dateFormatter.stringFromDate(oldDate!)
         
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.timeStyle = .LongStyle
+        dateFormatter.dateFormat = "yyyyMMdd h:mm a"
+        let oldDate = dateFormatter.dateFromString(event.date)
+        dateFormatter.dateFormat = "MMMM d, y h:mm a"
+        let dateString = dateFormatter.stringFromDate(oldDate!)
+ 
         cell.textLabel?.text = event.title
         cell.detailTextLabel?.text = "Date of Event: " + dateString
         //cell.detailTextLabel?.text = self.data?.providerData["displayName"] as? String

@@ -65,9 +65,11 @@ class FriendsViewController: UITableViewController {
         cell.backgroundColor = UIColor.blackColor()
         if friend.isMember {
             cell.accessoryType = .Checkmark
+            cell.addedLabel.hidden = false
         } else {
             // remove checkmark
             cell.accessoryType = .None
+            cell.addedLabel.hidden = true
         }
     }
     

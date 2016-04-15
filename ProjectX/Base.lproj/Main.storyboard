@@ -41,11 +41,11 @@
                                     <rect key="frame" x="290" y="116" width="20" height="20"/>
                                 </activityIndicatorView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UXU-l8-ilv">
-                                    <rect key="frame" x="257" y="87" width="86" height="21"/>
+                                    <rect key="frame" x="257" y="88" width="86" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="86" id="QRP-Xs-own"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="17"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
@@ -66,16 +66,16 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lXX-BV-Ac6">
-                                            <rect key="frame" x="15" y="8" width="32" height="20"/>
+                                            <rect key="frame" x="15" y="9" width="33" height="19"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="16"/>
                                             <color key="textColor" red="1" green="0.48146152791637808" blue="0.53544022676345127" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3Nn-y2-xvE">
-                                            <rect key="frame" x="15" y="28" width="41" height="14"/>
+                                            <rect key="frame" x="15" y="28" width="38" height="13"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="11"/>
                                             <color key="textColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -157,16 +157,16 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SD9-hw-2Rh">
-                                            <rect key="frame" x="15" y="5" width="32" height="20"/>
+                                            <rect key="frame" x="15" y="6" width="33" height="19"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="16"/>
                                             <color key="textColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WKl-Zv-dTe">
-                                            <rect key="frame" x="15" y="25" width="41" height="14"/>
+                                            <rect key="frame" x="15" y="25" width="38" height="13"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="11"/>
                                             <color key="textColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -214,7 +214,7 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="test" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9aH-ym-IFR">
                                             <rect key="frame" x="15" y="0.0" width="570" height="39"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="16"/>
                                             <color key="textColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -237,24 +237,24 @@
         <scene sceneID="nJl-AK-LiY">
             <objects>
                 <tableViewController storyboardIdentifier="TaskViewController" id="f3S-QD-KIo" customClass="TaskViewController" customModule="ProjectX" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="122" sectionHeaderHeight="28" sectionFooterHeight="28" id="FTP-RM-HPr">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="105" sectionHeaderHeight="28" sectionFooterHeight="28" id="FTP-RM-HPr">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="0.60045622310000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="FSR-p1-GGw">
-                            <rect key="frame" x="0.0" y="150" width="600" height="144"/>
+                            <rect key="frame" x="0.0" y="133" width="600" height="144"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="X9o-Ai-bCb">
                                     <rect key="frame" x="290" y="116" width="20" height="20"/>
                                 </activityIndicatorView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CEn-xg-Jij">
-                                    <rect key="frame" x="257" y="87" width="86" height="21"/>
+                                    <rect key="frame" x="257" y="88" width="86" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="86" id="sPF-0v-BxJ"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -268,47 +268,42 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="122" id="t46-vU-2ax" customClass="TaskCell" customModule="ProjectX" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="600" height="122"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="105" id="t46-vU-2ax" customClass="TaskCell" customModule="ProjectX" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="600" height="105"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="t46-vU-2ax" id="bPi-4A-9R0">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="121"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="104"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Atj-0t-VcO">
-                                            <rect key="frame" x="4" y="0.0" width="592" height="55"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="55" id="YBl-Q4-Ec2"/>
+                                                <constraint firstAttribute="height" constant="40" id="yTl-zH-eV4"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                            <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="25"/>
                                             <color key="textColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created by:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yWp-kP-QPf">
-                                            <rect key="frame" x="8" y="60" width="95" height="15"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="95" id="MIe-WY-Kef"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <rect key="frame" x="8" y="45" width="61" height="15"/>
+                                            <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="12"/>
                                             <color key="textColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name of person" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7iU-CV-ebe">
-                                            <rect key="frame" x="77" y="59" width="140" height="16"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="140" id="e1q-tQ-kMf"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name of person which could be" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7iU-CV-ebe">
+                                            <rect key="frame" x="70" y="45" width="167" height="15"/>
+                                            <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="12"/>
                                             <color key="textColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hb6-UU-Vwf">
-                                            <rect key="frame" x="64" y="83" width="69" height="30"/>
+                                            <rect key="frame" x="64" y="68" width="69" height="30"/>
                                             <color key="backgroundColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="69" id="Inc-fR-bUo"/>
+                                                <constraint firstAttribute="width" constant="69" id="M5b-Ce-A9u"/>
                                             </constraints>
+                                            <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="15"/>
                                             <state key="normal" title="Take task">
                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
@@ -317,8 +312,12 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cja-0b-xI2">
-                                            <rect key="frame" x="8" y="83" width="48" height="30"/>
+                                            <rect key="frame" x="8" y="68" width="48" height="30"/>
                                             <color key="backgroundColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="48" id="1Fn-8U-F7k"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="15"/>
                                             <state key="normal" title="Assign">
                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
@@ -326,26 +325,18 @@
                                                 <action selector="assignTask:" destination="f3S-QD-KIo" eventType="touchUpInside" id="VNT-La-SXy"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="no one" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Zdb-2Y-kyC">
-                                            <rect key="frame" x="362" y="78" width="230" height="40"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Assigned to:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xcj-gd-1Oc">
-                                            <rect key="frame" x="427" y="60" width="101" height="18"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="101" id="wCK-wR-ynS"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <rect key="frame" x="196" y="48" width="391" height="14"/>
+                                            <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="12"/>
                                             <color key="textColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zpY-Ni-JbI">
-                                            <rect key="frame" x="141" y="83" width="33" height="30"/>
+                                            <rect key="frame" x="141" y="68" width="33" height="30"/>
                                             <color key="backgroundColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="30" id="YgN-j4-qX7"/>
+                                                <constraint firstAttribute="width" constant="33" id="RU6-5f-736"/>
+                                                <constraint firstAttribute="height" constant="30" id="yjb-Yn-cGO"/>
                                             </constraints>
                                             <state key="normal" image="pinkCheck">
                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -354,29 +345,40 @@
                                                 <action selector="completeTask:" destination="f3S-QD-KIo" eventType="touchUpInside" id="87G-b7-L2l"/>
                                             </connections>
                                         </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="no one" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Zdb-2Y-kyC">
+                                            <rect key="frame" x="184" y="60" width="416" height="44"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="44" id="prE-m9-5dE"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="12"/>
+                                            <color key="textColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="hb6-UU-Vwf" firstAttribute="baseline" secondItem="cja-0b-xI2" secondAttribute="baseline" id="153-jd-rfK"/>
-                                        <constraint firstItem="hb6-UU-Vwf" firstAttribute="leading" secondItem="cja-0b-xI2" secondAttribute="trailing" constant="8" id="3Iw-ug-Ky3"/>
-                                        <constraint firstItem="xcj-gd-1Oc" firstAttribute="centerY" secondItem="yWp-kP-QPf" secondAttribute="centerY" constant="1.5" id="4rg-7m-bMm"/>
-                                        <constraint firstItem="Atj-0t-VcO" firstAttribute="top" secondItem="bPi-4A-9R0" secondAttribute="topMargin" constant="-8" id="5Vh-ro-0tE"/>
-                                        <constraint firstItem="cja-0b-xI2" firstAttribute="leading" secondItem="yWp-kP-QPf" secondAttribute="leading" id="8HS-b9-g5L"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="xcj-gd-1Oc" secondAttribute="trailing" constant="64" id="93q-no-tnS"/>
-                                        <constraint firstItem="yWp-kP-QPf" firstAttribute="top" secondItem="Atj-0t-VcO" secondAttribute="bottom" constant="5" id="B5a-pY-560"/>
-                                        <constraint firstItem="xcj-gd-1Oc" firstAttribute="centerX" secondItem="Zdb-2Y-kyC" secondAttribute="centerX" constant="0.5" id="G8l-uc-W0s"/>
-                                        <constraint firstItem="Zdb-2Y-kyC" firstAttribute="trailing" secondItem="bPi-4A-9R0" secondAttribute="trailingMargin" id="Hqp-Wd-nz2"/>
-                                        <constraint firstItem="cja-0b-xI2" firstAttribute="top" secondItem="yWp-kP-QPf" secondAttribute="bottom" constant="8" symbolic="YES" id="ILu-XI-MSo"/>
-                                        <constraint firstItem="7iU-CV-ebe" firstAttribute="leading" secondItem="bPi-4A-9R0" secondAttribute="leadingMargin" constant="69" id="Kek-Bd-bda"/>
-                                        <constraint firstItem="zpY-Ni-JbI" firstAttribute="leading" secondItem="hb6-UU-Vwf" secondAttribute="trailing" constant="8" id="KyC-5O-uTQ"/>
-                                        <constraint firstItem="Zdb-2Y-kyC" firstAttribute="top" secondItem="xcj-gd-1Oc" secondAttribute="bottom" id="cuY-0N-Nld"/>
-                                        <constraint firstItem="Atj-0t-VcO" firstAttribute="leading" secondItem="bPi-4A-9R0" secondAttribute="leadingMargin" constant="-4" id="f36-04-ytl"/>
-                                        <constraint firstAttribute="trailing" secondItem="Atj-0t-VcO" secondAttribute="trailing" constant="4" id="ixu-JT-yAy"/>
-                                        <constraint firstItem="xcj-gd-1Oc" firstAttribute="top" secondItem="7iU-CV-ebe" secondAttribute="top" constant="1" id="mKx-AM-w5e"/>
-                                        <constraint firstItem="hb6-UU-Vwf" firstAttribute="leading" secondItem="7iU-CV-ebe" secondAttribute="leading" constant="-13" id="nXn-PM-W1w"/>
-                                        <constraint firstItem="yWp-kP-QPf" firstAttribute="leading" secondItem="bPi-4A-9R0" secondAttribute="leadingMargin" id="rKD-dN-BcL"/>
-                                        <constraint firstItem="cja-0b-xI2" firstAttribute="centerY" secondItem="Zdb-2Y-kyC" secondAttribute="centerY" id="sJv-yH-7MC"/>
-                                        <constraint firstItem="7iU-CV-ebe" firstAttribute="baseline" secondItem="yWp-kP-QPf" secondAttribute="baseline" id="xgi-gE-aS9"/>
-                                        <constraint firstItem="zpY-Ni-JbI" firstAttribute="top" secondItem="hb6-UU-Vwf" secondAttribute="top" id="xjJ-qG-ZM1"/>
+                                        <constraint firstItem="Zdb-2Y-kyC" firstAttribute="leading" secondItem="zpY-Ni-JbI" secondAttribute="trailing" constant="10" id="0XR-Nj-EkX"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Zdb-2Y-kyC" secondAttribute="bottom" constant="-8" id="1aQ-4r-8h7"/>
+                                        <constraint firstAttribute="trailing" secondItem="Atj-0t-VcO" secondAttribute="trailing" id="85l-Yp-ODh"/>
+                                        <constraint firstItem="hb6-UU-Vwf" firstAttribute="leading" secondItem="cja-0b-xI2" secondAttribute="trailing" constant="8" symbolic="YES" id="As0-rJ-HI6"/>
+                                        <constraint firstItem="Zdb-2Y-kyC" firstAttribute="top" secondItem="7iU-CV-ebe" secondAttribute="bottom" id="Bv5-h6-c1i"/>
+                                        <constraint firstItem="zpY-Ni-JbI" firstAttribute="bottom" secondItem="cja-0b-xI2" secondAttribute="bottom" id="GMc-QA-mYK"/>
+                                        <constraint firstItem="7iU-CV-ebe" firstAttribute="top" secondItem="Atj-0t-VcO" secondAttribute="bottom" constant="5" id="Jtl-8E-Ioh"/>
+                                        <constraint firstItem="zpY-Ni-JbI" firstAttribute="leading" secondItem="bPi-4A-9R0" secondAttribute="leading" constant="141" id="LVX-yq-p2A"/>
+                                        <constraint firstItem="Zdb-2Y-kyC" firstAttribute="centerX" secondItem="xcj-gd-1Oc" secondAttribute="centerX" id="Mq6-jt-9pu"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="xcj-gd-1Oc" secondAttribute="trailing" constant="5" id="Qs1-En-OUL"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="cja-0b-xI2" secondAttribute="bottom" constant="-2" id="RtW-Xl-F0H"/>
+                                        <constraint firstItem="Atj-0t-VcO" firstAttribute="leading" secondItem="bPi-4A-9R0" secondAttribute="leading" id="U3D-Ni-eF9"/>
+                                        <constraint firstItem="hb6-UU-Vwf" firstAttribute="baseline" secondItem="cja-0b-xI2" secondAttribute="baseline" id="XUj-BF-kM1"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="yWp-kP-QPf" secondAttribute="leading" id="dI7-m9-zit"/>
+                                        <constraint firstItem="zpY-Ni-JbI" firstAttribute="leading" secondItem="hb6-UU-Vwf" secondAttribute="trailing" constant="8" symbolic="YES" id="eMa-u0-Dmv"/>
+                                        <constraint firstItem="Atj-0t-VcO" firstAttribute="top" secondItem="bPi-4A-9R0" secondAttribute="top" id="eQN-XR-4ys"/>
+                                        <constraint firstItem="zpY-Ni-JbI" firstAttribute="top" secondItem="cja-0b-xI2" secondAttribute="top" id="ek5-CD-nGJ"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Zdb-2Y-kyC" secondAttribute="trailing" constant="-8" id="kHD-6r-YJl"/>
+                                        <constraint firstItem="xcj-gd-1Oc" firstAttribute="top" secondItem="Atj-0t-VcO" secondAttribute="bottom" constant="8" symbolic="YES" id="uLg-m6-vF3"/>
+                                        <constraint firstItem="cja-0b-xI2" firstAttribute="top" secondItem="yWp-kP-QPf" secondAttribute="bottom" constant="8" id="uNX-Hk-xz1"/>
+                                        <constraint firstItem="Atj-0t-VcO" firstAttribute="top" secondItem="bPi-4A-9R0" secondAttribute="topMargin" constant="-8" id="w0s-HV-Kzp"/>
+                                        <constraint firstItem="7iU-CV-ebe" firstAttribute="leading" secondItem="yWp-kP-QPf" secondAttribute="trailing" constant="1" id="yt3-ey-Of1"/>
+                                        <constraint firstItem="yWp-kP-QPf" firstAttribute="top" secondItem="Atj-0t-VcO" secondAttribute="bottom" constant="5" id="zzQ-af-CDJ"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -453,10 +455,19 @@
                                                 <constraint firstAttribute="width" constant="74" id="B0n-Rc-0wf"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Fz-rx-HOb">
-                                            <rect key="frame" x="82" y="9" width="510" height="38"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name of person" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Fz-rx-HOb">
+                                            <rect key="frame" x="82" y="0.0" width="510" height="75"/>
+                                            <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="25"/>
                                             <color key="textColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Added!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DQC-sD-4KD">
+                                            <rect key="frame" x="548" y="27" width="44" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="44" id="OQN-xX-sRN"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="12"/>
+                                            <color key="textColor" red="1" green="0.60045622310000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -464,14 +475,18 @@
                                     <constraints>
                                         <constraint firstItem="7Fz-rx-HOb" firstAttribute="leading" secondItem="mhj-T4-B6k" secondAttribute="trailing" constant="8" id="3qQ-0z-7je"/>
                                         <constraint firstItem="mhj-T4-B6k" firstAttribute="centerY" secondItem="Kar-qC-NTN" secondAttribute="centerY" id="NYW-W7-wQy"/>
-                                        <constraint firstItem="7Fz-rx-HOb" firstAttribute="top" secondItem="mhj-T4-B6k" secondAttribute="top" constant="9" id="OeV-Bn-txu"/>
+                                        <constraint firstItem="7Fz-rx-HOb" firstAttribute="top" secondItem="mhj-T4-B6k" secondAttribute="top" id="OeV-Bn-txu"/>
                                         <constraint firstItem="7Fz-rx-HOb" firstAttribute="trailing" secondItem="Kar-qC-NTN" secondAttribute="trailingMargin" id="Qce-zm-tG4"/>
+                                        <constraint firstItem="DQC-sD-4KD" firstAttribute="top" secondItem="Kar-qC-NTN" secondAttribute="topMargin" constant="19" id="V1B-KR-LHa"/>
                                         <constraint firstItem="mhj-T4-B6k" firstAttribute="leading" secondItem="Kar-qC-NTN" secondAttribute="leadingMargin" constant="-8" id="Vzc-rk-doA"/>
+                                        <constraint firstItem="DQC-sD-4KD" firstAttribute="centerY" secondItem="7Fz-rx-HOb" secondAttribute="centerY" id="Z49-z7-7iN"/>
                                         <constraint firstItem="mhj-T4-B6k" firstAttribute="top" secondItem="Kar-qC-NTN" secondAttribute="topMargin" constant="-8" id="axt-Jl-e9V"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="7Fz-rx-HOb" secondAttribute="bottom" constant="20" id="fZd-eo-8dm"/>
+                                        <constraint firstItem="DQC-sD-4KD" firstAttribute="trailing" secondItem="7Fz-rx-HOb" secondAttribute="trailing" id="fWt-ik-RAC"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="7Fz-rx-HOb" secondAttribute="bottom" constant="-8" id="fZd-eo-8dm"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="addedLabel" destination="DQC-sD-4KD" id="hJm-AS-onc"/>
                                     <outlet property="friendName" destination="7Fz-rx-HOb" id="IrT-Ly-hhP"/>
                                     <outlet property="profilePic" destination="mhj-T4-B6k" id="acG-2i-Fdf"/>
                                 </connections>
@@ -586,8 +601,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friendly Reminder" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zLk-Ej-AK4">
-                                <rect key="frame" x="20" y="135" width="560" height="84"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="70"/>
+                                <rect key="frame" x="20" y="135" width="560" height="69"/>
+                                <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="60"/>
                                 <color key="textColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -597,7 +612,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="ToQ-jR-mFU"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="18"/>
                                 <state key="normal" title="Login">
                                     <color key="titleColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -633,6 +648,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="24"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="4jA-cc-QYF" kind="relationship" relationship="rootViewController" id="jcR-lP-Zvj"/>
@@ -653,6 +671,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="24"/>
+                            <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="qJH-OF-OXe" kind="relationship" relationship="rootViewController" id="woC-25-x6M"/>

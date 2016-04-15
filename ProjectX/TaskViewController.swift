@@ -22,7 +22,16 @@ class TaskViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = eventTitle
+        let label = UILabel(frame: CGRectMake(0, 0, 440, 44))
+        label.backgroundColor = UIColor.clearColor()
+        label.numberOfLines = 2
+        label.textAlignment = NSTextAlignment.Center
+        label.text = eventTitle
+        navigationItem.titleView = label
+        
+        
+       // navigationItem.title = eventTitle
+
         let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addTask")
         let addFriends = UIBarButtonItem(title: "Add Friends", style: .Plain, target: self, action: "addFriends")
         navigationItem.rightBarButtonItems = [addFriends, addButton]
@@ -164,6 +173,22 @@ class TaskViewController: UITableViewController {
                     return
                 }
                 let textField = alert.textFields![0]
+                for character in textField.text!.characters {
+                    if self.isInvalid(character) {
+                        let alert2 = UIAlertController(title: "Invalid task",
+                            message: "Task description cannot contain '.' '#' '$' '/' '[' or ']'",
+                            preferredStyle: .Alert)
+                        
+                        let cancelAction = UIAlertAction(title: "OK",
+                            style: .Default) { (action: UIAlertAction) -> Void in
+                        }
+                        alert2.addAction(cancelAction)
+                        
+                        self.presentViewController(alert2, animated: true, completion: nil)
+                        return
+                    }
+                }
+                // check text for symbols Must be a non-empty string and not contain '.' '#' '$' '[' or ']''
                 let taskRef = self.ref!.childByAppendingPath(textField.text!.lowercaseString + "/")
 
                 let task = Task(title: textField.text!, creator: self.userName!, ref: taskRef)
@@ -180,8 +205,9 @@ class TaskViewController: UITableViewController {
             (textField: UITextField!) -> Void in
         }
         
-        alert.addAction(createAction)
         alert.addAction(cancelAction)
+        alert.addAction(createAction)
+
         
         // fixes collection view error
         alert.view.setNeedsLayout()
@@ -189,6 +215,12 @@ class TaskViewController: UITableViewController {
         presentViewController(alert, animated: true, completion: nil)
     }
     
+    func isInvalid(myChar: Character) -> Bool {
+        if myChar == "." || myChar == "#" || myChar == "$" || myChar == "/" || myChar == "[" || myChar == "]" {
+            return true
+        }
+        return false
+    }
     
     func configureCell(cell: TaskCell, indexPath: NSIndexPath) {
         let task = tasks[indexPath.row]

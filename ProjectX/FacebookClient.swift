@@ -95,9 +95,7 @@ class FacebookClient {
                     dispatch_group_notify(group, dispatch_get_main_queue()) {
                         completionHandler(result: newFriends, picture: profileImage, error: error)
                     }
-
                 }
-
             }
         })
         
@@ -106,7 +104,7 @@ class FacebookClient {
     func isMember(membersRef: Firebase, id: String, completionHandler: (isMember: Bool) -> Void){
         membersRef.observeSingleEventOfType(.Value, withBlock: {
             snapshot in
-            if snapshot.value[id] as! Bool == true {
+            if snapshot.value[id] as? Bool == true {
                 completionHandler(isMember: true)
             } else {
                 completionHandler(isMember: false)
