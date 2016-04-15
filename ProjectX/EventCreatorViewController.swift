@@ -84,10 +84,11 @@ class EventCreatorViewController: UIViewController, UITextFieldDelegate {
             let eventRef = FirebaseClient.Constants.EVENT_REF.childByAppendingPath(eventTitle.text!.lowercaseString + "/")
             eventRef.setValue(event.toAnyObject())
             
-            // update user
+            // update user 
+            /*
             let userRef = FirebaseClient.Constants.USER_REF.childByAppendingPath(authID! + "/events/")
             userRef.updateChildValues([event.title: true])
-            
+            */
         } else {
             // save to coreData
             let _ = UserEvent(title: eventTitle.text!, date: dateString, context: self.sharedContext)

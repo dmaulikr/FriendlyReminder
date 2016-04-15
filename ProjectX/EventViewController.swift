@@ -13,10 +13,9 @@ import FBSDKLoginKit
 class EventViewController: UITableViewController {
     
     var events = [Event]()
-    var authID: String?
+    var authID: String!
     
     @IBOutlet weak var dateLabel: UILabel!
-
     @IBOutlet weak var activityView: UIView!
     
     override func viewDidLoad() {
@@ -38,13 +37,12 @@ class EventViewController: UITableViewController {
         dateLabel.text = today
         
         // get this user's events that the user is a part of
-        FirebaseClient.sharedInstance().getEvents(authID!) {
+        FirebaseClient.sharedInstance().getEvents(authID) {
             (newEvents) -> Void in
             self.events = newEvents
             self.tableView.reloadData()
             self.activityView.hidden = true
         }
-        
     }
     
     
@@ -66,7 +64,6 @@ class EventViewController: UITableViewController {
 
     // MARK: - Table View
     
-    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return events.count
     }
@@ -74,11 +71,10 @@ class EventViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let CellIdentifier = "EventCell"
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier)! as UITableViewCell//as! TaskCancelingTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! EventCell
         
         configureCell(cell, indexPath: indexPath)
 
-        
         return cell
     }
     
@@ -89,7 +85,7 @@ class EventViewController: UITableViewController {
         // need to pass reference to event title
         controller.ref = FirebaseClient.Constants.EVENT_REF.childByAppendingPath("\(event.title.lowercaseString)" + "/tasks/")
         controller.eventRef = FirebaseClient.Constants.EVENT_REF.childByAppendingPath("\(event.title.lowercaseString)" + "/")
-        controller.userRef = FirebaseClient.Constants.USER_REF.childByAppendingPath("\(authID!)/")
+        controller.userRef = FirebaseClient.Constants.USER_REF.childByAppendingPath("\(authID)/")
         controller.eventTitle = event.title
         
         self.navigationController!.pushViewController(controller, animated: true)
@@ -119,7 +115,7 @@ class EventViewController: UITableViewController {
     
     // MARK: - Configure Cell
     
-    func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) {
+    func configureCell(cell: EventCell, indexPath: NSIndexPath) {
         let event = events[indexPath.row]
         
         let dateFormatter = NSDateFormatter()
@@ -129,9 +125,9 @@ class EventViewController: UITableViewController {
         dateFormatter.dateFormat = "MMMM d, y h:mm a"
         let dateString = dateFormatter.stringFromDate(oldDate!)
  
-        cell.textLabel?.text = event.title
-        cell.detailTextLabel?.text = "Date of Event: " + dateString
-        //cell.detailTextLabel?.text = self.data?.providerData["displayName"] as? String
+        cell.title.text = event.title
+        cell.dateOfEvent.text = "Date of Event: " + dateString
+        cell.tasksLeft.text = String(event.taskCounter)
     }
 
 }

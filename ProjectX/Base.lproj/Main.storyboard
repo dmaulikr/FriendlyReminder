@@ -58,30 +58,56 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EventCell" textLabel="lXX-BV-Ac6" detailTextLabel="3Nn-y2-xvE" rowHeight="51" style="IBUITableViewCellStyleSubtitle" id="wRo-q6-HFv">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EventCell" rowHeight="51" id="wRo-q6-HFv" customClass="EventCell" customModule="ProjectX" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="136" width="600" height="51"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wRo-q6-HFv" id="0Hb-7C-xLu">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lXX-BV-Ac6">
-                                            <rect key="frame" x="15" y="9" width="33" height="19"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Qi-nh-9I9">
+                                            <rect key="frame" x="8" y="8" width="71" height="19"/>
                                             <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="16"/>
-                                            <color key="textColor" red="1" green="0.48146152791637808" blue="0.53544022676345127" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3Nn-y2-xvE">
-                                            <rect key="frame" x="15" y="28" width="38" height="13"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="11"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date of Event" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jrN-jk-mHC">
+                                            <rect key="frame" x="8" y="27" width="82" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="assigned" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EzS-dM-r6H">
+                                            <rect key="frame" x="527" y="16" width="65" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ZJ-g3-aje">
+                                            <rect key="frame" x="506" y="14" width="13" height="23"/>
+                                            <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="20"/>
+                                            <color key="textColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="EzS-dM-r6H" secondAttribute="bottom" constant="5" id="3ET-mH-jir"/>
+                                        <constraint firstAttribute="topMargin" secondItem="7Qi-nh-9I9" secondAttribute="top" id="CgY-6B-ekM"/>
+                                        <constraint firstItem="EzS-dM-r6H" firstAttribute="top" secondItem="0Hb-7C-xLu" secondAttribute="topMargin" constant="8" id="D7t-wq-oL8"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="EzS-dM-r6H" secondAttribute="trailing" id="HLg-HG-LY6"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="7Qi-nh-9I9" secondAttribute="leading" id="XYl-oy-ocG"/>
+                                        <constraint firstItem="EzS-dM-r6H" firstAttribute="leading" secondItem="4ZJ-g3-aje" secondAttribute="trailing" constant="8" id="ZbT-ce-MSq"/>
+                                        <constraint firstItem="jrN-jk-mHC" firstAttribute="top" secondItem="7Qi-nh-9I9" secondAttribute="bottom" id="bJQ-ma-gTA"/>
+                                        <constraint firstItem="4ZJ-g3-aje" firstAttribute="top" secondItem="0Hb-7C-xLu" secondAttribute="topMargin" constant="6" id="ntC-i4-w8n"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="jrN-jk-mHC" secondAttribute="leading" id="t3Z-W4-u4O"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dateOfEvent" destination="jrN-jk-mHC" id="IJg-hO-WZb"/>
+                                    <outlet property="tasksLeft" destination="4ZJ-g3-aje" id="bzz-dc-SLO"/>
+                                    <outlet property="title" destination="7Qi-nh-9I9" id="WBy-SA-wbw"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

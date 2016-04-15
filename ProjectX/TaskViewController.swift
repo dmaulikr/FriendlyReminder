@@ -16,6 +16,7 @@ class TaskViewController: UITableViewController {
     var userRef: Firebase?
     var userName: String?
     var eventTitle: String!
+    var taskCounter: Int = 0
     
     @IBOutlet weak var activityView: UIView!
     
@@ -36,9 +37,14 @@ class TaskViewController: UITableViewController {
         let addFriends = UIBarButtonItem(title: "Add Friends", style: .Plain, target: self, action: "addFriends")
         navigationItem.rightBarButtonItems = [addFriends, addButton]
         
-        
+        // get name of user
         userRef!.observeSingleEventOfType(.Value, withBlock: { snapshot in
             self.userName = snapshot.value["name"] as? String
+        })
+        
+        // get current taskCounter
+        eventRef!.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            self.taskCounter = snapshot.value["taskCounter"] as! Int
         })
     }
     
@@ -72,6 +78,7 @@ class TaskViewController: UITableViewController {
         if button.titleLabel!.text == "Take task" {
             task.inCharge.append(self.userName!)
             button.setTitle("Quit task", forState: .Normal)
+            eventRef!.updateChildValues(["taskCounter": ++taskCounter])
 
         } else { // Quit task
             var newArray: [String] = []
@@ -86,6 +93,8 @@ class TaskViewController: UITableViewController {
             }
             task.inCharge = newArray
             button.setTitle("Take task", forState: .Normal)
+            eventRef!.updateChildValues(["taskCounter": --taskCounter])
+
         }
         task.ref?.childByAppendingPath("inCharge").setValue(task.inCharge)
     }
@@ -112,13 +121,14 @@ class TaskViewController: UITableViewController {
         if task.complete {
            // UIColor *color = [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
             let pinkColor = UIColor(colorLiteralRed: 1, green: 0.481462, blue: 0.53544, alpha: 1)
-            //cell.checkmarkButton.backgroundColor = UIDeviceRGBColorSpace(
             cell.checkmarkButton.backgroundColor = pinkColor
             cell.taskDescription.attributedText = nil
             task.ref?.childByAppendingPath("complete").setValue(false)
             cell.takeTask.userInteractionEnabled = true
             cell.assignButton.userInteractionEnabled = true
             
+            eventRef!.updateChildValues(["taskCounter": ++taskCounter])
+
         } else {
             cell.checkmarkButton.backgroundColor = UIColor.greenColor()
             let attributes = [
@@ -128,6 +138,8 @@ class TaskViewController: UITableViewController {
             cell.taskDescription.attributedText = NSAttributedString(string: cell.taskDescription.text!, attributes: attributes)
             cell.userInteractionEnabled = false
             task.ref?.childByAppendingPath("complete").setValue(true)
+            eventRef!.updateChildValues(["taskCounter": --taskCounter])
+
         }
 
     }
