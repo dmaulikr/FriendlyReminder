@@ -20,9 +20,7 @@ class UserEvent: NSManagedObject {
     init(title: String, date: String, context: NSManagedObjectContext) {
         let entity =  NSEntityDescription.entityForName("UserEvent", inManagedObjectContext: context)!
         super.init(entity: entity,insertIntoManagedObjectContext: context)
-        
         self.title = title
         self.date = date
     }
-
 }

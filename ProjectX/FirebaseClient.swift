@@ -8,7 +8,6 @@
 
 import Firebase
 
-
 class FirebaseClient {
     
     func getEvents(authID: String, completionHandler: (newEvents: [Event]) -> Void) {

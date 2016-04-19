@@ -16,10 +16,9 @@ class EventCreatorViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var eventTitle: UITextField!
     
     var authID: String?
-    var groupEvent: Bool?
+    var groupEvent: Bool!
     var tapRecognizer: UITapGestureRecognizer? = nil
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,9 +52,9 @@ class EventCreatorViewController: UIViewController, UITextFieldDelegate {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    
+    // creates an event
     @IBAction func createEvent(sender: AnyObject) {
-        // Throw alert if title is nil
+        // Throw alert if title is empty
         if eventTitle.text == "" {
             let alert = UIAlertController(title: "Event title",
                 message: "Event title can't be empty!",
@@ -79,24 +78,14 @@ class EventCreatorViewController: UIViewController, UITextFieldDelegate {
         if groupEvent == true {
             // save to Firebase
             let event = Event(title: eventTitle.text!, date: dateString, members: [authID!: true])
-            
-            // set event
             let eventRef = FirebaseClient.Constants.EVENT_REF.childByAppendingPath(eventTitle.text!.lowercaseString + "/")
             eventRef.setValue(event.toAnyObject())
-            
-            // update user 
-            /*
-            let userRef = FirebaseClient.Constants.USER_REF.childByAppendingPath(authID! + "/events/")
-            userRef.updateChildValues([event.title: true])
-            */
         } else {
-            // save to coreData
+            // create UserEvent, gets saved in UserEventViewController (on insert)
             let _ = UserEvent(title: eventTitle.text!, date: dateString, context: self.sharedContext)
-            CoreDataStackManager.sharedInstance().saveContext()
         }
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-    
     
     // MARK: - Core Data Convenience.
     

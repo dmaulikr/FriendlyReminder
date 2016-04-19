@@ -7,50 +7,35 @@
 //
 
 import UIKit
-import Firebase
-//import FBSDKCoreKit
 import FBSDKLoginKit
 
 class LoginViewController: UIViewController {
     
-    @IBOutlet weak var usernameField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
-    
     var authID: String?
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // user defaults
         let prefs = NSUserDefaults.standardUserDefaults()
         
+        // get authID from UserDefaults
         if let data = prefs.stringForKey("authID") {
             authID = data
-        }else{
-            //Nothing stored in NSUserDefaults yet. Set a value.
-            print("no data found")
         }
-
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
         // if already logged in, go to eventVC
-   
-        if(FBSDKAccessToken.currentAccessToken() == nil || authID == nil)
+        if(FBSDKAccessToken.currentAccessToken() != nil && authID != nil)
         {
-            print("not logged in")
-        }
-        else
-        {
-            print("logged in")
             self.performSegueWithIdentifier("Login", sender: nil)
-
         }
-
     }
 
+    // do facebook login when button is touched, then go to next VC
     @IBAction func loginButtonTouch(sender: AnyObject) {
         FacebookClient.sharedInstance().login(self) {
             (authID) in
@@ -58,13 +43,7 @@ class LoginViewController: UIViewController {
                 self.authID = authID
                 self.performSegueWithIdentifier("Login", sender: nil)
             }
-
         }
-    }
-    
-    
-    
-    @IBAction func signupButtonTouch(sender: AnyObject) {
     }
     
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
@@ -74,14 +53,12 @@ class LoginViewController: UIViewController {
         return true
     }
 
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {        
-        
+    // give the eventVC the user's authID
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let tabBarVC = segue.destinationViewController as! UITabBarController
         let navVC = tabBarVC.viewControllers?.first as! UINavigationController
         let eventVC = navVC.viewControllers.first as! EventViewController
         
         eventVC.authID = authID
     }
-    
 }

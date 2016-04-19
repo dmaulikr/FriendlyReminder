@@ -8,8 +8,6 @@
 
 import UIKit
 import CoreData
-import Firebase
-import FBSDKLoginKit
 
 class UserEventViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
@@ -18,26 +16,17 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        initNavBar()
+        initUI()
 
         do {
             try fetchedResultsController.performFetch()
         } catch {}
         
         fetchedResultsController.delegate = self
-        
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "MMMM d, y"
-        let today = dateFormatter.stringFromDate(NSDate())
-        dateLabel.text = today
-    }
-    
-    func initNavBar() {
+    func initUI() {
+        // init navbar
         navigationItem.title = "Personal"
         let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addUserEvent")
         let infoButton = UIButton(type: UIButtonType.InfoLight) as UIButton
@@ -47,6 +36,12 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
         leftBarButton.customView = infoButton
         navigationItem.rightBarButtonItem = addButton
         navigationItem.leftBarButtonItem = leftBarButton
+        
+        // init date
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MMMM d, y"
+        let today = dateFormatter.stringFromDate(NSDate())
+        dateLabel.text = today
     }
     
     func showInfo() {
@@ -71,20 +66,13 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
         self.presentViewController(controller, animated: true, completion: nil)
     }
     
-    func logoutUser() {
-        let loginManager = FBSDKLoginManager()
-        loginManager.logOut()
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
     // MARK: - Core Data Convenience.
     
     var sharedContext: NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext
     }
     
-    // Step 1 - Add the lazy fetchedResultsController property. See the reference sheet in the lesson if you
-    // want additional help creating this property.
+    // MARK: - Fetched Results Controller
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
         
@@ -101,25 +89,29 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
         
     }()
     
-    // MARK: - Fetched Results Controller Delegate - Need to have this or else NSFetchedResultsController won't update
+    // MARK: - Fetched Results Controller Delegate
     
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-        
-        switch type{
-            
-        case .Insert:
-            print("insert")
-            tableView.reloadData()
-            break
-        case .Delete:
-            print("delete")
-            tableView.reloadData()
-            break
-        default:
-            break
-        }
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        // reload tableView and save changes to core data
+        tableView.reloadData()
+        CoreDataStackManager.sharedInstance().saveContext()
     }
     
+    // MARK: - Configure Cell
+    
+    func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) {
+        let event = fetchedResultsController.objectAtIndexPath(indexPath) as! UserEvent
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.timeStyle = .LongStyle
+        dateFormatter.dateFormat = "yyyyMMdd h:mm a"
+        let oldDate = dateFormatter.dateFromString(event.date)
+        dateFormatter.dateFormat = "MMMM d, y h:mm a"
+        let dateString = dateFormatter.stringFromDate(oldDate!)
+        
+        cell.textLabel?.text = event.title
+        cell.detailTextLabel?.text = "Date of Event: " + dateString
+    }
     
     // MARK: - Table View
     
@@ -130,8 +122,7 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let CellIdentifier = "EventCell"
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier)! as UITableViewCell//as! TaskCancelingTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier)! as UITableViewCell
         
         configureCell(cell, indexPath: indexPath)
         
@@ -142,39 +133,19 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
         let controller = storyboard!.instantiateViewControllerWithIdentifier("UserTaskViewController") as! UserTaskViewController
         
         controller.userEvent = fetchedResultsController.objectAtIndexPath(indexPath) as! UserEvent
-        
         self.navigationController!.pushViewController(controller, animated: true)
     }
 
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,
         forRowAtIndexPath indexPath: NSIndexPath) {
-            
-            switch (editingStyle) {
+        switch (editingStyle) {
             case .Delete:
                 let userEvent = fetchedResultsController.objectAtIndexPath(indexPath) as! UserEvent
                 
-                // iterate through fetchedResultsController to find the event then delete it
+                // delete object from fetchedResultsController
                 sharedContext.deleteObject(userEvent)
-                CoreDataStackManager.sharedInstance().saveContext()
-                break
             default:
                 break
-            }
+        }
     }
-    
-    // MARK: - Configure Cell
-    
-    func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) {
-        let event = fetchedResultsController.objectAtIndexPath(indexPath) as! UserEvent
- 
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyyMMdd"
-        let oldDate = dateFormatter.dateFromString(event.date)
-        dateFormatter.dateFormat = "MMMM d, y"
-        let dateString = dateFormatter.stringFromDate(oldDate!)
-        
-        cell.textLabel?.text = event.title
-        cell.detailTextLabel?.text = "Date of Event: " + dateString
-    }
-    
 }

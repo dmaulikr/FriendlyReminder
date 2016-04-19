@@ -6,15 +6,12 @@
 //  Copyright © 2016 Jonathan Chou. All rights reserved.
 //
 
-
-import CoreData
 import Firebase
 
 class User {
     var name: String
     var events: NSDictionary?
     var ref: Firebase?
-    // var tasks: [Task]?
     
     init(name: String) {
         self.name = name
@@ -30,7 +27,6 @@ class User {
     }
     
     init(snapshot: FDataSnapshot) {
-        // key = snapshot.key
         name = snapshot.value["name"] as! String
         events = snapshot.value["events"] as? NSDictionary
         ref = snapshot.ref

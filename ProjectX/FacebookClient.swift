@@ -7,8 +7,7 @@
 //
 
 import UIKit
-import CoreData
-import FBSDKCoreKit
+//import FBSDKCoreKit
 import FBSDKLoginKit
 import Firebase
 
@@ -17,12 +16,12 @@ class FacebookClient {
     func login(controller: UIViewController, completionHandler: (authID: String) -> Void) {
         let facebookLogin = FBSDKLoginManager()
         
-        facebookLogin.logInWithReadPermissions(["public_profile","email", "user_friends"], fromViewController: controller,handler: {
+        // gets the name and user's friends
+        facebookLogin.logInWithReadPermissions(["public_profile", "user_friends"], fromViewController: controller,handler: {
             (facebookResult, facebookError) -> Void in
             if facebookError != nil {
                 print("Facebook login failed. Error \(facebookError)")
-            } else if facebookResult.isCancelled {
-                print("Facebook login was cancelled.")
+                // dont need alerts here because safari notifies user
             } else {
                 let accessToken = FBSDKAccessToken.currentAccessToken().tokenString
                 FirebaseClient.Constants.BASE_REF.authWithOAuthProvider("facebook", token: accessToken,
@@ -30,8 +29,6 @@ class FacebookClient {
                         if error != nil {
                             print("Login failed. \(error)")
                         } else {
-                            print("Logged in! \(authData)")
-                            
                             // save user's authID onto the phone
                             let prefs = NSUserDefaults.standardUserDefaults()
                             prefs.setValue(authData.uid, forKey: "authID")
@@ -39,7 +36,6 @@ class FacebookClient {
                             // update user data on firebase
                             let user = User(name: authData.providerData["displayName"] as! String)
                             let userRef = FirebaseClient.Constants.USER_REF.childByAppendingPath(authData.uid)
-                            
                             userRef.updateChildValues(["name": user.name, "userid": authData.uid])
                             
                             completionHandler(authID: authData.uid)
@@ -49,7 +45,7 @@ class FacebookClient {
         })
     }
     
-    func searchForFriendsList(membersRef: Firebase, completionHandler: (result: [Friend], picture: UIImage?, error: NSError?) ->  Void) {
+    func searchForFriendsList(membersRef: Firebase, controller: UIViewController, completionHandler: (result: [Friend], picture: UIImage?, error: NSError?) ->  Void) {
  
         let group = dispatch_group_create()
 
@@ -60,13 +56,23 @@ class FacebookClient {
             if ((error) != nil)
             {
                 // Process error
-                print("Error: \(error)")
+                //print("Error: \(error)")
+                // prints error for internet connection failure
+                let alert = UIAlertController(title: "Error",
+                    message: "Search failed. \(error.localizedDescription)",
+                    preferredStyle: .Alert)
+                
+                let cancelAction = UIAlertAction(title: "OK",
+                    style: .Default) { (action: UIAlertAction) -> Void in
+                        controller.navigationController?.popViewControllerAnimated(true)
+                }
+                alert.addAction(cancelAction)
+                
+                controller.presentViewController(alert, animated: true, completion: nil)
             }
             else
             {
-                // returns friend array
-                //print(result)
-                //print(result["picture"])
+                // get friend's id and profile picture
                 var newFriends = [Friend]()
                 for friend in result["data"] as! NSArray {
                     if let friendID = friend["id"] {
@@ -84,6 +90,7 @@ class FacebookClient {
                     }
                     
                     // enters a group so that I know when I finish executing firebase call
+                    // checks if the id is a member of the group already
                     dispatch_group_enter(group)
                     self.isMember(membersRef, id: id!) {
                         isMember in
@@ -110,8 +117,6 @@ class FacebookClient {
                 completionHandler(isMember: false)
             }
         })
-
-
     }
     
     class func sharedInstance() -> FacebookClient {

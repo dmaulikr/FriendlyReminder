@@ -33,7 +33,6 @@ class Event {
     }
     
     init(snapshot: FDataSnapshot) {
-       // key = snapshot.key
         title = snapshot.value["title"] as! String
         date = snapshot.value["date"] as! String
         ref = snapshot.ref

@@ -25,7 +25,8 @@ class FriendsViewController: UITableViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        FacebookClient.sharedInstance().searchForFriendsList(self.membersRef!) {
+        // searches for user's friends list
+        FacebookClient.sharedInstance().searchForFriendsList(self.membersRef!, controller: self) {
             (friends, picture, error) -> Void in
             self.friends = friends
             self.tableView.reloadData()

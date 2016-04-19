@@ -9,7 +9,6 @@
 import UIKit
 
 class TaskCell: UITableViewCell {
-    
     @IBOutlet weak var taskDescription: UILabel!
     @IBOutlet weak var takeTask: UIButton!
     @IBOutlet weak var creator: UILabel!

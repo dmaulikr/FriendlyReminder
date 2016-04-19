@@ -15,5 +15,4 @@ extension FirebaseClient {
         static let EVENT_REF = Firebase(url: "https://amber-inferno-4463.firebaseio.com/events/")
         static let USER_REF = Firebase(url: "https://amber-inferno-4463.firebaseio.com/users/")
     }
-    
 }

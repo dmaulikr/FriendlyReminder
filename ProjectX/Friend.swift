@@ -6,7 +6,6 @@
 //  Copyright © 2016 Jonathan Chou. All rights reserved.
 //
 
-import Foundation
 import Firebase
 
 class Friend {
@@ -14,7 +13,6 @@ class Friend {
     var id: String
     var image: UIImage?
     var isMember: Bool
-    // var tasks: [Task]?
     
     init(name: String, id: String, image: UIImage?, isMember: Bool) {
         self.name = name
@@ -28,11 +26,4 @@ class Friend {
             "name": name,
         ]
     }
-    /*
-    init(snapshot: FDataSnapshot) {
-        // key = snapshot.key
-        name = snapshot.value["name"] as! String
-        
-    }
-*/
 }

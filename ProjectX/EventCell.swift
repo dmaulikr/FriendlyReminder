@@ -9,7 +9,6 @@
 import UIKit
 
 class EventCell: UITableViewCell {
-    
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var dateOfEvent: UILabel!
     @IBOutlet weak var tasksLeft: UILabel!

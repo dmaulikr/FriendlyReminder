@@ -28,7 +28,7 @@ class AssignFriendsViewController: UITableViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        FacebookClient.sharedInstance().searchForFriendsList(self.membersRef!) {
+        FacebookClient.sharedInstance().searchForFriendsList(self.membersRef!, controller: self) {
             (friends, picture, error) -> Void in
             self.friends = friends
             self.activityView.hidden = true
@@ -37,6 +37,7 @@ class AssignFriendsViewController: UITableViewController {
                     self.counter++
                 }
             }
+            // if no friends found
             if self.counter == 0 {
                 // present alert
                 let alert = UIAlertController(title: "No Friends Found",
@@ -57,16 +58,15 @@ class AssignFriendsViewController: UITableViewController {
     
     func initNavBar() {
         navigationItem.title = "Assign Friends"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "assignFriends")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Assign", style: .Plain, target: self, action: "assignFriends")
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: "cancel")
-
-
     }
     
     func cancel() {
         self.navigationController?.popViewControllerAnimated(true)
     }
     
+    // assigns friends to the task
     func assignFriends() {
         // use selectedFriends to add to task.incharge
         if selectedFriends == [] {
@@ -81,15 +81,12 @@ class AssignFriendsViewController: UITableViewController {
             self.presentViewController(alert, animated: true, completion: nil)
             return
         }
-        if task.inCharge[0] == "no one" {
-            task.inCharge = []
-        }
+        task.inCharge = task.inCharge.filter{$0 != "no one"}
         for name in selectedFriends {
             task.inCharge.append(name)
         }
         task.ref?.childByAppendingPath("inCharge").setValue(task.inCharge)
         self.navigationController?.popViewControllerAnimated(true)
-
     }
 
     
@@ -114,7 +111,6 @@ class AssignFriendsViewController: UITableViewController {
             }
             toggleCellCheckbox(cell, isAssigned: isAssigned)
         }
-
     }
     
     
@@ -131,6 +127,7 @@ class AssignFriendsViewController: UITableViewController {
     
     // MARK: - Table View
     
+    // only account for user's friends that are also members of the event
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return counter
     }
@@ -145,7 +142,7 @@ class AssignFriendsViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        //tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let friend = friends[indexPath.row]
         selectedFriends.append(friend.name)
         let cell = tableView.cellForRowAtIndexPath(indexPath)
@@ -156,6 +153,5 @@ class AssignFriendsViewController: UITableViewController {
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         return UITableViewCellEditingStyle.None
     }
-
 }
 

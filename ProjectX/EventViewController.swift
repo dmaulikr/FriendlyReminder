@@ -20,23 +20,13 @@ class EventViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.title = "Group Events"
-        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addEvent")
-        navigationItem.rightBarButtonItems = [addButton]
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logoutUser")
-
+        initUI()
     }
     
-    // reloads the tableview data and event array
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "MMMM d, y"
-        let today = dateFormatter.stringFromDate(NSDate())
-        dateLabel.text = today
         
-        // get this user's events that the user is a part of
+        // get current user's events
         FirebaseClient.sharedInstance().getEvents(authID) {
             (newEvents) -> Void in
             self.events = newEvents
@@ -45,7 +35,21 @@ class EventViewController: UITableViewController {
         }
     }
     
+    // initializes UI elements
+    func initUI() {
+        // initialize navbar
+        navigationItem.title = "Group Events"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addEvent")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: "logoutUser")
+        
+        // initialize today's date in dateLabel
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MMMM d, y"
+        let today = dateFormatter.stringFromDate(NSDate())
+        dateLabel.text = today
+    }
     
+    // goes to the view controller made to create events
     func addEvent() {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("EventCreatorViewController") as! EventCreatorViewController
         
@@ -55,10 +59,31 @@ class EventViewController: UITableViewController {
         self.presentViewController(controller, animated: true, completion: nil)
     }
     
+    // logs out the user
     func logoutUser() {
         let loginManager = FBSDKLoginManager()
         loginManager.logOut()
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    // MARK: - Configure Cell
+    
+    // configures cell
+    func configureCell(cell: EventCell, indexPath: NSIndexPath) {
+        let event = events[indexPath.row]
+        
+        // changes the date format
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.timeStyle = .LongStyle
+        dateFormatter.dateFormat = "yyyyMMdd h:mm a"
+        let oldDate = dateFormatter.dateFromString(event.date)
+        dateFormatter.dateFormat = "MMMM d, y h:mm a"
+        let dateString = dateFormatter.stringFromDate(oldDate!)
+        
+        cell.title.text = event.title
+        cell.dateOfEvent.text = "Date of Event: " + dateString
+        cell.tasksLeft.text = String(event.taskCounter)
     }
   
 
@@ -70,7 +95,6 @@ class EventViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let CellIdentifier = "EventCell"
-        
         let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! EventCell
         
         configureCell(cell, indexPath: indexPath)
@@ -78,6 +102,7 @@ class EventViewController: UITableViewController {
         return cell
     }
     
+    // goes to task view controller when user selects an event
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let event = events[indexPath.row]
         let controller = storyboard!.instantiateViewControllerWithIdentifier("TaskViewController") as! TaskViewController
@@ -89,7 +114,6 @@ class EventViewController: UITableViewController {
         controller.eventTitle = event.title
         
         self.navigationController!.pushViewController(controller, animated: true)
-
     }
     
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
@@ -100,6 +124,7 @@ class EventViewController: UITableViewController {
 
     }
     
+    // TODO: add delete capabilities for creator of events
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,
         forRowAtIndexPath indexPath: NSIndexPath) {
             
@@ -112,23 +137,7 @@ class EventViewController: UITableViewController {
                 break
             }
     }
-    
-    // MARK: - Configure Cell
-    
-    func configureCell(cell: EventCell, indexPath: NSIndexPath) {
-        let event = events[indexPath.row]
-        
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.timeStyle = .LongStyle
-        dateFormatter.dateFormat = "yyyyMMdd h:mm a"
-        let oldDate = dateFormatter.dateFromString(event.date)
-        dateFormatter.dateFormat = "MMMM d, y h:mm a"
-        let dateString = dateFormatter.stringFromDate(oldDate!)
- 
-        cell.title.text = event.title
-        cell.dateOfEvent.text = "Date of Event: " + dateString
-        cell.tasksLeft.text = String(event.taskCounter)
-    }
+
 
 }
 

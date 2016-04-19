@@ -22,30 +22,7 @@ class TaskViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let label = UILabel(frame: CGRectMake(0, 0, 440, 44))
-        label.backgroundColor = UIColor.clearColor()
-        label.numberOfLines = 2
-        label.textAlignment = NSTextAlignment.Center
-        label.text = eventTitle
-        navigationItem.titleView = label
-        
-        
-       // navigationItem.title = eventTitle
-
-        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addTask")
-        let addFriends = UIBarButtonItem(title: "Add Friends", style: .Plain, target: self, action: "addFriends")
-        navigationItem.rightBarButtonItems = [addFriends, addButton]
-        
-        // get name of user
-        userRef!.observeSingleEventOfType(.Value, withBlock: { snapshot in
-            self.userName = snapshot.value["name"] as? String
-        })
-        
-        // get current taskCounter
-        eventRef!.observeSingleEventOfType(.Value, withBlock: { snapshot in
-            self.taskCounter = snapshot.value["taskCounter"] as! Int
-        })
+        initUI()
     }
     
     // reloads the tableview data and task array
@@ -66,39 +43,58 @@ class TaskViewController: UITableViewController {
         })
     }
     
-    // MARK: - Take Task
+    func initUI() {
+        // initialize nav bar
+        let label = UILabel(frame: CGRectMake(0, 0, 440, 44))
+        label.backgroundColor = UIColor.clearColor()
+        label.numberOfLines = 2
+        label.textAlignment = NSTextAlignment.Center
+        label.text = eventTitle
+        navigationItem.titleView = label
+        
+        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addTask")
+        let addFriends = UIBarButtonItem(title: "Add Friends", style: .Plain, target: self, action: "addFriends")
+        navigationItem.rightBarButtonItems = [addFriends, addButton]
+        
+        // initialize name of user
+        userRef!.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            self.userName = snapshot.value["name"] as? String
+        })
+        
+        // initialize task counter
+        eventRef!.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            self.taskCounter = snapshot.value["taskCounter"] as! Int
+        })
+    }
+    
+    // MARK: - Take task and Quit task
     @IBAction func takeTask(sender: AnyObject) {
         let task = getTask(sender)
         let button = sender as! UIButton
-
-        if task.inCharge[0] == "no one" {
-            task.inCharge = []
-        }
         
+        // assign user to task and increase user's task counter
+        // filter out "no one" in the case where no one is assigned yet
         if button.titleLabel!.text == "Take task" {
             task.inCharge.append(self.userName!)
+            task.inCharge = task.inCharge.filter{$0 != "no one"}
             button.setTitle("Quit task", forState: .Normal)
             eventRef!.updateChildValues(["taskCounter": ++taskCounter])
+        } else {
+            // Quit task
+            // remove user from inCharge list
+            task.inCharge = task.inCharge.filter{$0 != self.userName}
 
-        } else { // Quit task
-            var newArray: [String] = []
-            // remove user from incharge list
-            for name in task.inCharge {
-                if name != self.userName {
-                    newArray.append(name)
-                }
+            // intialize inCharge back to "no one"
+            if task.inCharge == [] {
+                task.inCharge.append("no one")
             }
-            if newArray == [] {
-                newArray.append("no one")
-            }
-            task.inCharge = newArray
             button.setTitle("Take task", forState: .Normal)
             eventRef!.updateChildValues(["taskCounter": --taskCounter])
-
         }
         task.ref?.childByAppendingPath("inCharge").setValue(task.inCharge)
     }
     
+    // shows view controller which allows user to assign friends to task
     @IBAction func assignTask(sender: AnyObject) {
         let task = getTask(sender)
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("AssignFriendsViewController") as! AssignFriendsViewController
@@ -108,42 +104,43 @@ class TaskViewController: UITableViewController {
         
     }
     
+    // button that completes the task
+    // changes background of button to green
+    // strikethrough task description
     @IBAction func completeTask(sender: AnyObject) {
-        //change background of button to green
-        // strikethrough task description
+
         let button = sender as! UIButton
         let view = button.superview!
         let cell = view.superview as! TaskCell
         let indexPath = tableView.indexPathForCell(cell)
         let task = tasks[indexPath!.row]
         
-        // if complete and want to undo
+        // to make task incomplete
         if task.complete {
-           // UIColor *color = [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
+            // pinkColor values obtained from printing out the background color
             let pinkColor = UIColor(colorLiteralRed: 1, green: 0.481462, blue: 0.53544, alpha: 1)
             cell.checkmarkButton.backgroundColor = pinkColor
             cell.taskDescription.attributedText = nil
-            task.ref?.childByAppendingPath("complete").setValue(false)
             cell.takeTask.userInteractionEnabled = true
             cell.assignButton.userInteractionEnabled = true
             
+            task.ref?.childByAppendingPath("complete").setValue(false)
             eventRef!.updateChildValues(["taskCounter": ++taskCounter])
-
         } else {
-            cell.checkmarkButton.backgroundColor = UIColor.greenColor()
             let attributes = [
-                // NSStrikethroughColorAttributeName: UIColor.blackColor(),
                 NSStrikethroughStyleAttributeName: NSNumber(integer: NSUnderlineStyle.StyleSingle.rawValue)
             ]
             cell.taskDescription.attributedText = NSAttributedString(string: cell.taskDescription.text!, attributes: attributes)
+            cell.checkmarkButton.backgroundColor = UIColor.greenColor()
             cell.userInteractionEnabled = false
+            
             task.ref?.childByAppendingPath("complete").setValue(true)
             eventRef!.updateChildValues(["taskCounter": --taskCounter])
-
         }
 
     }
     
+    // returns the current task from button press
     func getTask(sender: AnyObject) -> Task {
         let button = sender as! UIButton
         let view = button.superview!
@@ -153,17 +150,15 @@ class TaskViewController: UITableViewController {
         return task
     }
     
-    
+    // goes to friend view controller to see which friends can be added
     func addFriends() {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("FriendsViewController") as! FriendsViewController
         controller.membersRef = eventRef?.childByAppendingPath("members/")
         self.navigationController!.pushViewController(controller, animated: true)
     }
     
+    // creates an alert to add a task to the event
     func addTask() {
-        // alert to add task
-        
-        // Alert View for input
         let alert = UIAlertController(title: "Task creation",
             message: "Add a task",
             preferredStyle: .Alert)
@@ -172,6 +167,7 @@ class TaskViewController: UITableViewController {
             style: .Default) { (action: UIAlertAction) -> Void in
                 
                 if alert.textFields![0].text == "" {
+                    // creates another alert if task title is empty
                     let alert2 = UIAlertController(title: "Task title",
                         message: "Task title can't be empty!",
                         preferredStyle: .Alert)
@@ -185,8 +181,10 @@ class TaskViewController: UITableViewController {
                     return
                 }
                 let textField = alert.textFields![0]
+                // checks for invalid characters
                 for character in textField.text!.characters {
                     if self.isInvalid(character) {
+                        // throws an alert for invalid characters
                         let alert2 = UIAlertController(title: "Invalid task",
                             message: "Task description cannot contain '.' '#' '$' '/' '[' or ']'",
                             preferredStyle: .Alert)
@@ -200,13 +198,10 @@ class TaskViewController: UITableViewController {
                         return
                     }
                 }
-                // check text for symbols Must be a non-empty string and not contain '.' '#' '$' '[' or ']''
+                // create task on Firebase
                 let taskRef = self.ref!.childByAppendingPath(textField.text!.lowercaseString + "/")
-
                 let task = Task(title: textField.text!, creator: self.userName!, ref: taskRef)
-
                 taskRef.setValue(task.toAnyObject())
-                //self.tableView.reloadData()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel",
@@ -220,13 +215,13 @@ class TaskViewController: UITableViewController {
         alert.addAction(cancelAction)
         alert.addAction(createAction)
 
-        
         // fixes collection view error
         alert.view.setNeedsLayout()
         
         presentViewController(alert, animated: true, completion: nil)
     }
     
+    // checks to see if characters are invalid
     func isInvalid(myChar: Character) -> Bool {
         if myChar == "." || myChar == "#" || myChar == "$" || myChar == "/" || myChar == "[" || myChar == "]" {
             return true
@@ -261,7 +256,6 @@ class TaskViewController: UITableViewController {
             }
         }
 
-        
         if task.inCharge == ["no one"] {
             // reset the cell
             cell.takeTask.hidden = false
@@ -275,7 +269,7 @@ class TaskViewController: UITableViewController {
             cell.assignedToLabel.hidden = false
             cell.assignedPeople.hidden = false
             
-
+            // appends names to the assignedPeople label
             for name in task.inCharge {
                 if name == userName {
                     cell.takeTask.setTitle("Quit task", forState: .Normal)
@@ -283,6 +277,7 @@ class TaskViewController: UITableViewController {
                 }
                 cell.assignedPeople.text?.appendContentsOf(name + ", ")
             }
+            // drops the last comma
             cell.assignedPeople.text? = String(cell.assignedPeople.text!.characters.dropLast().dropLast())
         }
     }
@@ -306,9 +301,9 @@ class TaskViewController: UITableViewController {
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         
         return UITableViewCellEditingStyle.None
-        
     }
     
+    // TODO: modify so creator can delete tasks
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,
         forRowAtIndexPath indexPath: NSIndexPath) {
             
