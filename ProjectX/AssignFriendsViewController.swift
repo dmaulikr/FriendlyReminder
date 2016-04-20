@@ -120,7 +120,6 @@ class AssignFriendsViewController: UITableViewController {
         } else {
             cell.tintColor = UIColor.orangeColor()
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
-            cell.userInteractionEnabled = false
             cell.backgroundColor = UIColor.blackColor()
         }
     }
@@ -142,11 +141,19 @@ class AssignFriendsViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let friend = friends[indexPath.row]
-        selectedFriends.append(friend.name)
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
-        cell!.userInteractionEnabled = false
+        var delete = false
+        // removes friend from selection if user taps again
+        for name in selectedFriends {
+            if name == friend.name {
+                selectedFriends = selectedFriends.filter{$0 != friend.name}
+                delete = true
+            }
+        }
+        // adds friend into selected friends
+        if !delete {
+            selectedFriends.append(friend.name)
+        }
         tableView.reloadData()
     }
     

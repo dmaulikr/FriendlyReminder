@@ -49,11 +49,21 @@ class TaskViewController: UITableViewController {
         label.backgroundColor = UIColor.clearColor()
         label.numberOfLines = 2
         label.textAlignment = NSTextAlignment.Center
+        label.lineBreakMode = NSLineBreakMode.ByTruncatingMiddle
         label.text = eventTitle
         navigationItem.titleView = label
         
+        let addFriendsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 65, height: 44))
+        addFriendsButton.titleLabel?.numberOfLines = 2
+        addFriendsButton.setTitle("Add Friends", forState: .Normal)
+        addFriendsButton.addTarget(self, action: "addFriends", forControlEvents: .TouchUpInside)
+        addFriendsButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        addFriendsButton.titleLabel?.textAlignment = .Center
+        let addFriends = UIBarButtonItem.init(customView: addFriendsButton)
+        
+        
+        
         let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addTask")
-        let addFriends = UIBarButtonItem(title: "Add Friends", style: .Plain, target: self, action: "addFriends")
         navigationItem.rightBarButtonItems = [addFriends, addButton]
         
         // initialize name of user
@@ -233,6 +243,7 @@ class TaskViewController: UITableViewController {
         let task = tasks[indexPath.row]
 
         cell.taskDescription.text = task.title
+        cell.taskDescription.lineBreakMode = NSLineBreakMode.ByTruncatingMiddle
         cell.creator.text = task.creator
         cell.selectionStyle = .None
         cell.checkmarkButton.hidden = true
@@ -262,7 +273,6 @@ class TaskViewController: UITableViewController {
             cell.takeTask.setTitle("Take task", forState: .Normal)
             cell.assignedToLabel.hidden = true
             cell.assignedPeople.hidden = true
-           // cell.assignedPeople.text? = ""
 
         } else {
             cell.assignedPeople.text? = ""

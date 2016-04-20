@@ -154,16 +154,22 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
     
     func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) {
         let task = fetchedResultsController.objectAtIndexPath(indexPath) as! UserTask
-        cell.textLabel?.text = task.title
         toggleCellCheckbox(cell, completed: task.isDone)
+        cell.textLabel?.text = task.title
     }
     
     func toggleCellCheckbox(cell: UITableViewCell, completed: Bool) {
         if !completed {
+            cell.textLabel?.attributedText = nil
             cell.accessoryType = UITableViewCellAccessoryType.None
         } else {
             cell.tintColor = UIColor.orangeColor()
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            let attributes = [
+                NSStrikethroughStyleAttributeName: NSNumber(integer: NSUnderlineStyle.StyleSingle.rawValue)
+            ]
+            cell.textLabel?.attributedText = NSAttributedString(string: cell.textLabel!.text!, attributes: attributes)
+
         }
     }
 }

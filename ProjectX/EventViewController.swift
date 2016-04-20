@@ -63,6 +63,7 @@ class EventViewController: UITableViewController {
     func logoutUser() {
         let loginManager = FBSDKLoginManager()
         loginManager.logOut()
+        FirebaseClient.Constants.BASE_REF.unauth()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
