@@ -123,6 +123,8 @@ class TaskViewController: UITableViewController {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("AssignFriendsViewController") as! AssignFriendsViewController
         controller.membersRef = eventRef?.childByAppendingPath("members/")
         controller.task = task
+        controller.taskCounterRef = self.taskCounterRef
+
         self.navigationController!.pushViewController(controller, animated: true)
         
     }
@@ -148,6 +150,7 @@ class TaskViewController: UITableViewController {
             cell.assignButton.userInteractionEnabled = true
             
             task.ref?.childByAppendingPath("complete").setValue(false)
+            // TODO: have to update for all other people in charge
             taskCounterRef.updateChildValues([userID!: ++taskCounter])
         } else {
             let attributes = [

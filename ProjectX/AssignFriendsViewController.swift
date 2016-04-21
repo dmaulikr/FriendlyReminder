@@ -14,8 +14,9 @@ class AssignFriendsViewController: UITableViewController {
     var friends = [Friend]()
     var membersRef: Firebase?
     var task: Task!
-    var selectedFriends: [String] = []
+    var selectedFriends: [Friend] = []
     var counter: Int = 0
+    var taskCounterRef: Firebase!
         
     @IBOutlet weak var activityView: UIView!
     
@@ -69,7 +70,7 @@ class AssignFriendsViewController: UITableViewController {
     // assigns friends to the task
     func assignFriends() {
         // use selectedFriends to add to task.incharge
-        if selectedFriends == [] {
+        if selectedFriends.isEmpty {
             let alert = UIAlertController(title: "No Friends Selected",
                 message: "Select friends to add!",
                 preferredStyle: .Alert)
@@ -82,10 +83,18 @@ class AssignFriendsViewController: UITableViewController {
             return
         }
         task.inCharge = task.inCharge.filter{$0 != "no one"}
-        for name in selectedFriends {
-            task.inCharge.append(name)
+        for friend in selectedFriends {
+            task.inCharge.append(friend.name)
         }
         // increase task counter for selected friends
+        var taskCounter = 0
+        for friend in selectedFriends {
+            print("get here")
+            taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                taskCounter = snapshot.value[friend.id] as! Int
+                self.taskCounterRef.updateChildValues([friend.id: ++taskCounter])
+            })
+        }
         task.ref?.childByAppendingPath("inCharge").setValue(task.inCharge)
         self.navigationController?.popViewControllerAnimated(true)
     }
@@ -107,8 +116,8 @@ class AssignFriendsViewController: UITableViewController {
                     cell.userInteractionEnabled = false
                 }
             }
-            for name in selectedFriends {
-                if name == friend.name {
+            for thisFriend in selectedFriends {
+                if thisFriend.name == friend.name {
                     isAssigned = true
                 }
             }
@@ -147,15 +156,15 @@ class AssignFriendsViewController: UITableViewController {
         let friend = friends[indexPath.row]
         var delete = false
         // removes friend from selection if user taps again
-        for name in selectedFriends {
-            if name == friend.name {
-                selectedFriends = selectedFriends.filter{$0 != friend.name}
+        for thisFriend in selectedFriends {
+            if thisFriend.name == friend.name {
+                selectedFriends = selectedFriends.filter{$0.name != friend.name}
                 delete = true
             }
         }
         // adds friend into selected friends
         if !delete {
-            selectedFriends.append(friend.name)
+            selectedFriends.append(friend)
         }
         tableView.reloadData()
     }
