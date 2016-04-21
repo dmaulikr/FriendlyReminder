@@ -84,7 +84,11 @@ class AssignFriendsViewController: UITableViewController {
         }
         //task.inCharge = task.inCharge.filter{$0 != "no one"}
         for friend in selectedFriends {
-            task.inCharge!.append(friend.name)
+            // checks for nil
+            if task.inCharge?.append(friend.name) == nil {
+                task.inCharge = [friend.name]
+            }
+
         }
         // increase task counter for selected friends
         var taskCounter = 0
@@ -108,11 +112,13 @@ class AssignFriendsViewController: UITableViewController {
             cell.friendName.text = friend.name
             cell.profilePic.image = friend.image
             
-            for name in task.inCharge! {
-                if name == friend.name {
-                    isAssigned = true
-                    // disable cell if friend has already been added to the task
-                    cell.userInteractionEnabled = false
+            if task.inCharge != nil {
+                for name in task.inCharge! {
+                    if name == friend.name {
+                        isAssigned = true
+                        // disable cell if friend has already been added to the task
+                        cell.userInteractionEnabled = false
+                    }
                 }
             }
             for thisFriend in selectedFriends {

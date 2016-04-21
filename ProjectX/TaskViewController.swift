@@ -131,7 +131,15 @@ class TaskViewController: UITableViewController {
             
             task.ref?.childByAppendingPath("complete").setValue(false)
             // TODO: have to update for all other people in charge
-            taskCounterRef.updateChildValues([userName: ++taskCounter])
+            taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                for name in task.inCharge! {
+                    var newCounter = snapshot.value[name] as! Int
+                    self.taskCounterRef.updateChildValues([name: ++newCounter])
+                    if name == self.userName {
+                        self.taskCounter = newCounter
+                    }
+                }
+            })
         } else {
             let attributes = [
                 NSStrikethroughStyleAttributeName: NSNumber(integer: NSUnderlineStyle.StyleSingle.rawValue)
@@ -141,7 +149,15 @@ class TaskViewController: UITableViewController {
             cell.userInteractionEnabled = false
             
             task.ref?.childByAppendingPath("complete").setValue(true)
-            taskCounterRef.updateChildValues([userName: --taskCounter])
+            taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                for name in task.inCharge! {
+                    var newCounter = snapshot.value[name] as! Int
+                    self.taskCounterRef.updateChildValues([name: --newCounter])
+                    if name == self.userName {
+                        self.taskCounter = newCounter
+                    }
+                }
+            })
         }
     }
     
