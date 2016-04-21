@@ -85,6 +85,7 @@ class AssignFriendsViewController: UITableViewController {
         for name in selectedFriends {
             task.inCharge.append(name)
         }
+        // increase task counter for selected friends
         task.ref?.childByAppendingPath("inCharge").setValue(task.inCharge)
         self.navigationController?.popViewControllerAnimated(true)
     }
@@ -102,6 +103,8 @@ class AssignFriendsViewController: UITableViewController {
             for name in task.inCharge {
                 if name == friend.name {
                     isAssigned = true
+                    // disable cell if friend has already been added to the task
+                    cell.userInteractionEnabled = false
                 }
             }
             for name in selectedFriends {

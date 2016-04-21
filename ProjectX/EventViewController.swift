@@ -84,7 +84,7 @@ class EventViewController: UITableViewController {
         
         cell.title.text = event.title
         cell.dateOfEvent.text = "Date of Event: " + dateString
-        cell.tasksLeft.text = String(event.taskCounter)
+        cell.tasksLeft.text = String(event.taskCounter.valueForKey(authID)!)
     }
   
 
@@ -112,7 +112,9 @@ class EventViewController: UITableViewController {
         controller.ref = FirebaseClient.Constants.EVENT_REF.childByAppendingPath("\(event.title.lowercaseString)" + "/tasks/")
         controller.eventRef = FirebaseClient.Constants.EVENT_REF.childByAppendingPath("\(event.title.lowercaseString)" + "/")
         controller.userRef = FirebaseClient.Constants.USER_REF.childByAppendingPath("\(authID)/")
-        controller.eventTitle = event.title
+        controller.taskCounterRef = controller.eventRef?.childByAppendingPath("taskCounter")
+        controller.event = event
+
         
         self.navigationController!.pushViewController(controller, animated: true)
     }

@@ -13,6 +13,7 @@ class FriendsViewController: UITableViewController {
     
     var friends = [Friend]()
     var membersRef: Firebase?
+    var taskCounterRef: Firebase!
     
     @IBOutlet weak var activityView: UIView!
     
@@ -93,6 +94,8 @@ class FriendsViewController: UITableViewController {
         let friend = friends[indexPath.row]
         if friend.isMember == false {
             self.membersRef?.updateChildValues([friend.id: true])
+            // initializes path to taskCounter in Firebase
+            self.taskCounterRef.updateChildValues([friend.id: 0])
             friend.isMember = true
         } else {
             // removing friend from event

@@ -15,8 +15,10 @@ class TaskViewController: UITableViewController {
     var eventRef: Firebase? // for friendVC
     var userRef: Firebase?
     var userName: String?
-    var eventTitle: String!
     var taskCounter: Int = 0
+    var taskCounterRef: Firebase!
+    var userID: String?
+    var event: Event!
     
     @IBOutlet weak var activityView: UIView!
     
@@ -50,7 +52,7 @@ class TaskViewController: UITableViewController {
         label.numberOfLines = 2
         label.textAlignment = NSTextAlignment.Center
         label.lineBreakMode = NSLineBreakMode.ByTruncatingMiddle
-        label.text = eventTitle
+        label.text = event.title
         navigationItem.titleView = label
         
         let addFriendsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 65, height: 44))
@@ -67,14 +69,25 @@ class TaskViewController: UITableViewController {
         navigationItem.rightBarButtonItems = [addFriends, addButton]
         
         // initialize name of user
+        
+        let group = dispatch_group_create()
+
+        dispatch_group_enter(group)
         userRef!.observeSingleEventOfType(.Value, withBlock: { snapshot in
             self.userName = snapshot.value["name"] as? String
+            self.userID = snapshot.value["userid"] as? String
+            dispatch_group_leave(group)
         })
+
+        dispatch_group_notify(group, dispatch_get_main_queue()) {
+            // initialize task counter
+            self.taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                self.taskCounter = snapshot.value[self.userID!] as! Int
+            })
+        }
         
-        // initialize task counter
-        eventRef!.observeSingleEventOfType(.Value, withBlock: { snapshot in
-            self.taskCounter = snapshot.value["taskCounter"] as! Int
-        })
+        
+
     }
     
     // MARK: - Take task and Quit task
@@ -88,7 +101,7 @@ class TaskViewController: UITableViewController {
             task.inCharge.append(self.userName!)
             task.inCharge = task.inCharge.filter{$0 != "no one"}
             button.setTitle("Quit task", forState: .Normal)
-            eventRef!.updateChildValues(["taskCounter": ++taskCounter])
+            taskCounterRef.updateChildValues([userID!: ++taskCounter])
         } else {
             // Quit task
             // remove user from inCharge list
@@ -99,7 +112,7 @@ class TaskViewController: UITableViewController {
                 task.inCharge.append("no one")
             }
             button.setTitle("Take task", forState: .Normal)
-            eventRef!.updateChildValues(["taskCounter": --taskCounter])
+            taskCounterRef.updateChildValues([userID!: --taskCounter])
         }
         task.ref?.childByAppendingPath("inCharge").setValue(task.inCharge)
     }
@@ -135,7 +148,7 @@ class TaskViewController: UITableViewController {
             cell.assignButton.userInteractionEnabled = true
             
             task.ref?.childByAppendingPath("complete").setValue(false)
-            eventRef!.updateChildValues(["taskCounter": ++taskCounter])
+            taskCounterRef.updateChildValues([userID!: ++taskCounter])
         } else {
             let attributes = [
                 NSStrikethroughStyleAttributeName: NSNumber(integer: NSUnderlineStyle.StyleSingle.rawValue)
@@ -145,9 +158,8 @@ class TaskViewController: UITableViewController {
             cell.userInteractionEnabled = false
             
             task.ref?.childByAppendingPath("complete").setValue(true)
-            eventRef!.updateChildValues(["taskCounter": --taskCounter])
+            taskCounterRef.updateChildValues([userID!: --taskCounter])
         }
-
     }
     
     // returns the current task from button press
@@ -164,6 +176,8 @@ class TaskViewController: UITableViewController {
     func addFriends() {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("FriendsViewController") as! FriendsViewController
         controller.membersRef = eventRef?.childByAppendingPath("members/")
+        controller.taskCounterRef = self.taskCounterRef
+
         self.navigationController!.pushViewController(controller, animated: true)
     }
     
