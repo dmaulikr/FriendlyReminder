@@ -14,6 +14,7 @@ class EventViewController: UITableViewController {
     
     var events = [Event]()
     var authID: String!
+    var userName: String?
     
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var activityView: UIView!
@@ -21,6 +22,10 @@ class EventViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initUI()
+        
+        FirebaseClient.Constants.USER_REF.childByAppendingPath("\(authID)/").observeSingleEventOfType(.Value, withBlock: { snapshot in
+            self.userName = snapshot.value["name"] as? String
+        })
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -55,6 +60,7 @@ class EventViewController: UITableViewController {
         
         controller.authID = authID
         controller.groupEvent = true
+        controller.userName = userName!
         
         self.presentViewController(controller, animated: true, completion: nil)
     }
@@ -84,7 +90,7 @@ class EventViewController: UITableViewController {
         
         cell.title.text = event.title
         cell.dateOfEvent.text = "Date of Event: " + dateString
-        cell.tasksLeft.text = String(event.taskCounter.valueForKey(authID)!)
+        cell.tasksLeft.text = String(event.taskCounter.valueForKey(userName!)!)
     }
   
 
@@ -114,8 +120,8 @@ class EventViewController: UITableViewController {
         controller.userRef = FirebaseClient.Constants.USER_REF.childByAppendingPath("\(authID)/")
         controller.taskCounterRef = controller.eventRef?.childByAppendingPath("taskCounter")
         controller.event = event
+        controller.userName = userName
 
-        
         self.navigationController!.pushViewController(controller, animated: true)
     }
     

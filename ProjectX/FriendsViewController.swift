@@ -95,7 +95,7 @@ class FriendsViewController: UITableViewController {
         if friend.isMember == false {
             self.membersRef?.updateChildValues([friend.id: true])
             // initializes path to taskCounter in Firebase
-            self.taskCounterRef.updateChildValues([friend.id: 0])
+            self.taskCounterRef.updateChildValues([friend.name: 0])
             friend.isMember = true
         } else {
             // removing friend from event

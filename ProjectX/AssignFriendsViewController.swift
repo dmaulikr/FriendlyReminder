@@ -82,17 +82,16 @@ class AssignFriendsViewController: UITableViewController {
             self.presentViewController(alert, animated: true, completion: nil)
             return
         }
-        task.inCharge = task.inCharge.filter{$0 != "no one"}
+        //task.inCharge = task.inCharge.filter{$0 != "no one"}
         for friend in selectedFriends {
-            task.inCharge.append(friend.name)
+            task.inCharge!.append(friend.name)
         }
         // increase task counter for selected friends
         var taskCounter = 0
         for friend in selectedFriends {
-            print("get here")
             taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
-                taskCounter = snapshot.value[friend.id] as! Int
-                self.taskCounterRef.updateChildValues([friend.id: ++taskCounter])
+                taskCounter = snapshot.value[friend.name] as! Int
+                self.taskCounterRef.updateChildValues([friend.name: ++taskCounter])
             })
         }
         task.ref?.childByAppendingPath("inCharge").setValue(task.inCharge)
@@ -109,7 +108,7 @@ class AssignFriendsViewController: UITableViewController {
             cell.friendName.text = friend.name
             cell.profilePic.image = friend.image
             
-            for name in task.inCharge {
+            for name in task.inCharge! {
                 if name == friend.name {
                     isAssigned = true
                     // disable cell if friend has already been added to the task
