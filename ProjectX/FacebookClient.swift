@@ -7,13 +7,12 @@
 //
 
 import UIKit
-//import FBSDKCoreKit
 import FBSDKLoginKit
 import Firebase
 
 class FacebookClient {
     
-    func login(controller: UIViewController, completionHandler: (authID: String) -> Void) {
+    func login(controller: UIViewController, completionHandler: (authID: String, user: User) -> Void) {
         let facebookLogin = FBSDKLoginManager()
         
         // gets the name and user's friends
@@ -34,11 +33,11 @@ class FacebookClient {
                             prefs.setValue(authData.uid, forKey: "authID")
                             
                             // update user data on firebase
-                            let user = User(name: authData.providerData["displayName"] as! String)
+                            let user = User(name: authData.providerData["displayName"] as! String, id: authData.uid)
                             let userRef = FirebaseClient.Constants.USER_REF.childByAppendingPath(authData.uid)
-                            userRef.updateChildValues(["name": user.name, "userid": authData.uid])
+                            userRef.setValue(user.toAnyObject())
                             
-                            completionHandler(authID: authData.uid)
+                            completionHandler(authID: authData.uid, user: user)
                         }
                 })
             }
@@ -56,7 +55,6 @@ class FacebookClient {
             if ((error) != nil)
             {
                 // Process error
-                //print("Error: \(error)")
                 // prints error for internet connection failure
                 let alert = UIAlertController(title: "Error",
                     message: "Search failed. \(error.localizedDescription)",

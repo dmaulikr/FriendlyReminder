@@ -12,7 +12,6 @@ import Firebase
 class TaskViewController: UITableViewController {
     var tasks = [Task]()
     var ref: Firebase? // reference to all tasks
-    var eventRef: Firebase? // for friendVC
     var userRef: Firebase?
     var userName: String!
     var taskCounter: Int = 0
@@ -101,7 +100,7 @@ class TaskViewController: UITableViewController {
     @IBAction func assignTask(sender: AnyObject) {
         let task = getTask(sender)
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("AssignFriendsViewController") as! AssignFriendsViewController
-        controller.membersRef = eventRef?.childByAppendingPath("members/")
+        controller.membersRef = event.ref!.childByAppendingPath("members/")
         controller.task = task
         controller.taskCounterRef = self.taskCounterRef
 
@@ -174,7 +173,7 @@ class TaskViewController: UITableViewController {
     // goes to friend view controller to see which friends can be added
     func addFriends() {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("FriendsViewController") as! FriendsViewController
-        controller.membersRef = eventRef?.childByAppendingPath("members/")
+        controller.membersRef = event.ref!.childByAppendingPath("members/")
         controller.taskCounterRef = self.taskCounterRef
 
         self.navigationController!.pushViewController(controller, animated: true)
@@ -321,8 +320,12 @@ class TaskViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        
-        return UITableViewCellEditingStyle.None
+        let task = tasks[indexPath.row]
+        if task.creator == userName {
+            return UITableViewCellEditingStyle.Delete
+        } else {
+            return UITableViewCellEditingStyle.None
+        }
     }
     
     // TODO: modify so creator can delete tasks
@@ -332,7 +335,21 @@ class TaskViewController: UITableViewController {
             switch (editingStyle) {
             case .Delete:
                 let task = tasks[indexPath.row]
-                print("\(task.ref)")
+                
+                // TODO: create a function?
+                
+                if task.inCharge != nil {
+                    taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                        for name in task.inCharge! {
+                            var newCounter = snapshot.value[name] as! Int
+                            self.taskCounterRef.updateChildValues([name: --newCounter])
+                            if name == self.userName {
+                                self.taskCounter = newCounter
+                            }
+                        }
+                    })
+                }
+
                 task.ref!.removeValue()
             default:
                 break

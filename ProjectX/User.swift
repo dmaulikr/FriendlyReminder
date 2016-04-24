@@ -10,25 +10,25 @@ import Firebase
 
 class User {
     var name: String
-    var events: NSDictionary?
+    var id: String
     var ref: Firebase?
     
-    init(name: String) {
+    init(name: String, id: String) {
         self.name = name
-        self.events = nil
+        self.id = id
         self.ref = nil
     }
     
     func toAnyObject() -> AnyObject {
         return [
             "name": name,
-            "events": events!
+            "id": id
         ]
     }
     
     init(snapshot: FDataSnapshot) {
         name = snapshot.value["name"] as! String
-        events = snapshot.value["events"] as? NSDictionary
+        id = snapshot.value["id"] as! String
         ref = snapshot.ref
     }
 }

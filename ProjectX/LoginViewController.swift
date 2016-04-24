@@ -12,6 +12,7 @@ import FBSDKLoginKit
 class LoginViewController: UIViewController {
     
     var authID: String?
+    var user: User?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +39,10 @@ class LoginViewController: UIViewController {
     // do facebook login when button is touched, then go to next VC
     @IBAction func loginButtonTouch(sender: AnyObject) {
         FacebookClient.sharedInstance().login(self) {
-            (authID) in
+            (authID, user) in
             if self.authID == nil {
                 self.authID = authID
+                self.user = user
                 self.performSegueWithIdentifier("Login", sender: nil)
             }
         }
@@ -60,5 +62,6 @@ class LoginViewController: UIViewController {
         let eventVC = navVC.viewControllers.first as! EventViewController
         
         eventVC.authID = authID
+        eventVC.user = self.user
     }
 }

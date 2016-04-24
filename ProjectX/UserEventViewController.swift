@@ -11,7 +11,6 @@ import CoreData
 
 class UserEventViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
-    var authID: String?
     @IBOutlet weak var dateLabel: UILabel!
     
     override func viewDidLoad() {
@@ -60,7 +59,6 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
     func addUserEvent() {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("EventCreatorViewController") as! EventCreatorViewController
         
-        controller.authID = authID
         controller.groupEvent = false
         
         self.presentViewController(controller, animated: true, completion: nil)

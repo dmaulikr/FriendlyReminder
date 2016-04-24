@@ -13,6 +13,7 @@ import FBSDKLoginKit
 class EventViewController: UITableViewController {
     
     var events = [Event]()
+    var user: User!
     var authID: String!
     var userName: String?
     
@@ -116,9 +117,8 @@ class EventViewController: UITableViewController {
         
         // need to pass reference to event title
         controller.ref = FirebaseClient.Constants.EVENT_REF.childByAppendingPath("\(event.title.lowercaseString)" + "/tasks/")
-        controller.eventRef = FirebaseClient.Constants.EVENT_REF.childByAppendingPath("\(event.title.lowercaseString)" + "/")
         controller.userRef = FirebaseClient.Constants.USER_REF.childByAppendingPath("\(authID)/")
-        controller.taskCounterRef = controller.eventRef?.childByAppendingPath("taskCounter")
+        controller.taskCounterRef = event.ref!.childByAppendingPath("taskCounter")
         controller.event = event
         controller.userName = userName
 
@@ -127,10 +127,12 @@ class EventViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         
-        // no one can edit for now
-        // TODO: make it so only the creator can delete the event... and tasks?
-        return UITableViewCellEditingStyle.None
-
+        let event = events[indexPath.row]
+        if event.creator == userName {
+            return UITableViewCellEditingStyle.Delete
+        } else {
+            return UITableViewCellEditingStyle.None
+        }
     }
     
     // TODO: add delete capabilities for creator of events
@@ -141,7 +143,6 @@ class EventViewController: UITableViewController {
             case .Delete:
                 let event = events[indexPath.row]
                 event.ref?.removeValue()
-
             default:
                 break
             }
