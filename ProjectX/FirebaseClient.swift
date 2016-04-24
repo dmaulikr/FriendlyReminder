@@ -24,6 +24,13 @@ class FirebaseClient {
         })
     }
     
+    func getTaskCounter(taskCounterRef: Firebase, userName: String, completionHandler: (taskCounter: Int) -> Void) {
+        taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            let value = snapshot.value[userName] as! Int
+            completionHandler(taskCounter: value)
+        })
+    }
+    
     class func sharedInstance() -> FirebaseClient {
         struct Singleton {
             static var sharedInstance = FirebaseClient()

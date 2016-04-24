@@ -12,7 +12,7 @@ import Firebase
 
 class FacebookClient {
     
-    func login(controller: UIViewController, completionHandler: (authID: String, user: User) -> Void) {
+    func login(controller: UIViewController, completionHandler: (user: User) -> Void) {
         let facebookLogin = FBSDKLoginManager()
         
         // gets the name and user's friends
@@ -28,16 +28,19 @@ class FacebookClient {
                         if error != nil {
                             print("Login failed. \(error)")
                         } else {
-                            // save user's authID onto the phone
-                            let prefs = NSUserDefaults.standardUserDefaults()
-                            prefs.setValue(authData.uid, forKey: "authID")
                             
                             // update user data on firebase
                             let user = User(name: authData.providerData["displayName"] as! String, id: authData.uid)
                             let userRef = FirebaseClient.Constants.USER_REF.childByAppendingPath(authData.uid)
                             userRef.setValue(user.toAnyObject())
                             
-                            completionHandler(authID: authData.uid, user: user)
+                            // save user onto the phone
+                            let prefs = NSUserDefaults.standardUserDefaults()
+                            let encodedData = NSKeyedArchiver.archivedDataWithRootObject(user)
+                            prefs.setObject(encodedData, forKey: "user")
+                            prefs.synchronize()
+                            
+                            completionHandler(user: user)
                         }
                 })
             }

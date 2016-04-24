@@ -14,8 +14,6 @@ class EventViewController: UITableViewController {
     
     var events = [Event]()
     var user: User!
-    var authID: String!
-    var userName: String?
     
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var activityView: UIView!
@@ -23,17 +21,13 @@ class EventViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initUI()
-        
-        FirebaseClient.Constants.USER_REF.childByAppendingPath("\(authID)/").observeSingleEventOfType(.Value, withBlock: { snapshot in
-            self.userName = snapshot.value["name"] as? String
-        })
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         // get current user's events
-        FirebaseClient.sharedInstance().getEvents(authID) {
+        FirebaseClient.sharedInstance().getEvents(user.id) {
             (newEvents) -> Void in
             self.events = newEvents
             self.tableView.reloadData()
@@ -59,9 +53,8 @@ class EventViewController: UITableViewController {
     func addEvent() {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("EventCreatorViewController") as! EventCreatorViewController
         
-        controller.authID = authID
+        controller.user = user
         controller.groupEvent = true
-        controller.userName = userName!
         
         self.presentViewController(controller, animated: true, completion: nil)
     }
@@ -91,7 +84,7 @@ class EventViewController: UITableViewController {
         
         cell.title.text = event.title
         cell.dateOfEvent.text = "Date of Event: " + dateString
-        cell.tasksLeft.text = String(event.taskCounter.valueForKey(userName!)!)
+        cell.tasksLeft.text = String(event.taskCounter.valueForKey(user.name)!)
     }
   
 
@@ -116,11 +109,10 @@ class EventViewController: UITableViewController {
         let controller = storyboard!.instantiateViewControllerWithIdentifier("TaskViewController") as! TaskViewController
         
         // need to pass reference to event title
-        controller.ref = FirebaseClient.Constants.EVENT_REF.childByAppendingPath("\(event.title.lowercaseString)" + "/tasks/")
-        controller.userRef = FirebaseClient.Constants.USER_REF.childByAppendingPath("\(authID)/")
-        controller.taskCounterRef = event.ref!.childByAppendingPath("taskCounter")
+        controller.user = user
         controller.event = event
-        controller.userName = userName
+        controller.ref = event.ref!.childByAppendingPath("tasks")
+        controller.taskCounterRef = event.ref!.childByAppendingPath("taskCounter")
 
         self.navigationController!.pushViewController(controller, animated: true)
     }
@@ -128,7 +120,7 @@ class EventViewController: UITableViewController {
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         
         let event = events[indexPath.row]
-        if event.creator == userName {
+        if event.creator == user.name {
             return UITableViewCellEditingStyle.Delete
         } else {
             return UITableViewCellEditingStyle.None

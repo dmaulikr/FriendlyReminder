@@ -15,10 +15,9 @@ class EventCreatorViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var eventTitle: UITextField!
     
-    var authID: String!
+    var user: User!
     var groupEvent: Bool!
     var tapRecognizer: UITapGestureRecognizer? = nil
-    var userName: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +77,7 @@ class EventCreatorViewController: UIViewController, UITextFieldDelegate {
         
         if groupEvent == true {
             // save to Firebase
-            let event = Event(title: eventTitle.text!, date: dateString, members: [authID: true], taskCounter: [userName: 0], creator: userName)
+            let event = Event(title: eventTitle.text!, date: dateString, members: [user.id: true], taskCounter: [user.name: 0], creator: user.name)
             let eventRef = FirebaseClient.Constants.EVENT_REF.childByAppendingPath(eventTitle.text!.lowercaseString + "/")
             eventRef.setValue(event.toAnyObject())
         } else {

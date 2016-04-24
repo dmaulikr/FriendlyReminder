@@ -11,12 +11,12 @@ import Firebase
 
 class TaskViewController: UITableViewController {
     var tasks = [Task]()
-    var ref: Firebase? // reference to all tasks
-    var userRef: Firebase?
-    var userName: String!
-    var taskCounter: Int = 0
-    var taskCounterRef: Firebase!
+    var taskCounter = 0
+    
+    var user: User!
     var event: Event!
+    var ref: Firebase? // reference to all tasks
+    var taskCounterRef: Firebase!
     
     @IBOutlet weak var activityView: UIView!
     
@@ -64,10 +64,11 @@ class TaskViewController: UITableViewController {
         let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addTask")
         navigationItem.rightBarButtonItems = [addFriends, addButton]
         
-        // initialize task counter
-        taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
-                self.taskCounter = snapshot.value[self.userName] as! Int
-        })
+        
+        FirebaseClient.sharedInstance().getTaskCounter(taskCounterRef, userName: user.name) {
+            taskCounter in
+            self.taskCounter = taskCounter
+        }
     }
     
     // MARK: - Take task and Quit task
@@ -79,19 +80,19 @@ class TaskViewController: UITableViewController {
         // filter out "no one" in the case where no one is assigned yet
         if button.titleLabel!.text == "Take task" {
             // appends to task.inCharge if it's nil
-            if task.inCharge?.append(userName) == nil {
-                task.inCharge = [userName]
+            if task.inCharge?.append(user.name) == nil {
+                task.inCharge = [user.name]
             }
             //task.inCharge = task.inCharge.filter{$0 != "no one"}
             button.setTitle("Quit task", forState: .Normal)
-            taskCounterRef.updateChildValues([userName: ++taskCounter])
+            taskCounterRef.updateChildValues([user.name: ++taskCounter])
         } else {
             // Quit task
             // remove user from inCharge list
-            task.inCharge = task.inCharge!.filter{$0 != userName}
+            task.inCharge = task.inCharge!.filter{$0 != user.name}
 
             button.setTitle("Take task", forState: .Normal)
-            taskCounterRef.updateChildValues([userName: --taskCounter])
+            taskCounterRef.updateChildValues([user.name: --taskCounter])
         }
         task.ref?.childByAppendingPath("inCharge").setValue(task.inCharge)
     }
@@ -134,7 +135,7 @@ class TaskViewController: UITableViewController {
                 for name in task.inCharge! {
                     var newCounter = snapshot.value[name] as! Int
                     self.taskCounterRef.updateChildValues([name: ++newCounter])
-                    if name == self.userName {
+                    if name == self.user.name {
                         self.taskCounter = newCounter
                     }
                 }
@@ -152,7 +153,7 @@ class TaskViewController: UITableViewController {
                 for name in task.inCharge! {
                     var newCounter = snapshot.value[name] as! Int
                     self.taskCounterRef.updateChildValues([name: --newCounter])
-                    if name == self.userName {
+                    if name == self.user.name {
                         self.taskCounter = newCounter
                     }
                 }
@@ -222,7 +223,7 @@ class TaskViewController: UITableViewController {
                 }
                 // create task on Firebase
                 let taskRef = self.ref!.childByAppendingPath(textField.text!.lowercaseString + "/")
-                let task = Task(title: textField.text!, creator: self.userName, ref: taskRef)
+                let task = Task(title: textField.text!, creator: self.user.name, ref: taskRef)
                 taskRef.setValue(task.toAnyObject())
         }
         
@@ -271,7 +272,7 @@ class TaskViewController: UITableViewController {
             cell.userInteractionEnabled = false
             for name in task.inCharge! {
                 // can interact with only checkmark button
-                if name == userName {
+                if name == user.name {
                     cell.userInteractionEnabled = true
                     cell.takeTask.userInteractionEnabled = false
                     cell.assignButton.userInteractionEnabled = false
@@ -292,7 +293,7 @@ class TaskViewController: UITableViewController {
             
             // appends names to the assignedPeople label
             for name in task.inCharge! {
-                if name == userName {
+                if name == user.name {
                     cell.takeTask.setTitle("Quit task", forState: .Normal)
                     cell.checkmarkButton.hidden = false
                 }
@@ -321,7 +322,7 @@ class TaskViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         let task = tasks[indexPath.row]
-        if task.creator == userName {
+        if task.creator == user.name {
             return UITableViewCellEditingStyle.Delete
         } else {
             return UITableViewCellEditingStyle.None
@@ -343,7 +344,7 @@ class TaskViewController: UITableViewController {
                         for name in task.inCharge! {
                             var newCounter = snapshot.value[name] as! Int
                             self.taskCounterRef.updateChildValues([name: --newCounter])
-                            if name == self.userName {
+                            if name == self.user.name {
                                 self.taskCounter = newCounter
                             }
                         }
