@@ -92,12 +92,14 @@ class AssignFriendsViewController: UITableViewController {
         }
         // increase task counter for selected friends
         var taskCounter = 0
-        for friend in selectedFriends {
-            taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+
+        taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            for friend in self.selectedFriends {
                 taskCounter = snapshot.value[friend.name] as! Int
                 self.taskCounterRef.updateChildValues([friend.name: ++taskCounter])
-            })
-        }
+            }
+        })
+
         task.ref?.childByAppendingPath("inCharge").setValue(task.inCharge)
         self.navigationController?.popViewControllerAnimated(true)
     }

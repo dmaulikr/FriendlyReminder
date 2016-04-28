@@ -83,7 +83,7 @@ class EventViewController: UITableViewController {
         let dateString = dateFormatter.stringFromDate(oldDate!)
         
         cell.title.text = event.title
-        cell.dateOfEvent.text = "Date of Event: " + dateString
+        cell.dateOfEvent.text =  event.creator + "'s Event: " + dateString
         cell.tasksLeft.text = String(event.taskCounter.valueForKey(user.name)!)
     }
   

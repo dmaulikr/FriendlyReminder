@@ -23,6 +23,12 @@ class TaskViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initUI()
+        
+        // get task counter for
+        FirebaseClient.sharedInstance().getTaskCounter(taskCounterRef, userName: user.name) {
+            taskCounter in
+            self.taskCounter = taskCounter
+        }
     }
     
     // reloads the tableview data and task array
@@ -63,12 +69,6 @@ class TaskViewController: UITableViewController {
         
         let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addTask")
         navigationItem.rightBarButtonItems = [addFriends, addButton]
-        
-        
-        FirebaseClient.sharedInstance().getTaskCounter(taskCounterRef, userName: user.name) {
-            taskCounter in
-            self.taskCounter = taskCounter
-        }
     }
     
     // MARK: - Take task and Quit task
@@ -140,7 +140,7 @@ class TaskViewController: UITableViewController {
                     }
                 }
             })
-        } else {
+        } else { // complete task
             let attributes = [
                 NSStrikethroughStyleAttributeName: NSNumber(integer: NSUnderlineStyle.StyleSingle.rawValue)
             ]
@@ -336,8 +336,6 @@ class TaskViewController: UITableViewController {
             switch (editingStyle) {
             case .Delete:
                 let task = tasks[indexPath.row]
-                
-                // TODO: create a function?
                 
                 if task.inCharge != nil {
                     taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
