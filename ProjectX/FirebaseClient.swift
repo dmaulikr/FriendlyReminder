@@ -1,6 +1,6 @@
 //
 //  FirebaseClient.swift
-//  ProjectX
+//  FriendlyReminder
 //
 //  Created by Jonathan Chou on 3/22/16.
 //  Copyright © 2016 Jonathan Chou. All rights reserved.

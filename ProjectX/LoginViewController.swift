@@ -1,6 +1,6 @@
 //
 //  LoginViewController.swift
-//  ProjectX
+//  FriendlyReminder
 //
 //  Created by Jonathan Chou on 3/10/16.
 //  Copyright © 2016 Jonathan Chou. All rights reserved.
@@ -12,10 +12,11 @@ import FBSDKLoginKit
 class LoginViewController: UIViewController {
     
     var user: User?
+    var loggingIn: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // user defaults
         let prefs = NSUserDefaults.standardUserDefaults()
         
@@ -33,7 +34,7 @@ class LoginViewController: UIViewController {
         super.viewDidAppear(animated)
         
         // if already logged in, go to eventVC
-        if(FBSDKAccessToken.currentAccessToken() != nil && user != nil)
+        if(FBSDKAccessToken.currentAccessToken() != nil && user != nil && !loggingIn)
         {
             self.performSegueWithIdentifier("Login", sender: nil)
         }
@@ -45,6 +46,7 @@ class LoginViewController: UIViewController {
             (user) in
             if self.user == nil {
                 self.user = user
+                self.loggingIn = true
                 self.performSegueWithIdentifier("Login", sender: nil)
             }
         }
@@ -64,5 +66,6 @@ class LoginViewController: UIViewController {
         let eventVC = navVC.viewControllers.first as! EventViewController
         
         eventVC.user = self.user
+        self.loggingIn = false
     }
 }

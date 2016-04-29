@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="14F27" minimumToolsVersion="Xcode 7.0">
+    <entity name="UserEvent" representedClassName=".UserEvent" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="task" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UserTask" inverseName="event" inverseEntity="UserTask" syncable="YES"/>
+    </entity>
+    <entity name="UserTask" representedClassName=".UserTask" syncable="YES">
+        <attribute name="created" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isDone" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="event" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserEvent" inverseName="task" inverseEntity="UserEvent" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="UserEvent" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="UserTask" positionX="-54" positionY="9" width="128" height="105"/>
+    </elements>
+</model>

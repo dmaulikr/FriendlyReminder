@@ -1,6 +1,6 @@
 //
 //  CoreDataStackManager.swift
-//  ProjectX
+//  FriendlyReminder
 //
 //  Created by Jonathan Chou on 2/24/16.
 //  Copyright © 2016 Jonathan Chou. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-private let SQLITE_FILE_NAME = "ProjectX.sqlite"
+private let SQLITE_FILE_NAME = "FriendlyReminder.sqlite"
 
 class CoreDataStackManager {
     
@@ -33,7 +33,7 @@ class CoreDataStackManager {
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
         
-        let modelURL = NSBundle.mainBundle().URLForResource("ProjectX", withExtension: "momd")!
+        let modelURL = NSBundle.mainBundle().URLForResource("FriendlyReminder", withExtension: "momd")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
     }()
     

@@ -1,6 +1,6 @@
 //
 //  UserTaskViewController.swift
-//  ProjectX
+//  FriendlyReminder
 //
 //  Created by Jonathan Chou on 4/1/16.
 //  Copyright © 2016 Jonathan Chou. All rights reserved.

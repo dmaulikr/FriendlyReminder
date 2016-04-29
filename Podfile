@@ -5,7 +5,7 @@ use_frameworks!
 
 pod 'Firebase', '>= 2.5.0'
 
-target 'ProjectX' do
+target 'FriendlyReminder' do
 
 end
 

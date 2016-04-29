@@ -9,7 +9,7 @@
         <!--EventViewController-->
         <scene sceneID="m7Q-hK-pux">
             <objects>
-                <tableViewController storyboardIdentifier="EventViewController" title="EventViewController" id="qJH-OF-OXe" customClass="EventViewController" customModule="ProjectX" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="EventViewController" title="EventViewController" id="qJH-OF-OXe" customClass="EventViewController" customModule="FriendlyReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="51" sectionHeaderHeight="28" sectionFooterHeight="28" id="BUz-ML-Ih4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -58,7 +58,7 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EventCell" rowHeight="51" id="wRo-q6-HFv" customClass="EventCell" customModule="ProjectX" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EventCell" rowHeight="51" id="wRo-q6-HFv" customClass="EventCell" customModule="FriendlyReminder" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="136" width="600" height="51"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wRo-q6-HFv" id="0Hb-7C-xLu">
@@ -154,7 +154,7 @@
         <!--UserEventViewController-->
         <scene sceneID="xc6-CE-3Ka">
             <objects>
-                <tableViewController title="UserEventViewController" id="4jA-cc-QYF" customClass="UserEventViewController" customModule="ProjectX" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="UserEventViewController" id="4jA-cc-QYF" customClass="UserEventViewController" customModule="FriendlyReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Vni-ou-mrA">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -227,7 +227,7 @@
         <!--User Task View Controller-->
         <scene sceneID="J1I-bg-fZh">
             <objects>
-                <tableViewController storyboardIdentifier="UserTaskViewController" id="g4i-H1-0Xq" customClass="UserTaskViewController" customModule="ProjectX" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="UserTaskViewController" id="g4i-H1-0Xq" customClass="UserTaskViewController" customModule="FriendlyReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="40" sectionHeaderHeight="28" sectionFooterHeight="28" id="53t-fF-fns">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -266,7 +266,7 @@
         <!--Task View Controller-->
         <scene sceneID="nJl-AK-LiY">
             <objects>
-                <tableViewController storyboardIdentifier="TaskViewController" id="f3S-QD-KIo" customClass="TaskViewController" customModule="ProjectX" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="TaskViewController" id="f3S-QD-KIo" customClass="TaskViewController" customModule="FriendlyReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="105" sectionHeaderHeight="28" sectionFooterHeight="28" id="FTP-RM-HPr">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -298,7 +298,7 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="105" id="t46-vU-2ax" customClass="TaskCell" customModule="ProjectX" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="105" id="t46-vU-2ax" customClass="TaskCell" customModule="FriendlyReminder" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="600" height="105"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="t46-vU-2ax" id="bPi-4A-9R0">
@@ -441,7 +441,7 @@
         <!--FriendsViewController-->
         <scene sceneID="bCk-FH-N8G">
             <objects>
-                <tableViewController storyboardIdentifier="FriendsViewController" title="FriendsViewController" id="Yep-am-t3V" customClass="FriendsViewController" customModule="ProjectX" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FriendsViewController" title="FriendsViewController" id="Yep-am-t3V" customClass="FriendsViewController" customModule="FriendlyReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="76" sectionHeaderHeight="28" sectionFooterHeight="28" id="qFJ-4U-IK1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -472,7 +472,7 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendCell" rowHeight="76" id="q9c-xH-joE" customClass="FriendCell" customModule="ProjectX" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendCell" rowHeight="76" id="q9c-xH-joE" customClass="FriendCell" customModule="FriendlyReminder" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="600" height="76"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q9c-xH-joE" id="Kar-qC-NTN">
@@ -539,7 +539,7 @@
         <!--EventCreatorViewController-->
         <scene sceneID="oOz-NP-5By">
             <objects>
-                <viewController storyboardIdentifier="EventCreatorViewController" title="EventCreatorViewController" id="u1W-hw-Dfs" customClass="EventCreatorViewController" customModule="ProjectX" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EventCreatorViewController" title="EventCreatorViewController" id="u1W-hw-Dfs" customClass="EventCreatorViewController" customModule="FriendlyReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Fow-A6-rJg"/>
                         <viewControllerLayoutGuide type="bottom" id="Nbl-Hh-3wH"/>
@@ -622,7 +622,7 @@
         <!--Login View Controller-->
         <scene sceneID="M1E-5k-Z2X">
             <objects>
-                <viewController storyboardIdentifier="LoginViewController" id="mES-dq-jEz" customClass="LoginViewController" customModule="ProjectX" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="mES-dq-jEz" customClass="LoginViewController" customModule="FriendlyReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hbr-fX-Wby"/>
                         <viewControllerLayoutGuide type="bottom" id="L7r-F8-CM2"/>
@@ -721,7 +721,7 @@
         <!--AssignFriendsViewController-->
         <scene sceneID="Cf5-t2-r2E">
             <objects>
-                <tableViewController storyboardIdentifier="AssignFriendsViewController" title="AssignFriendsViewController" id="seW-o3-K2d" customClass="AssignFriendsViewController" customModule="ProjectX" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AssignFriendsViewController" title="AssignFriendsViewController" id="seW-o3-K2d" customClass="AssignFriendsViewController" customModule="FriendlyReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="76" sectionHeaderHeight="28" sectionFooterHeight="28" id="iPD-1k-o2j">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -752,7 +752,7 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendCell" rowHeight="76" id="gfD-EV-ZkC" customClass="FriendCell" customModule="ProjectX" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendCell" rowHeight="76" id="gfD-EV-ZkC" customClass="FriendCell" customModule="FriendlyReminder" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="600" height="76"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gfD-EV-ZkC" id="D8J-QW-l31">

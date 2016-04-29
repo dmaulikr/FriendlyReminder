@@ -1,6 +1,6 @@
 //
 //  FacebookClient.swift
-//  ProjectX
+//  FriendlyReminder
 //
 //  Created by Jonathan Chou on 3/16/16.
 //  Copyright © 2016 Jonathan Chou. All rights reserved.
@@ -21,6 +21,8 @@ class FacebookClient {
             if facebookError != nil {
                 print("Facebook login failed. Error \(facebookError)")
                 // dont need alerts here because safari notifies user
+            } else if facebookResult.isCancelled {
+                // was cancelled, need this to do nothing
             } else {
                 let accessToken = FBSDKAccessToken.currentAccessToken().tokenString
                 FirebaseClient.Constants.BASE_REF.authWithOAuthProvider("facebook", token: accessToken,

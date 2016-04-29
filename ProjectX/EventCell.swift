@@ -1,6 +1,6 @@
 //
 //  EventCell.swift
-//  ProjectX
+//  FriendlyReminder
 //
 //  Created by Jonathan Chou on 4/14/16.
 //  Copyright © 2016 Jonathan Chou. All rights reserved.

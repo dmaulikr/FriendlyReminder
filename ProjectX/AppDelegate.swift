@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  ProjectX
+//  FriendlyReminder
 //
 //  Created by Jonathan Chou on 2/24/16.
 //  Copyright © 2016 Jonathan Chou. All rights reserved.
