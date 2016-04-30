@@ -17,7 +17,7 @@ Name: John Book
 Email: wjdr@sr.ro.lt
 Password: foo123123
 
-Each of these facebook accounts have already approved of the app and can be used.
+Each of these facebook accounts have already approved of the app and can be used. To sign out of facebook, go to safari, go to facebook.com, and sign out of your account from there. 
 
 -User Experience-
 When having an event, such as a birthday party or going on vacation, there are usually many little tasks that need to be taken care of. Friends usually want to help plan out these events but aren't sure where they could be of service. With my app, it makes it simple!
