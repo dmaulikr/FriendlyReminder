@@ -28,7 +28,20 @@ class FriendsViewController: UITableViewController {
         
         // searches for user's friends list
         FacebookClient.sharedInstance().searchForFriendsList(self.membersRef!, controller: self) {
-            (friends, picture, error) -> Void in
+            (friends, error) -> Void in
+            if friends.isEmpty {
+                let alert = UIAlertController(title: "No Friends Found",
+                    message: "No friends found with the app installed!",
+                    preferredStyle: .Alert)
+                
+                let cancelAction = UIAlertAction(title: "OK",
+                    style: .Default) { (action: UIAlertAction) -> Void in
+                        self.navigationController?.popViewControllerAnimated(true)
+                }
+                
+                alert.addAction(cancelAction)
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
             self.friends = friends
             self.tableView.reloadData()
             self.activityView.hidden = true

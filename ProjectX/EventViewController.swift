@@ -120,6 +120,7 @@ class EventViewController: UITableViewController {
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         
         let event = events[indexPath.row]
+        // only lets creator delete
         if event.creator == user.name {
             return UITableViewCellEditingStyle.Delete
         } else {
@@ -127,7 +128,6 @@ class EventViewController: UITableViewController {
         }
     }
     
-    // TODO: add delete capabilities for creator of events
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,
         forRowAtIndexPath indexPath: NSIndexPath) {
             

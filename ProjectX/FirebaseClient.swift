@@ -11,7 +11,8 @@ import Firebase
 class FirebaseClient {
     
     func getEvents(authID: String, completionHandler: (newEvents: [Event]) -> Void) {
-        Constants.EVENT_REF.queryOrderedByChild("date").observeEventType(.Value, withBlock: { snapshot in
+        Constants.EVENT_REF.queryOrderedByChild("date").observeEventType(.Value, withBlock: {
+            snapshot in
             var newEvents = [Event]()
             
             for event in snapshot.children {
@@ -25,7 +26,8 @@ class FirebaseClient {
     }
     
     func getTaskCounter(taskCounterRef: Firebase, userName: String, completionHandler: (taskCounter: Int) -> Void) {
-        taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+        taskCounterRef.observeSingleEventOfType(.Value, withBlock: {
+            snapshot in
             let value = snapshot.value[userName] as! Int
             completionHandler(taskCounter: value)
         })

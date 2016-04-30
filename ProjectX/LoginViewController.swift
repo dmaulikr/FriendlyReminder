@@ -12,7 +12,6 @@ import FBSDKLoginKit
 class LoginViewController: UIViewController {
     
     var user: User?
-    var loggingIn: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,35 +24,36 @@ class LoginViewController: UIViewController {
             if let decodedUser = NSKeyedUnarchiver.unarchiveObjectWithData(decoded) as? User {
                 user = decodedUser
             }
-
         }
-
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         // if already logged in, go to eventVC
-        if(FBSDKAccessToken.currentAccessToken() != nil && user != nil && !loggingIn)
+        if(FBSDKAccessToken.currentAccessToken() != nil && user != nil)
         {
             self.performSegueWithIdentifier("Login", sender: nil)
         }
     }
 
-    // do facebook login when button is touched, then go to next VC
+    // do facebook login when button is touched
     @IBAction func loginButtonTouch(sender: AnyObject) {
         FacebookClient.sharedInstance().login(self) {
-            (user) in
+            user in
+            // first time logging in performs segue
+            // not meant for multiple users on device
             if self.user == nil {
                 self.user = user
-                self.loggingIn = true
                 self.performSegueWithIdentifier("Login", sender: nil)
+            } else {
+                self.user = user
             }
         }
     }
     
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        if user == nil || FBSDKAccessToken.currentAccessToken() == nil{
+        if user == nil || FBSDKAccessToken.currentAccessToken() == nil {
             return false
         }
         return true
@@ -66,6 +66,5 @@ class LoginViewController: UIViewController {
         let eventVC = navVC.viewControllers.first as! EventViewController
         
         eventVC.user = self.user
-        self.loggingIn = false
     }
 }

@@ -30,7 +30,6 @@ class FacebookClient {
                         if error != nil {
                             print("Login failed. \(error)")
                         } else {
-                            
                             // update user data on firebase
                             let user = User(name: authData.providerData["displayName"] as! String, id: authData.uid)
                             let userRef = FirebaseClient.Constants.USER_REF.childByAppendingPath(authData.uid)
@@ -49,18 +48,15 @@ class FacebookClient {
         })
     }
     
-    func searchForFriendsList(membersRef: Firebase, controller: UIViewController, completionHandler: (result: [Friend], picture: UIImage?, error: NSError?) ->  Void) {
- 
+    func searchForFriendsList(membersRef: Firebase, controller: UIViewController, completionHandler: (result: [Friend], error: NSError?) ->  Void) {
         let group = dispatch_group_create()
-
         let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me/friends", parameters: ["fields": "name, picture.type(large)"])
-        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
-            var profileImage: UIImage?
-            var id: String?
+        
+        graphRequest.startWithCompletionHandler({
+            (connection, result, error) -> Void in
             if ((error) != nil)
             {
-                // Process error
-                // prints error for internet connection failure
+                // shows error for internet connection failure
                 let alert = UIAlertController(title: "Error",
                     message: "Search failed. \(error.localizedDescription)",
                     preferredStyle: .Alert)
@@ -72,12 +68,16 @@ class FacebookClient {
                 alert.addAction(cancelAction)
                 
                 controller.presentViewController(alert, animated: true, completion: nil)
+            } else if result["data"] as! NSArray == [] {
+                completionHandler(result: [], error: error)
             }
             else
             {
                 // get friend's id and profile picture
                 var newFriends = [Friend]()
                 for friend in result["data"] as! NSArray {
+                    var profileImage: UIImage?
+                    var id: String?
                     if let friendID = friend["id"] {
                         id = "facebook:" + (friendID as! String)
                     }
@@ -91,7 +91,6 @@ class FacebookClient {
                             }
                         }
                     }
-                    
                     // enters a group so that I know when I finish executing firebase call
                     // checks if the id is a member of the group already
                     dispatch_group_enter(group)
@@ -101,14 +100,13 @@ class FacebookClient {
                         newFriends.append(friend)
                         dispatch_group_leave(group)
                     }
-                    // gets notified once firebase finishes call
-                    dispatch_group_notify(group, dispatch_get_main_queue()) {
-                        completionHandler(result: newFriends, picture: profileImage, error: error)
-                    }
+                }
+                // gets notified once firebase finishes call
+                dispatch_group_notify(group, dispatch_get_main_queue()) {
+                    completionHandler(result: newFriends, error: error)
                 }
             }
         })
-        
     }
     
     func isMember(membersRef: Firebase, id: String, completionHandler: (isMember: Bool) -> Void){

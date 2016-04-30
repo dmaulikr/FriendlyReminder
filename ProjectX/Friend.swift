@@ -20,10 +20,4 @@ class Friend {
         self.image = image
         self.isMember = isMember
     }
-    
-    func toAnyObject() -> AnyObject {
-        return [
-            "name": name,
-        ]
-    }
 }

@@ -25,12 +25,12 @@ class AssignFriendsViewController: UITableViewController {
         initNavBar()
     }
     
-    // reloads the tableview data and task array
+    // reloads the tableview data and friends array
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         FacebookClient.sharedInstance().searchForFriendsList(self.membersRef!, controller: self) {
-            (friends, picture, error) -> Void in
+            (friends, error) -> Void in
             self.friends = friends
             self.activityView.hidden = true
             for friend in friends {
@@ -38,9 +38,8 @@ class AssignFriendsViewController: UITableViewController {
                     self.counter++
                 }
             }
-            // if no friends found
+            // if no friends found, present an alert
             if self.counter == 0 {
-                // present alert
                 let alert = UIAlertController(title: "No Friends Found",
                     message: "Add friends to the event first!",
                     preferredStyle: .Alert)
@@ -53,7 +52,6 @@ class AssignFriendsViewController: UITableViewController {
                 self.presentViewController(alert, animated: true, completion: nil)
             }
             self.tableView.reloadData()
-
         }
     }
     
@@ -82,20 +80,19 @@ class AssignFriendsViewController: UITableViewController {
             self.presentViewController(alert, animated: true, completion: nil)
             return
         }
-        //task.inCharge = task.inCharge.filter{$0 != "no one"}
         for friend in selectedFriends {
             // checks for nil
+            // if it's not nil, it appends
+            // if it is nil, it initializes the array
             if task.inCharge?.append(friend.name) == nil {
                 task.inCharge = [friend.name]
             }
 
         }
         // increase task counter for selected friends
-        var taskCounter = 0
-
         taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
             for friend in self.selectedFriends {
-                taskCounter = snapshot.value[friend.name] as! Int
+                var taskCounter = snapshot.value[friend.name] as! Int
                 self.taskCounterRef.updateChildValues([friend.name: ++taskCounter])
             }
         })

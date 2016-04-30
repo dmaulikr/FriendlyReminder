@@ -10,9 +10,9 @@ import UIKit
 import Firebase
 
 class TaskViewController: UITableViewController {
+    
     var tasks = [Task]()
     var taskCounter = 0
-    
     var user: User!
     var event: Event!
     var ref: Firebase? // reference to all tasks
@@ -22,9 +22,9 @@ class TaskViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initUI()
+        initNavBar()
         
-        // get task counter for
+        // get task counter to update user's task counter for this event
         FirebaseClient.sharedInstance().getTaskCounter(taskCounterRef, userName: user.name) {
             taskCounter in
             self.taskCounter = taskCounter
@@ -49,7 +49,7 @@ class TaskViewController: UITableViewController {
         })
     }
     
-    func initUI() {
+    func initNavBar() {
         // initialize nav bar
         let label = UILabel(frame: CGRectMake(0, 0, 440, 44))
         label.backgroundColor = UIColor.clearColor()
@@ -71,19 +71,17 @@ class TaskViewController: UITableViewController {
         navigationItem.rightBarButtonItems = [addFriends, addButton]
     }
     
-    // MARK: - Take task and Quit task
+    // MARK: - Take task and Quit task button
     @IBAction func takeTask(sender: AnyObject) {
         let task = getTask(sender)
         let button = sender as! UIButton
         
         // assign user to task and increase user's task counter
-        // filter out "no one" in the case where no one is assigned yet
         if button.titleLabel!.text == "Take task" {
             // appends to task.inCharge if it's nil
             if task.inCharge?.append(user.name) == nil {
                 task.inCharge = [user.name]
             }
-            //task.inCharge = task.inCharge.filter{$0 != "no one"}
             button.setTitle("Quit task", forState: .Normal)
             taskCounterRef.updateChildValues([user.name: ++taskCounter])
         } else {
@@ -130,7 +128,7 @@ class TaskViewController: UITableViewController {
             cell.assignButton.userInteractionEnabled = true
             
             task.ref?.childByAppendingPath("complete").setValue(false)
-            // TODO: have to update for all other people in charge
+            // update counters for all other people in charge
             taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
                 for name in task.inCharge! {
                     var newCounter = snapshot.value[name] as! Int
@@ -255,11 +253,13 @@ class TaskViewController: UITableViewController {
     func configureCell(cell: TaskCell, indexPath: NSIndexPath) {
         let task = tasks[indexPath.row]
 
+        // initial configuration
         cell.taskDescription.text = task.title
         cell.taskDescription.lineBreakMode = NSLineBreakMode.ByTruncatingMiddle
         cell.creator.text = task.creator
         cell.selectionStyle = .None
         cell.checkmarkButton.hidden = true
+        
         // if task is done, show check button that is green and strikethrough description
         // cant interact with cell unless you are part of the assigned people
         if task.complete {
@@ -279,12 +279,16 @@ class TaskViewController: UITableViewController {
                 }
             }
         }
+        // if no one is in charge, reset the cell
         if task.inCharge == nil {
             // reset the cell
             cell.takeTask.hidden = false
             cell.takeTask.setTitle("Take task", forState: .Normal)
             cell.assignedToLabel.hidden = true
             cell.assignedPeople.hidden = true
+            cell.userInteractionEnabled = true
+            cell.takeTask.userInteractionEnabled = true
+            cell.assignButton.userInteractionEnabled = true
 
         } else {
             cell.assignedPeople.text? = ""
@@ -322,6 +326,7 @@ class TaskViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         let task = tasks[indexPath.row]
+        // only creator can delete task
         if task.creator == user.name {
             return UITableViewCellEditingStyle.Delete
         } else {
@@ -329,7 +334,6 @@ class TaskViewController: UITableViewController {
         }
     }
     
-    // TODO: modify so creator can delete tasks
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,
         forRowAtIndexPath indexPath: NSIndexPath) {
             
