@@ -1,6 +1,6 @@
 # Friendly Reminder
 
-Open ProjectX.xcworkspace to access the project
+Open FriendlyReminder.xcworkspace to access the project
 
 I have created 3 Facebook accounts to test out this project.
 Here are the Emails and passwords:
