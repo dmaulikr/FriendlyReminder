@@ -15,6 +15,8 @@ class EventViewController: UITableViewController {
     var events = [Event]()
     var user: User!
     
+    let onlineRef = FirebaseClient.Constants.BASE_REF.childByAppendingPath("/.info/connected")
+    
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var activityView: UIView!
     
@@ -64,6 +66,12 @@ class EventViewController: UITableViewController {
         let loginManager = FBSDKLoginManager()
         loginManager.logOut()
         FirebaseClient.Constants.BASE_REF.unauth()
+        
+        let appDelegate  = UIApplication.sharedApplication().delegate as! AppDelegate
+        let myLoginController = appDelegate.window!.rootViewController as! LoginViewController
+        
+        myLoginController.user = nil
+        
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     

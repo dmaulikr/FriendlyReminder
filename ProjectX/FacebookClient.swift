@@ -29,6 +29,7 @@ class FacebookClient {
                     withCompletionBlock: { error, authData in
                         if error != nil {
                             print("Login failed. \(error)")
+                            // TODO: THROW ALERT HERE
                         } else {
                             // update user data on firebase
                             let user = User(name: authData.providerData["displayName"] as! String, id: authData.uid)
