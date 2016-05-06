@@ -19,8 +19,15 @@ class FacebookClient {
         facebookLogin.logInWithReadPermissions(["public_profile", "user_friends"], fromViewController: controller,handler: {
             (facebookResult, facebookError) -> Void in
             if facebookError != nil {
-                print("Facebook login failed. Error \(facebookError)")
-                // dont need alerts here because safari notifies user
+                let alert = UIAlertController(title: "Facebook Login Failed",
+                    message: facebookError.localizedDescription,
+                    preferredStyle: .Alert)
+                
+                let cancelAction = UIAlertAction(title: "OK",
+                    style: .Default) { (action: UIAlertAction) -> Void in
+                }
+                alert.addAction(cancelAction)
+                controller.presentViewController(alert, animated: true, completion: nil)
             } else if facebookResult.isCancelled {
                 // was cancelled, need this to do nothing
             } else {
@@ -28,8 +35,15 @@ class FacebookClient {
                 FirebaseClient.Constants.BASE_REF.authWithOAuthProvider("facebook", token: accessToken,
                     withCompletionBlock: { error, authData in
                         if error != nil {
-                            print("Login failed. \(error)")
-                            // TODO: THROW ALERT HERE
+                            let alert = UIAlertController(title: "Login Failed",
+                                message: error.localizedDescription,
+                                preferredStyle: .Alert)
+                            
+                            let cancelAction = UIAlertAction(title: "OK",
+                                style: .Default) { (action: UIAlertAction) -> Void in
+                            }
+                            alert.addAction(cancelAction)
+                            controller.presentViewController(alert, animated: true, completion: nil)
                         } else {
                             // update user data on firebase
                             let user = User(name: authData.providerData["displayName"] as! String, id: authData.uid)

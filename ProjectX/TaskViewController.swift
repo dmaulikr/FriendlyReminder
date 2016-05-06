@@ -34,6 +34,23 @@ class TaskViewController: UITableViewController {
     // reloads the tableview data and task array
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        FirebaseClient.sharedInstance().checkPresence() {
+            connected in
+            if !connected {
+                let alert = UIAlertController(title: "Lost Connection",
+                    message: "Data will be refreshed once connection has been established!",
+                    preferredStyle: .Alert)
+                
+                let cancelAction = UIAlertAction(title: "OK",
+                    style: .Default) { (action: UIAlertAction) -> Void in
+                }
+                alert.addAction(cancelAction)
+                
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+        }
+        
         ref!.observeEventType(.Value, withBlock: { snapshot in
             
             var newTasks = [Task]()
@@ -47,6 +64,11 @@ class TaskViewController: UITableViewController {
             self.tableView.reloadData()
             self.activityView.hidden = true
         })
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        FirebaseClient.Constants.CONNECT_REF.removeAllObservers()
     }
     
     func initNavBar() {

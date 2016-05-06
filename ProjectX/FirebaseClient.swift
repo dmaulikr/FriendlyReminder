@@ -33,6 +33,35 @@ class FirebaseClient {
         })
     }
     
+    // initializes the user's presence
+    func createPresence(myConnectionsRef: Firebase) {
+        Constants.CONNECT_REF.observeEventType(.Value, withBlock: {
+            snapshot in
+            let connected = snapshot.value as? Bool
+            if connected != nil && connected! {
+                // connection established (or I've reconnected after a loss of connection)
+                // add this device to my connections list
+                let con = myConnectionsRef.childByAutoId()
+                con.setValue("YES")
+                // when this device disconnects, remove it
+                con.onDisconnectRemoveValue()
+            }
+        })
+    }
+    
+    // checks to see if the user is connected
+    func checkPresence(completionHandler: (connected: Bool) -> Void) {
+        Constants.CONNECT_REF.observeEventType(.Value, withBlock: {
+            snapshot in
+            let connected = snapshot.value as? Bool
+            if connected != nil && connected! {
+                completionHandler(connected: true)
+            } else {
+                completionHandler(connected: false)
+            }
+        })
+    }
+    
     class func sharedInstance() -> FirebaseClient {
         struct Singleton {
             static var sharedInstance = FirebaseClient()

@@ -14,8 +14,9 @@ class EventViewController: UITableViewController {
     
     var events = [Event]()
     var user: User!
+    var myConnectionsRef: Firebase?
     
-    let onlineRef = FirebaseClient.Constants.BASE_REF.childByAppendingPath("/.info/connected")
+    
     
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var activityView: UIView!
@@ -23,10 +24,31 @@ class EventViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initUI()
+        
+        // initialize presence
+        myConnectionsRef = FirebaseClient.Constants.USER_REF.childByAppendingPath(user.id + "/connections/")
+        FirebaseClient.sharedInstance().createPresence(myConnectionsRef!)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+
+        // check user's presence
+        FirebaseClient.sharedInstance().checkPresence() {
+            connected in
+            if !connected {
+                let alert = UIAlertController(title: "Lost Connection",
+                    message: "Data will be refreshed once connection has been established!",
+                    preferredStyle: .Alert)
+                
+                let cancelAction = UIAlertAction(title: "OK",
+                    style: .Default) { (action: UIAlertAction) -> Void in
+                }
+                alert.addAction(cancelAction)
+                
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+        }
         
         // get current user's events
         FirebaseClient.sharedInstance().getEvents(user.id) {
@@ -35,6 +57,11 @@ class EventViewController: UITableViewController {
             self.tableView.reloadData()
             self.activityView.hidden = true
         }
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        FirebaseClient.Constants.CONNECT_REF.removeAllObservers()
     }
     
     // initializes UI elements
@@ -48,7 +75,7 @@ class EventViewController: UITableViewController {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "MMMM d, y"
         let today = dateFormatter.stringFromDate(NSDate())
-        dateLabel.text = today
+        dateLabel.text = "Welcome " + user.name + "! It is " + today
     }
     
     // goes to the view controller made to create events
