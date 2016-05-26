@@ -16,7 +16,7 @@ class FirebaseClient {
             var newEvents = [Event]()
             
             for event in snapshot.children {
-                let event = Event(snapshot: event as! FDataSnapshot)
+                let event = Event(snapshot: event as! FIRDataSnapshot)
                 if event.members[authID] as? Bool == true {
                     newEvents.append(event)
                 }
@@ -25,16 +25,16 @@ class FirebaseClient {
         })
     }
     
-    func getTaskCounter(taskCounterRef: Firebase, userName: String, completionHandler: (taskCounter: Int) -> Void) {
+    func getTaskCounter(taskCounterRef: FIRDatabaseReference, userName: String, completionHandler: (taskCounter: Int) -> Void) {
         taskCounterRef.observeSingleEventOfType(.Value, withBlock: {
             snapshot in
-            let value = snapshot.value[userName] as! Int
+            let value = snapshot.value![userName] as! Int
             completionHandler(taskCounter: value)
         })
     }
     
     // initializes the user's presence
-    func createPresence(myConnectionsRef: Firebase) {
+    func createPresence(myConnectionsRef: FIRDatabaseReference) {
         Constants.CONNECT_REF.observeEventType(.Value, withBlock: {
             snapshot in
             let connected = snapshot.value as? Bool

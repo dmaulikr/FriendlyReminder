@@ -14,7 +14,7 @@ class EventViewController: UITableViewController {
     
     var events = [Event]()
     var user: User!
-    var myConnectionsRef: Firebase?
+    var myConnectionsRef: FIRDatabaseReference?
     
     
     
@@ -26,7 +26,7 @@ class EventViewController: UITableViewController {
         initUI()
         
         // initialize presence
-        myConnectionsRef = FirebaseClient.Constants.USER_REF.childByAppendingPath(user.id + "/connections/")
+        myConnectionsRef = FirebaseClient.Constants.USER_REF.child(user.id + "/connections/")
         FirebaseClient.sharedInstance().createPresence(myConnectionsRef!)
     }
     
@@ -92,7 +92,7 @@ class EventViewController: UITableViewController {
     func logoutUser() {
         let loginManager = FBSDKLoginManager()
         loginManager.logOut()
-        FirebaseClient.Constants.BASE_REF.unauth()
+        try! FIRAuth.auth()!.signOut()
         
         let appDelegate  = UIApplication.sharedApplication().delegate as! AppDelegate
         let myLoginController = appDelegate.window!.rootViewController as! LoginViewController
@@ -146,8 +146,8 @@ class EventViewController: UITableViewController {
         // need to pass reference to event title
         controller.user = user
         controller.event = event
-        controller.ref = event.ref!.childByAppendingPath("tasks")
-        controller.taskCounterRef = event.ref!.childByAppendingPath("taskCounter")
+        controller.ref = event.ref!.child("tasks")
+        controller.taskCounterRef = event.ref!.child("taskCounter")
 
         self.navigationController!.pushViewController(controller, animated: true)
     }

@@ -17,7 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     override init() {
         super.init()
-        Firebase.defaultConfig().persistenceEnabled = true
+        FIRApp.configure()
+
+        FIRDatabase.database().persistenceEnabled = true
     }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {

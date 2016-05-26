@@ -31,39 +31,41 @@ class FacebookClient {
             } else if facebookResult.isCancelled {
                 // was cancelled, need this to do nothing
             } else {
-                let accessToken = FBSDKAccessToken.currentAccessToken().tokenString
-                FirebaseClient.Constants.BASE_REF.authWithOAuthProvider("facebook", token: accessToken,
-                    withCompletionBlock: { error, authData in
-                        if error != nil {
-                            let alert = UIAlertController(title: "Login Failed",
-                                message: error.localizedDescription,
-                                preferredStyle: .Alert)
-                            
-                            let cancelAction = UIAlertAction(title: "OK",
-                                style: .Default) { (action: UIAlertAction) -> Void in
-                            }
-                            alert.addAction(cancelAction)
-                            controller.presentViewController(alert, animated: true, completion: nil)
-                        } else {
-                            // update user data on firebase
-                            let user = User(name: authData.providerData["displayName"] as! String, id: authData.uid)
-                            let userRef = FirebaseClient.Constants.USER_REF.childByAppendingPath(authData.uid)
-                            userRef.setValue(user.toAnyObject())
+                let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
+                
+                FIRAuth.auth()?.signInWithCredential(credential) {
+                    (user, error) in
+                    if error != nil {
+                        let alert = UIAlertController(title: "Login Failed",
+                            message: error!.localizedDescription,
+                            preferredStyle: .Alert)
+                        
+                        let cancelAction = UIAlertAction(title: "OK",
+                            style: .Default) { (action: UIAlertAction) -> Void in
+                        }
+                        alert.addAction(cancelAction)
+                        controller.presentViewController(alert, animated: true, completion: nil)
+                    } else {
+                        // update user data on firebase
+                        for profile in user!.providerData {
+                            let myUser = User(name: profile.displayName!, id: user!.uid)
+                            let userRef = FirebaseClient.Constants.USER_REF.child(user!.uid)
+                            userRef.setValue(myUser.toAnyObject())
                             
                             // save user onto the phone
                             let prefs = NSUserDefaults.standardUserDefaults()
-                            let encodedData = NSKeyedArchiver.archivedDataWithRootObject(user)
+                            let encodedData = NSKeyedArchiver.archivedDataWithRootObject(myUser)
                             prefs.setObject(encodedData, forKey: "user")
                             prefs.synchronize()
-                            
-                            completionHandler(user: user)
+                            completionHandler(user: myUser)
                         }
-                })
+                    }
+                }
             }
         })
     }
     
-    func searchForFriendsList(membersRef: Firebase, controller: UIViewController, completionHandler: (result: [Friend], error: NSError?) ->  Void) {
+    func searchForFriendsList(membersRef: FIRDatabaseReference, controller: UIViewController, completionHandler: (result: [Friend], error: NSError?) ->  Void) {
         let group = dispatch_group_create()
         let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me/friends", parameters: ["fields": "name, picture.type(large)"])
         
@@ -124,10 +126,10 @@ class FacebookClient {
         })
     }
     
-    func isMember(membersRef: Firebase, id: String, completionHandler: (isMember: Bool) -> Void){
+    func isMember(membersRef: FIRDatabaseReference, id: String, completionHandler: (isMember: Bool) -> Void){
         membersRef.observeSingleEventOfType(.Value, withBlock: {
             snapshot in
-            if snapshot.value[id] as? Bool == true {
+            if snapshot.value![id] as? Bool == true {
                 completionHandler(isMember: true)
             } else {
                 completionHandler(isMember: false)

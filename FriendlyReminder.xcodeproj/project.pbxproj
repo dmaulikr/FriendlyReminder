@@ -13,6 +13,7 @@
 		7B3631601CD2D54E00CE9E35 /* FriendlyReminder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7B36315E1CD2D54E00CE9E35 /* FriendlyReminder.xcdatamodeld */; };
 		7B3631641CD3FF3B00CE9E35 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B3631631CD3FF3B00CE9E35 /* FBSDKCoreKit.framework */; };
 		7B3631661CD3FF4500CE9E35 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B3631651CD3FF4500CE9E35 /* FBSDKLoginKit.framework */; };
+		7BDFE2331CF7AB320054F952 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7BDFE2321CF7AB320054F952 /* GoogleService-Info.plist */; };
 		7BECB56C1C92319C00C30DAA /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BECB56B1C92319C00C30DAA /* TaskViewController.swift */; };
 		7BECB56E1C9236AC00C30DAA /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BECB56D1C9236AC00C30DAA /* Task.swift */; };
 		7BECB5701C92529200C30DAA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BECB56F1C92529200C30DAA /* LoginViewController.swift */; };
@@ -47,6 +48,7 @@
 		7B36315F1CD2D54E00CE9E35 /* FriendlyReminder.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FriendlyReminder.xcdatamodel; sourceTree = "<group>"; };
 		7B3631631CD3FF3B00CE9E35 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		7B3631651CD3FF4500CE9E35 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		7BDFE2321CF7AB320054F952 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7BECB56B1C92319C00C30DAA /* TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		7BECB56D1C9236AC00C30DAA /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		7BECB56F1C92529200C30DAA /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 			children = (
 				7BF930AE1C7E704800F1794F /* AppDelegate.swift */,
 				7BF930C31C7E71C000F1794F /* CoreDataStackManager.swift */,
+				7BDFE2321CF7AB320054F952 /* GoogleService-Info.plist */,
 				7BF930B21C7E704800F1794F /* Main.storyboard */,
 				7B36315E1CD2D54E00CE9E35 /* FriendlyReminder.xcdatamodeld */,
 				7BECB5791C9A492E00C30DAA /* ViewControllers */,
@@ -264,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BF930BC1C7E704800F1794F /* LaunchScreen.storyboard in Resources */,
+				7BDFE2331CF7AB320054F952 /* GoogleService-Info.plist in Resources */,
 				7BF930B91C7E704800F1794F /* Assets.xcassets in Resources */,
 				7BF930B41C7E704800F1794F /* Main.storyboard in Resources */,
 			);

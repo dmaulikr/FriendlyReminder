@@ -12,8 +12,8 @@ import Firebase
 class FriendsViewController: UITableViewController {
     
     var friends = [Friend]()
-    var membersRef: Firebase?
-    var taskCounterRef: Firebase!
+    var membersRef: FIRDatabaseReference?
+    var taskCounterRef: FIRDatabaseReference!
     
     @IBOutlet weak var activityView: UIView!
     

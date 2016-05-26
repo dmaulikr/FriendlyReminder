@@ -11,7 +11,7 @@ import Firebase
 class User: NSObject, NSCoding {
     var name: String
     var id: String
-    var ref: Firebase?
+    var ref: FIRDatabaseReference?
     
     init(name: String, id: String) {
         self.name = name
@@ -37,9 +37,9 @@ class User: NSObject, NSCoding {
         ]
     }
     
-    init(snapshot: FDataSnapshot) {
-        name = snapshot.value["name"] as! String
-        id = snapshot.value["id"] as! String
+    init(snapshot: FIRDataSnapshot) {
+        name = snapshot.value!["name"] as! String
+        id = snapshot.value!["id"] as! String
         ref = snapshot.ref
     }
 }

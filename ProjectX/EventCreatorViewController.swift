@@ -78,7 +78,7 @@ class EventCreatorViewController: UIViewController, UITextFieldDelegate {
         if groupEvent == true {
             // save to Firebase
             let event = Event(title: eventTitle.text!, date: dateString, members: [user.id: true], taskCounter: [user.name: 0], creator: user.name)
-            let eventRef = FirebaseClient.Constants.EVENT_REF.childByAppendingPath(eventTitle.text!.lowercaseString + "/")
+            let eventRef = FirebaseClient.Constants.EVENT_REF.child(eventTitle.text!.lowercaseString + "/")
             eventRef.setValue(event.toAnyObject())
         } else {
             // create UserEvent, gets saved in UserEventViewController (on insert)

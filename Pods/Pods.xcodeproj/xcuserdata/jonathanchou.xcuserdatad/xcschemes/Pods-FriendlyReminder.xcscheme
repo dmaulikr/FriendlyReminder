@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '85F497D8F43094A592DCEA2F'
+               BlueprintIdentifier = '654682FD45E73F14F7A886B9'
                BlueprintName = 'Pods-FriendlyReminder'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Pods_FriendlyReminder.framework'>

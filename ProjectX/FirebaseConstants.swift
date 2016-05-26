@@ -11,9 +11,9 @@ import Firebase
 extension FirebaseClient {
     
     struct Constants {
-        static let BASE_REF = Firebase(url: "https://amber-inferno-4463.firebaseio.com/")
-        static let EVENT_REF = Firebase(url: "https://amber-inferno-4463.firebaseio.com/events/")
-        static let USER_REF = Firebase(url: "https://amber-inferno-4463.firebaseio.com/users/")
-        static let CONNECT_REF = Firebase(url: "https://amber-inferno-4463.firebaseio.com/.info/connected/")
+        static let BASE_REF = FIRDatabase.database().reference()
+        static let EVENT_REF = BASE_REF.child("events/")
+        static let USER_REF = BASE_REF.child("users/")
+        static let CONNECT_REF = BASE_REF.child(".info/connected/")
     }
 }

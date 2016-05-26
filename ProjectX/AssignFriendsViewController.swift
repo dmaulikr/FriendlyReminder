@@ -12,11 +12,11 @@ import Firebase
 class AssignFriendsViewController: UITableViewController {
     
     var friends = [Friend]()
-    var membersRef: Firebase?
+    var membersRef: FIRDatabaseReference?
     var task: Task!
     var selectedFriends: [Friend] = []
     var counter: Int = 0
-    var taskCounterRef: Firebase!
+    var taskCounterRef: FIRDatabaseReference!
         
     @IBOutlet weak var activityView: UIView!
     
@@ -92,12 +92,12 @@ class AssignFriendsViewController: UITableViewController {
         // increase task counter for selected friends
         taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
             for friend in self.selectedFriends {
-                var taskCounter = snapshot.value[friend.name] as! Int
+                var taskCounter = snapshot.value![friend.name] as! Int
                 self.taskCounterRef.updateChildValues([friend.name: ++taskCounter])
             }
         })
 
-        task.ref?.childByAppendingPath("inCharge").setValue(task.inCharge)
+        task.ref?.child("inCharge").setValue(task.inCharge)
         self.navigationController?.popViewControllerAnimated(true)
     }
 

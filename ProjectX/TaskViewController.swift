@@ -15,8 +15,8 @@ class TaskViewController: UITableViewController {
     var taskCounter = 0
     var user: User!
     var event: Event!
-    var ref: Firebase? // reference to all tasks
-    var taskCounterRef: Firebase!
+    var ref: FIRDatabaseReference? // reference to all tasks
+    var taskCounterRef: FIRDatabaseReference!
     
     @IBOutlet weak var activityView: UIView!
     
@@ -56,7 +56,7 @@ class TaskViewController: UITableViewController {
             var newTasks = [Task]()
             
             for task in snapshot.children {
-                let task = Task(snapshot: task as! FDataSnapshot)
+                let task = Task(snapshot: task as! FIRDataSnapshot)
                 newTasks.append(task)
             }
             
@@ -114,14 +114,14 @@ class TaskViewController: UITableViewController {
             button.setTitle("Take task", forState: .Normal)
             taskCounterRef.updateChildValues([user.name: --taskCounter])
         }
-        task.ref?.childByAppendingPath("inCharge").setValue(task.inCharge)
+        task.ref?.child("inCharge").setValue(task.inCharge)
     }
     
     // shows view controller which allows user to assign friends to task
     @IBAction func assignTask(sender: AnyObject) {
         let task = getTask(sender)
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("AssignFriendsViewController") as! AssignFriendsViewController
-        controller.membersRef = event.ref!.childByAppendingPath("members/")
+        controller.membersRef = event.ref!.child("members/")
         controller.task = task
         controller.taskCounterRef = self.taskCounterRef
 
@@ -149,11 +149,11 @@ class TaskViewController: UITableViewController {
             cell.takeTask.userInteractionEnabled = true
             cell.assignButton.userInteractionEnabled = true
             
-            task.ref?.childByAppendingPath("complete").setValue(false)
+            task.ref?.child("complete").setValue(false)
             // update counters for all other people in charge
             taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
                 for name in task.inCharge! {
-                    var newCounter = snapshot.value[name] as! Int
+                    var newCounter = snapshot.value![name] as! Int
                     self.taskCounterRef.updateChildValues([name: ++newCounter])
                     if name == self.user.name {
                         self.taskCounter = newCounter
@@ -168,10 +168,10 @@ class TaskViewController: UITableViewController {
             cell.checkmarkButton.backgroundColor = UIColor.greenColor()
             cell.userInteractionEnabled = false
             
-            task.ref?.childByAppendingPath("complete").setValue(true)
+            task.ref?.child("complete").setValue(true)
             taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
                 for name in task.inCharge! {
-                    var newCounter = snapshot.value[name] as! Int
+                    var newCounter = snapshot.value![name] as! Int
                     self.taskCounterRef.updateChildValues([name: --newCounter])
                     if name == self.user.name {
                         self.taskCounter = newCounter
@@ -194,7 +194,7 @@ class TaskViewController: UITableViewController {
     // goes to friend view controller to see which friends can be added
     func addFriends() {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("FriendsViewController") as! FriendsViewController
-        controller.membersRef = event.ref!.childByAppendingPath("members/")
+        controller.membersRef = event.ref!.child("members/")
         controller.taskCounterRef = self.taskCounterRef
 
         self.navigationController!.pushViewController(controller, animated: true)
@@ -242,7 +242,7 @@ class TaskViewController: UITableViewController {
                     }
                 }
                 // create task on Firebase
-                let taskRef = self.ref!.childByAppendingPath(textField.text!.lowercaseString + "/")
+                let taskRef = self.ref!.child(textField.text!.lowercaseString + "/")
                 let task = Task(title: textField.text!, creator: self.user.name, ref: taskRef)
                 taskRef.setValue(task.toAnyObject())
         }
@@ -366,7 +366,7 @@ class TaskViewController: UITableViewController {
                 if task.inCharge != nil {
                     taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
                         for name in task.inCharge! {
-                            var newCounter = snapshot.value[name] as! Int
+                            var newCounter = snapshot.value![name] as! Int
                             self.taskCounterRef.updateChildValues([name: --newCounter])
                             if name == self.user.name {
                                 self.taskCounter = newCounter

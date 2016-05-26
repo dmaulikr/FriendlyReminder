@@ -11,7 +11,7 @@ import Firebase
 class Event {
     var title: String
     var date: String
-    var ref: Firebase?
+    var ref: FIRDatabaseReference?
     var members: NSDictionary
     var taskCounter: NSDictionary
     var creator: String
@@ -35,12 +35,12 @@ class Event {
         ]
     }
     
-    init(snapshot: FDataSnapshot) {
-        title = snapshot.value["title"] as! String
-        date = snapshot.value["date"] as! String
+    init(snapshot: FIRDataSnapshot) {
+        title = snapshot.value!["title"] as! String
+        date = snapshot.value!["date"] as! String
         ref = snapshot.ref
-        members = snapshot.value["members"] as! NSDictionary
-        taskCounter = snapshot.value["taskCounter"] as! NSDictionary
-        creator = snapshot.value["creator"] as! String
+        members = snapshot.value!["members"] as! NSDictionary
+        taskCounter = snapshot.value!["taskCounter"] as! NSDictionary
+        creator = snapshot.value!["creator"] as! String
     }
 }
