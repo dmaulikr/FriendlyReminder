@@ -73,11 +73,14 @@ class FriendsViewController: UITableViewController {
     
     func configureCell(cell: FriendCell, indexPath: NSIndexPath) {
         let friend = friends[indexPath.row]
+        let orangeColor = UIColor(colorLiteralRed: 0.891592, green: 0.524435, blue: 0.008936, alpha: 1)
+        let darkBlueColor = UIColor(colorLiteralRed: 0.146534, green: 0.187324, blue: 0.319267, alpha: 1)
+
 
         cell.friendName.text = friend.name
         cell.profilePic.image = friend.image
-        cell.tintColor = UIColor.orangeColor()
-        cell.backgroundColor = UIColor.blackColor()
+        cell.tintColor = orangeColor
+        cell.backgroundColor = darkBlueColor
         if friend.isMember {
             cell.accessoryType = .Checkmark
             cell.addedLabel.hidden = false

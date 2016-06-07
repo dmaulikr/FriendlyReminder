@@ -131,12 +131,14 @@ class AssignFriendsViewController: UITableViewController {
     
     
     func toggleCellCheckbox(cell: UITableViewCell, isAssigned: Bool) {
+        let orangeColor = UIColor(colorLiteralRed: 0.891592, green: 0.524435, blue: 0.008936, alpha: 1)
+        let darkBlueColor = UIColor(colorLiteralRed: 0.146534, green: 0.187324, blue: 0.319267, alpha: 1)
         if !isAssigned {
             cell.accessoryType = UITableViewCellAccessoryType.None
         } else {
-            cell.tintColor = UIColor.orangeColor()
+            cell.tintColor = orangeColor
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
-            cell.backgroundColor = UIColor.blackColor()
+            cell.backgroundColor = darkBlueColor
         }
     }
     

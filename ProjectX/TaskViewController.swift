@@ -143,8 +143,9 @@ class TaskViewController: UITableViewController {
         // to make task incomplete
         if task.complete {
             // pinkColor values obtained from printing out the background color
-            let pinkColor = UIColor(colorLiteralRed: 1, green: 0.481462, blue: 0.53544, alpha: 1)
-            cell.checkmarkButton.backgroundColor = pinkColor
+            //let pinkColor = UIColor(colorLiteralRed: 1, green: 0.481462, blue: 0.53544, alpha: 1)
+            let darkPurpleColor = UIColor(colorLiteralRed: 0.365776, green: 0.432844, blue: 0.577612, alpha: 1)
+            cell.checkmarkButton.backgroundColor = darkPurpleColor
             cell.taskDescription.attributedText = nil
             cell.takeTask.userInteractionEnabled = true
             cell.assignButton.userInteractionEnabled = true
