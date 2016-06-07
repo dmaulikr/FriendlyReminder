@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mES-dq-jEz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1808" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mES-dq-jEz">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -13,7 +13,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="51" sectionHeaderHeight="28" sectionFooterHeight="28" id="BUz-ML-Ih4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="0.60045622310000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Zx9-i0-lUr">
                             <rect key="frame" x="0.0" y="64" width="600" height="44"/>
@@ -26,7 +26,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="0.63902698863636365" green="0.38547936417220868" blue="0.0079801349775502246" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.3657764543" green="0.43284350529999999" blue="0.57761205810000005" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="sJG-gp-Xrx" firstAttribute="top" secondItem="Zx9-i0-lUr" secondAttribute="top" constant="5" id="GMI-Vw-VfC"/>
                                 <constraint firstItem="sJG-gp-Xrx" firstAttribute="leading" secondItem="Zx9-i0-lUr" secondAttribute="leading" constant="10" id="Ipc-Pp-Xw5"/>
@@ -46,10 +46,11 @@
                                         <constraint firstAttribute="width" constant="86" id="QRP-Xs-own"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="17"/>
+                                    <color key="textColor" red="0.89159169819999995" green="0.52443531099999996" blue="0.0089359997909999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="1" green="0.60045622310000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="J2U-L1-lxQ" firstAttribute="centerX" secondItem="97H-WA-23P" secondAttribute="centerX" id="1uG-HS-dqU"/>
                                 <constraint firstItem="J2U-L1-lxQ" firstAttribute="top" secondItem="UXU-l8-ilv" secondAttribute="bottom" constant="8" symbolic="YES" id="GgL-th-S4E"/>
@@ -68,19 +69,19 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title label" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Qi-nh-9I9">
                                             <rect key="frame" x="8" y="8" width="486" height="19"/>
                                             <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="16"/>
-                                            <color key="textColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.4324987394" green="0.75248579550000005" blue="0.51696666520000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date of Event" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jrN-jk-mHC">
                                             <rect key="frame" x="8" y="30" width="54" height="11"/>
                                             <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="9"/>
-                                            <color key="textColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.79069996840000001" green="0.49149779630000001" blue="0.31719981479999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="assigned" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EzS-dM-r6H">
                                             <rect key="frame" x="527" y="16" width="65" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ZJ-g3-aje">
@@ -89,7 +90,7 @@
                                                 <constraint firstAttribute="width" constant="15" id="MKg-Ir-nQR"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="20"/>
-                                            <color key="textColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -106,7 +107,7 @@
                                         <constraint firstAttribute="leadingMargin" secondItem="jrN-jk-mHC" secondAttribute="leading" id="t3Z-W4-u4O"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.14653439139999999" green="0.1873240581" blue="0.31926688759999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dateOfEvent" destination="jrN-jk-mHC" id="IJg-hO-WZb"/>
                                     <outlet property="tasksLeft" destination="4ZJ-g3-aje" id="bzz-dc-SLO"/>
@@ -158,7 +159,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Vni-ou-mrA">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="0.60045622310000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="rOF-6B-aQT">
                             <rect key="frame" x="0.0" y="64" width="600" height="44"/>
@@ -171,7 +172,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="0.63902698859999996" green="0.38547936420000001" blue="0.0079801349780000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.3657764543" green="0.43284350529999999" blue="0.57761205810000005" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="Mxg-aU-Ho0" firstAttribute="top" secondItem="rOF-6B-aQT" secondAttribute="top" constant="5" id="Fd8-cm-6hc"/>
                                 <constraint firstItem="Mxg-aU-Ho0" firstAttribute="leading" secondItem="rOF-6B-aQT" secondAttribute="leading" constant="10" id="mok-jz-HI2"/>
@@ -190,19 +191,19 @@
                                             <rect key="frame" x="15" y="6" width="33" height="19"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="16"/>
-                                            <color key="textColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.4324987394" green="0.75248579550000005" blue="0.51696666520000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WKl-Zv-dTe">
                                             <rect key="frame" x="15" y="25" width="38" height="13"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="11"/>
-                                            <color key="textColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.79069996840000001" green="0.49149779630000001" blue="0.31719981479999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.14653439139999999" green="0.1873240581" blue="0.31926688759999999" alpha="1" colorSpace="calibratedRGB"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -231,7 +232,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="40" sectionHeaderHeight="28" sectionFooterHeight="28" id="53t-fF-fns">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="0.60045622310000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserTaskCell" textLabel="9aH-ym-IFR" rowHeight="40" style="IBUITableViewCellStyleDefault" id="0eg-F9-gry">
@@ -245,12 +246,12 @@
                                             <rect key="frame" x="15" y="0.0" width="570" height="39"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="16"/>
-                                            <color key="textColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.4324987394" green="0.75248579550000005" blue="0.51696666520000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.14653439139999999" green="0.1873240581" blue="0.31926688759999999" alpha="1" colorSpace="calibratedRGB"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -267,13 +268,13 @@
         <scene sceneID="nJl-AK-LiY">
             <objects>
                 <tableViewController storyboardIdentifier="TaskViewController" id="f3S-QD-KIo" customClass="TaskViewController" customModule="FriendlyReminder" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="105" sectionHeaderHeight="28" sectionFooterHeight="28" id="FTP-RM-HPr">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="99" sectionHeaderHeight="28" sectionFooterHeight="28" id="FTP-RM-HPr">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="0.60045622310000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="FSR-p1-GGw">
-                            <rect key="frame" x="0.0" y="133" width="600" height="144"/>
+                            <rect key="frame" x="0.0" y="127" width="600" height="144"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="X9o-Ai-bCb">
@@ -285,11 +286,11 @@
                                         <constraint firstAttribute="width" constant="86" id="sPF-0v-BxJ"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="17"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="0.79069996840000001" green="0.49149779630000001" blue="0.31719981479999998" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="1" green="0.60045622310000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="X9o-Ai-bCb" firstAttribute="centerX" secondItem="FSR-p1-GGw" secondAttribute="centerX" id="9ki-kQ-AGS"/>
                                 <constraint firstItem="CEn-xg-Jij" firstAttribute="centerX" secondItem="X9o-Ai-bCb" secondAttribute="centerX" id="Guf-6o-dfK"/>
@@ -298,101 +299,101 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="105" id="t46-vU-2ax" customClass="TaskCell" customModule="FriendlyReminder" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="600" height="105"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="99" id="t46-vU-2ax" customClass="TaskCell" customModule="FriendlyReminder" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="600" height="99"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="t46-vU-2ax" id="bPi-4A-9R0">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="104"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="98"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Atj-0t-VcO">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
-                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="yTl-zH-eV4"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="25"/>
-                                            <color key="textColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="20"/>
+                                            <color key="textColor" red="0.30980392156862746" green="0.66274509803921566" blue="0.36862745098039218" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created by:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yWp-kP-QPf">
-                                            <rect key="frame" x="8" y="45" width="61" height="15"/>
+                                            <rect key="frame" x="8" y="40" width="61" height="17"/>
                                             <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="12"/>
-                                            <color key="textColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.79069996840000001" green="0.49149779630000001" blue="0.31719981479999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name of person which could be" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7iU-CV-ebe">
-                                            <rect key="frame" x="70" y="45" width="167" height="15"/>
+                                            <rect key="frame" x="70" y="42" width="167" height="14"/>
                                             <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="12"/>
-                                            <color key="textColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hb6-UU-Vwf">
-                                            <rect key="frame" x="64" y="68" width="69" height="30"/>
-                                            <color key="backgroundColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <rect key="frame" x="64" y="62" width="69" height="30"/>
+                                            <color key="backgroundColor" red="0.3657764543" green="0.43284350529999999" blue="0.57761205810000005" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="69" id="M5b-Ce-A9u"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="15"/>
                                             <state key="normal" title="Take task">
-                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleColor" red="0.14653439139999999" green="0.1873240581" blue="0.31926688759999999" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <connections>
                                                 <action selector="takeTask:" destination="f3S-QD-KIo" eventType="touchUpInside" id="ywi-vh-R9A"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cja-0b-xI2">
-                                            <rect key="frame" x="8" y="68" width="48" height="30"/>
-                                            <color key="backgroundColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <rect key="frame" x="8" y="62" width="48" height="30"/>
+                                            <color key="backgroundColor" red="0.3657764543" green="0.43284350529999999" blue="0.57761205810000005" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="48" id="1Fn-8U-F7k"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="15"/>
                                             <state key="normal" title="Assign">
-                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleColor" red="0.14653439139999999" green="0.1873240581" blue="0.31926688759999999" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <connections>
                                                 <action selector="assignTask:" destination="f3S-QD-KIo" eventType="touchUpInside" id="VNT-La-SXy"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Assigned to:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xcj-gd-1Oc">
-                                            <rect key="frame" x="196" y="48" width="391" height="14"/>
+                                            <rect key="frame" x="196" y="42" width="391" height="14"/>
                                             <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="12"/>
-                                            <color key="textColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.79069996840000001" green="0.49149779630000001" blue="0.31719981479999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zpY-Ni-JbI">
-                                            <rect key="frame" x="141" y="68" width="33" height="30"/>
-                                            <color key="backgroundColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <rect key="frame" x="141" y="62" width="33" height="30"/>
+                                            <color key="backgroundColor" red="0.3657764543" green="0.43284350529999999" blue="0.57761205810000005" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="33" id="RU6-5f-736"/>
                                                 <constraint firstAttribute="height" constant="30" id="yjb-Yn-cGO"/>
                                             </constraints>
                                             <state key="normal" image="pinkCheck">
-                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleColor" red="0.14653439139999999" green="0.1873240581" blue="0.31926688759999999" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <connections>
                                                 <action selector="completeTask:" destination="f3S-QD-KIo" eventType="touchUpInside" id="87G-b7-L2l"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="no one" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Zdb-2Y-kyC">
-                                            <rect key="frame" x="184" y="60" width="416" height="44"/>
+                                            <rect key="frame" x="184" y="54" width="416" height="44"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="prE-m9-5dE"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="12"/>
-                                            <color key="textColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Zdb-2Y-kyC" firstAttribute="leading" secondItem="zpY-Ni-JbI" secondAttribute="trailing" constant="10" id="0XR-Nj-EkX"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="Zdb-2Y-kyC" secondAttribute="bottom" constant="-8" id="1aQ-4r-8h7"/>
+                                        <constraint firstItem="hb6-UU-Vwf" firstAttribute="top" secondItem="7iU-CV-ebe" secondAttribute="bottom" constant="6" id="51I-vI-39h"/>
                                         <constraint firstAttribute="trailing" secondItem="Atj-0t-VcO" secondAttribute="trailing" id="85l-Yp-ODh"/>
                                         <constraint firstItem="hb6-UU-Vwf" firstAttribute="leading" secondItem="cja-0b-xI2" secondAttribute="trailing" constant="8" symbolic="YES" id="As0-rJ-HI6"/>
-                                        <constraint firstItem="Zdb-2Y-kyC" firstAttribute="top" secondItem="7iU-CV-ebe" secondAttribute="bottom" id="Bv5-h6-c1i"/>
+                                        <constraint firstItem="Zdb-2Y-kyC" firstAttribute="top" secondItem="7iU-CV-ebe" secondAttribute="bottom" constant="-2" id="Bv5-h6-c1i"/>
                                         <constraint firstItem="zpY-Ni-JbI" firstAttribute="bottom" secondItem="cja-0b-xI2" secondAttribute="bottom" id="GMc-QA-mYK"/>
-                                        <constraint firstItem="7iU-CV-ebe" firstAttribute="top" secondItem="Atj-0t-VcO" secondAttribute="bottom" constant="5" id="Jtl-8E-Ioh"/>
+                                        <constraint firstItem="7iU-CV-ebe" firstAttribute="top" secondItem="Atj-0t-VcO" secondAttribute="bottom" constant="2" id="Jtl-8E-Ioh"/>
                                         <constraint firstItem="zpY-Ni-JbI" firstAttribute="leading" secondItem="bPi-4A-9R0" secondAttribute="leading" constant="141" id="LVX-yq-p2A"/>
                                         <constraint firstItem="Zdb-2Y-kyC" firstAttribute="centerX" secondItem="xcj-gd-1Oc" secondAttribute="centerX" id="Mq6-jt-9pu"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="xcj-gd-1Oc" secondAttribute="trailing" constant="5" id="Qs1-En-OUL"/>
@@ -404,14 +405,14 @@
                                         <constraint firstItem="Atj-0t-VcO" firstAttribute="top" secondItem="bPi-4A-9R0" secondAttribute="top" id="eQN-XR-4ys"/>
                                         <constraint firstItem="zpY-Ni-JbI" firstAttribute="top" secondItem="cja-0b-xI2" secondAttribute="top" id="ek5-CD-nGJ"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="Zdb-2Y-kyC" secondAttribute="trailing" constant="-8" id="kHD-6r-YJl"/>
-                                        <constraint firstItem="xcj-gd-1Oc" firstAttribute="top" secondItem="Atj-0t-VcO" secondAttribute="bottom" constant="8" symbolic="YES" id="uLg-m6-vF3"/>
-                                        <constraint firstItem="cja-0b-xI2" firstAttribute="top" secondItem="yWp-kP-QPf" secondAttribute="bottom" constant="8" id="uNX-Hk-xz1"/>
+                                        <constraint firstItem="xcj-gd-1Oc" firstAttribute="top" secondItem="Atj-0t-VcO" secondAttribute="bottom" constant="2" id="uLg-m6-vF3"/>
+                                        <constraint firstItem="cja-0b-xI2" firstAttribute="top" secondItem="yWp-kP-QPf" secondAttribute="bottom" constant="5" id="uNX-Hk-xz1"/>
                                         <constraint firstItem="Atj-0t-VcO" firstAttribute="top" secondItem="bPi-4A-9R0" secondAttribute="topMargin" constant="-8" id="w0s-HV-Kzp"/>
                                         <constraint firstItem="7iU-CV-ebe" firstAttribute="leading" secondItem="yWp-kP-QPf" secondAttribute="trailing" constant="1" id="yt3-ey-Of1"/>
-                                        <constraint firstItem="yWp-kP-QPf" firstAttribute="top" secondItem="Atj-0t-VcO" secondAttribute="bottom" constant="5" id="zzQ-af-CDJ"/>
+                                        <constraint firstItem="yWp-kP-QPf" firstAttribute="top" secondItem="Atj-0t-VcO" secondAttribute="bottom" id="zzQ-af-CDJ"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.14653439139999999" green="0.1873240581" blue="0.31926688759999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="assignButton" destination="cja-0b-xI2" id="z6U-Db-Dwp"/>
                                     <outlet property="assignedPeople" destination="Zdb-2Y-kyC" id="Cjm-Wc-hbs"/>
@@ -445,7 +446,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="76" sectionHeaderHeight="28" sectionFooterHeight="28" id="qFJ-4U-IK1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="0.60045622310000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="X5M-5f-SzS">
                             <rect key="frame" x="0.0" y="104" width="600" height="144"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -459,11 +460,11 @@
                                         <constraint firstAttribute="width" constant="86" id="uJR-pl-I0x"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="0.89159169819999995" green="0.52443531099999996" blue="0.0089359997909999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="1" green="0.60045622310000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="CyT-QS-meB" firstAttribute="bottom" secondItem="X5M-5f-SzS" secondAttribute="bottomMargin" id="9Ov-No-QER"/>
                                 <constraint firstItem="CyT-QS-meB" firstAttribute="top" secondItem="jfO-cM-K6K" secondAttribute="bottom" constant="8" symbolic="YES" id="Fxo-M8-dYb"/>
@@ -491,17 +492,17 @@
                                                 <constraint firstAttribute="width" constant="44" id="OQN-xX-sRN"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="12"/>
-                                            <color key="textColor" red="1" green="0.60045622310000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.89159169819999995" green="0.52443531099999996" blue="0.0089359997909999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name of person" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="7Fz-rx-HOb">
                                             <rect key="frame" x="82" y="0.0" width="458" height="75"/>
                                             <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="25"/>
-                                            <color key="textColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.4324987394" green="0.75248579550000005" blue="0.51696666520000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" red="0.14653439139999999" green="0.1873240581" blue="0.31926688759999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstItem="7Fz-rx-HOb" firstAttribute="leading" secondItem="mhj-T4-B6k" secondAttribute="trailing" constant="8" id="3qQ-0z-7je"/>
                                         <constraint firstItem="mhj-T4-B6k" firstAttribute="centerY" secondItem="Kar-qC-NTN" secondAttribute="centerY" id="NYW-W7-wQy"/>
@@ -551,6 +552,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7IR-Go-XgL">
                                 <rect key="frame" x="20" y="50" width="560" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date of Event" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3j-OK-QVq">
@@ -590,7 +592,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.60045622310000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.64577479680000005" green="0.77583932619999996" blue="0.89234138259999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="7IR-Go-XgL" secondAttribute="trailing" id="1VN-c5-LjE"/>
                             <constraint firstAttribute="trailingMargin" secondItem="k3j-OK-QVq" secondAttribute="trailing" id="3la-un-685"/>
@@ -632,13 +634,13 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kRP-vc-vuf">
                                 <rect key="frame" x="70" y="483" width="460" height="50"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.14653439139999999" green="0.1873240581" blue="0.31926688759999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="MCU-td-gSz"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="18"/>
                                 <state key="normal" title="Login">
-                                    <color key="titleColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.4324987394" green="0.75248579550000005" blue="0.51696666520000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="loginButtonTouch:" destination="mES-dq-jEz" eventType="touchUpInside" id="sx8-Gh-7Uf"/>
@@ -651,11 +653,11 @@
                                     <constraint firstAttribute="height" constant="178" id="GdV-aa-0s3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="60"/>
-                                <color key="textColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.14653439139999999" green="0.1873240581" blue="0.31926688759999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.60045622310000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.64577479680000005" green="0.77583932619999996" blue="0.89234138259999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="zLk-Ej-AK4" firstAttribute="top" secondItem="hbr-fX-Wby" secondAttribute="bottom" constant="68" id="AEX-G4-NMq"/>
                             <constraint firstItem="zLk-Ej-AK4" firstAttribute="centerX" secondItem="kRP-vc-vuf" secondAttribute="centerX" id="e5Q-RP-ogX"/>
@@ -724,7 +726,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="76" sectionHeaderHeight="28" sectionFooterHeight="28" id="iPD-1k-o2j">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="0.60045622310000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="KUe-IM-yQb">
                             <rect key="frame" x="0.0" y="104" width="600" height="144"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -738,11 +740,11 @@
                                         <constraint firstAttribute="width" constant="86" id="Fyj-YI-8lM"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="0.89159169819999995" green="0.52443531099999996" blue="0.0089359997909999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="1" green="0.60045622310000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="9CA-0G-5oY" firstAttribute="bottom" secondItem="KUe-IM-yQb" secondAttribute="bottomMargin" id="4hD-dJ-HOP"/>
                                 <constraint firstItem="9CA-0G-5oY" firstAttribute="top" secondItem="RDX-yI-tLz" secondAttribute="bottom" constant="8" symbolic="YES" id="4r4-9L-LKe"/>
@@ -767,11 +769,11 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uiW-fq-Ikt">
                                             <rect key="frame" x="82" y="9" width="510" height="38"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                            <color key="textColor" red="1" green="0.48146152790000002" blue="0.53544022680000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.4324987394" green="0.75248579550000005" blue="0.51696666520000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" red="0.14653439139999999" green="0.1873240581" blue="0.31926688759999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstItem="uiW-fq-Ikt" firstAttribute="top" secondItem="Fuj-do-bmV" secondAttribute="top" constant="9" id="7gC-z2-HQg"/>
                                         <constraint firstItem="Fuj-do-bmV" firstAttribute="leading" secondItem="D8J-QW-l31" secondAttribute="leadingMargin" constant="-8" id="Dx5-yx-q5z"/>
