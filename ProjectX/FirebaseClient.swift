@@ -34,7 +34,10 @@ class FirebaseClient {
     }
     
     // initializes the user's presence
-    func createPresence(myConnectionsRef: FIRDatabaseReference) {
+    func createPresence(myConnectionsRef: FIRDatabaseReference, completionHandler: () -> Void) {
+        let group = dispatch_group_create()
+        dispatch_group_enter(group)
+
         Constants.CONNECT_REF.observeEventType(.Value, withBlock: {
             snapshot in
             let connected = snapshot.value as? Bool
@@ -45,8 +48,13 @@ class FirebaseClient {
                 con.setValue("YES")
                 // when this device disconnects, remove it
                 con.onDisconnectRemoveValue()
+                dispatch_group_leave(group)
             }
         })
+        
+        dispatch_group_notify(group, dispatch_get_main_queue()) {
+            completionHandler()
+        }
     }
     
     // checks to see if the user is connected

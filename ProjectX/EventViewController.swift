@@ -27,28 +27,28 @@ class EventViewController: UITableViewController {
         
         // initialize presence
         myConnectionsRef = FirebaseClient.Constants.USER_REF.child(user.id + "/connections/")
-        FirebaseClient.sharedInstance().createPresence(myConnectionsRef!)
+        FirebaseClient.sharedInstance().createPresence(myConnectionsRef!) {
+            // check user's presence
+            FirebaseClient.sharedInstance().checkPresence() {
+                connected in
+                if !connected {
+                    let alert = UIAlertController(title: "Lost Connection",
+                        message: "Data will be refreshed once connection has been established!",
+                        preferredStyle: .Alert)
+                    
+                    let cancelAction = UIAlertAction(title: "OK",
+                        style: .Default) { (action: UIAlertAction) -> Void in
+                    }
+                    alert.addAction(cancelAction)
+                    
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-
-        // check user's presence
-        FirebaseClient.sharedInstance().checkPresence() {
-            connected in
-            if !connected {
-                let alert = UIAlertController(title: "Lost Connection",
-                    message: "Data will be refreshed once connection has been established!",
-                    preferredStyle: .Alert)
-                
-                let cancelAction = UIAlertAction(title: "OK",
-                    style: .Default) { (action: UIAlertAction) -> Void in
-                }
-                alert.addAction(cancelAction)
-                
-                self.presentViewController(alert, animated: true, completion: nil)
-            }
-        }
         
         // get current user's events
         FirebaseClient.sharedInstance().getEvents(user.id) {

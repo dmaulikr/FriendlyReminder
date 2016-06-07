@@ -29,11 +29,6 @@ class TaskViewController: UITableViewController {
             taskCounter in
             self.taskCounter = taskCounter
         }
-    }
-    
-    // reloads the tableview data and task array
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
         
         FirebaseClient.sharedInstance().checkPresence() {
             connected in
@@ -50,6 +45,11 @@ class TaskViewController: UITableViewController {
                 self.presentViewController(alert, animated: true, completion: nil)
             }
         }
+    }
+    
+    // reloads the tableview data and task array
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
         ref!.observeEventType(.Value, withBlock: { snapshot in
             
