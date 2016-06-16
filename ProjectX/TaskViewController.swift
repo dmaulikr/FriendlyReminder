@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class TaskViewController: UITableViewController {
+class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselDelegate {
     
     var tasks = [Task]()
     var taskCounter = 0
@@ -17,12 +17,16 @@ class TaskViewController: UITableViewController {
     var event: Event!
     var ref: FIRDatabaseReference? // reference to all tasks
     var taskCounterRef: FIRDatabaseReference!
+    var friends = [Friend]()
     
     @IBOutlet weak var activityView: UIView!
+    @IBOutlet weak var carouselView: iCarousel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initNavBar()
+        
+        carouselView.type = iCarouselType.Rotary
         
         // get task counter to update user's task counter for this event
         FirebaseClient.sharedInstance().getTaskCounter(taskCounterRef, userName: user.name) {
@@ -45,6 +49,18 @@ class TaskViewController: UITableViewController {
                 self.presentViewController(alert, animated: true, completion: nil)
             }
         }
+        
+        FacebookClient.sharedInstance().searchForFriendsList(event.ref!.child("members/"), controller: self) {
+            (friends, error) -> Void in
+            for friend in friends {
+                if friend.isMember {
+                    self.friends.append(friend)
+                }
+            }
+            print(friends.count)
+            self.carouselView.reloadData()
+            
+        }
     }
     
     // reloads the tableview data and task array
@@ -64,6 +80,8 @@ class TaskViewController: UITableViewController {
             self.tableView.reloadData()
             self.activityView.hidden = true
         })
+        
+
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -381,4 +399,38 @@ class TaskViewController: UITableViewController {
                 break
             }
     }
+    
+    // MARK - iCarousel
+    
+    func numberOfItemsInCarousel(carousel: iCarousel) -> Int {
+        print("number of items in carousel:" + String(friends.count + 1))
+        return friends.count + 1
+    }
+    
+    func carousel(carousel: iCarousel, viewForItemAtIndex index: Int, reusingView view: UIView?) -> UIView {
+        var imageView : UIImageView!
+        
+        if view == nil {
+            imageView = UIImageView(frame: CGRectMake(0,0,100,100))
+            imageView.contentMode = .ScaleAspectFit
+        } else {
+            imageView = view as! UIImageView
+        }
+        
+        print("index is: " + String(index))
+        if index > 0 {
+            imageView.image = friends[index-1].image
+        } else {
+            //imageView.image = image of add button
+            imageView = UIImageView(frame: CGRectMake(0,0,50,50))
+            imageView.image = UIImage(named: "plusSign.png")
+            imageView.backgroundColor = UIColor.clearColor()
+        }
+        
+        //imageView.layer.cornerRadius = imageView.image!.size.width / 6
+        //imageView.layer.masksToBounds = true
+        return imageView
+        
+    }
+    
 }

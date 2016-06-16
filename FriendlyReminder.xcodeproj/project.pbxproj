@@ -14,6 +14,7 @@
 		7B3631641CD3FF3B00CE9E35 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B3631631CD3FF3B00CE9E35 /* FBSDKCoreKit.framework */; };
 		7B3631661CD3FF4500CE9E35 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B3631651CD3FF4500CE9E35 /* FBSDKLoginKit.framework */; };
 		7BDFE2331CF7AB320054F952 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7BDFE2321CF7AB320054F952 /* GoogleService-Info.plist */; };
+		7BDFE2371D0F5EAC0054F952 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDFE2361D0F5EAC0054F952 /* iCarousel.m */; };
 		7BECB56C1C92319C00C30DAA /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BECB56B1C92319C00C30DAA /* TaskViewController.swift */; };
 		7BECB56E1C9236AC00C30DAA /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BECB56D1C9236AC00C30DAA /* Task.swift */; };
 		7BECB5701C92529200C30DAA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BECB56F1C92529200C30DAA /* LoginViewController.swift */; };
@@ -49,6 +50,9 @@
 		7B3631631CD3FF3B00CE9E35 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		7B3631651CD3FF4500CE9E35 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		7BDFE2321CF7AB320054F952 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7BDFE2341D0F5EA60054F952 /* FriendlyReminder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FriendlyReminder-Bridging-Header.h"; sourceTree = "<group>"; };
+		7BDFE2351D0F5EAC0054F952 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
+		7BDFE2361D0F5EAC0054F952 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		7BECB56B1C92319C00C30DAA /* TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		7BECB56D1C9236AC00C30DAA /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		7BECB56F1C92529200C30DAA /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -97,6 +101,15 @@
 				643E731707CD34EAE0E1BC27 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		7BDFE2381D0F5EDB0054F952 /* Carousel */ = {
+			isa = PBXGroup;
+			children = (
+				7BDFE2351D0F5EAC0054F952 /* iCarousel.h */,
+				7BDFE2361D0F5EAC0054F952 /* iCarousel.m */,
+			);
+			name = Carousel;
 			sourceTree = "<group>";
 		};
 		7BECB5791C9A492E00C30DAA /* ViewControllers */ = {
@@ -180,6 +193,7 @@
 				7BDFE2321CF7AB320054F952 /* GoogleService-Info.plist */,
 				7BF930B21C7E704800F1794F /* Main.storyboard */,
 				7B36315E1CD2D54E00CE9E35 /* FriendlyReminder.xcdatamodeld */,
+				7BDFE2381D0F5EDB0054F952 /* Carousel */,
 				7BECB5791C9A492E00C30DAA /* ViewControllers */,
 				7BECB57A1C9A495A00C30DAA /* UserTodo */,
 				7BECB57B1C9A497F00C30DAA /* FacebookAPI */,
@@ -189,6 +203,7 @@
 				7BF930BA1C7E704800F1794F /* LaunchScreen.storyboard */,
 				7BF930BD1C7E704800F1794F /* Info.plist */,
 				7BF930AC1C7E704800F1794F /* Products */,
+				7BDFE2341D0F5EA60054F952 /* FriendlyReminder-Bridging-Header.h */,
 			);
 			name = FriendlyReminder;
 			path = ProjectX;
@@ -349,6 +364,7 @@
 				7BECB5841CA21B2A00C30DAA /* FirebaseClient.swift in Sources */,
 				7BECB5811C9B7E1600C30DAA /* Friend.swift in Sources */,
 				7B36315D1CC0959D00CE9E35 /* EventCell.swift in Sources */,
+				7BDFE2371D0F5EAC0054F952 /* iCarousel.m in Sources */,
 				7BF930C61C81470600F1794F /* Event.swift in Sources */,
 				7BECB5961CACB8B300C30DAA /* UserEventViewController.swift in Sources */,
 			);
@@ -462,6 +478,7 @@
 			baseConfigurationReference = 436F31AF3903F1FB98F8E0EA /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -471,6 +488,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.JonathanChou.ProjectX;
 				PRODUCT_NAME = FriendlyReminder;
+				SWIFT_OBJC_BRIDGING_HEADER = "ProjectX/FriendlyReminder-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -480,6 +499,7 @@
 			baseConfigurationReference = 643E731707CD34EAE0E1BC27 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -489,6 +509,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.JonathanChou.ProjectX;
 				PRODUCT_NAME = FriendlyReminder;
+				SWIFT_OBJC_BRIDGING_HEADER = "ProjectX/FriendlyReminder-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

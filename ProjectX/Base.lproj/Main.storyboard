@@ -264,7 +264,7 @@
             </objects>
             <point key="canvasLocation" x="1702" y="1311"/>
         </scene>
-        <!--Task View Controller-->
+        <!--Data Source-->
         <scene sceneID="nJl-AK-LiY">
             <objects>
                 <tableViewController storyboardIdentifier="TaskViewController" id="f3S-QD-KIo" customClass="TaskViewController" customModule="FriendlyReminder" customModuleProvider="target" sceneMemberID="viewController">
@@ -273,8 +273,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="VCu-Ng-glQ" customClass="iCarousel">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="98"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <outlet property="dataSource" destination="f3S-QD-KIo" id="Eig-do-aqC"/>
+                                <outlet property="delegate" destination="f3S-QD-KIo" id="3Rk-1S-NUY"/>
+                            </connections>
+                        </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="FSR-p1-GGw">
-                            <rect key="frame" x="0.0" y="127" width="600" height="144"/>
+                            <rect key="frame" x="0.0" y="225" width="600" height="144"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="X9o-Ai-bCb">
@@ -300,7 +309,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="99" id="t46-vU-2ax" customClass="TaskCell" customModule="FriendlyReminder" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="600" height="99"/>
+                                <rect key="frame" x="0.0" y="126" width="600" height="99"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="t46-vU-2ax" id="bPi-4A-9R0">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="98"/>
@@ -433,6 +442,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activityView" destination="FSR-p1-GGw" id="Lop-2c-dvS"/>
+                        <outlet property="carouselView" destination="VCu-Ng-glQ" id="48X-VA-g9u"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Hg-Qn-pBR" userLabel="First Responder" sceneMemberID="firstResponder"/>
