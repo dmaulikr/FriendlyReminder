@@ -21,12 +21,28 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
     
     @IBOutlet weak var activityView: UIView!
     @IBOutlet weak var carouselView: iCarousel!
+    @IBOutlet weak var addFriendsButton: UIButton!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initNavBar()
         
+        // TODO: create a carouselview init?
+        carouselView.bringSubviewToFront(addFriendsButton)
+        
         carouselView.type = iCarouselType.Rotary
+        
+        // position offset from center
+        carouselView.contentOffset = CGSize(width: 50, height: 0)
+        
+        carouselView.scrollToItemBoundary = false
+        
+        // TODO: create custombutton class for buttons
+        addFriendsButton.layer.cornerRadius = 10.0
+        addFriendsButton.layer.borderWidth = 0.5
+        addFriendsButton.layer.borderColor = UIColor.blueColor().CGColor
+        addFriendsButton.titleLabel?.textAlignment = .Center
         
         // get task counter to update user's task counter for this event
         FirebaseClient.sharedInstance().getTaskCounter(taskCounterRef, userName: user.name) {
@@ -50,17 +66,7 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
             }
         }
         
-        FacebookClient.sharedInstance().searchForFriendsList(event.ref!.child("members/"), controller: self) {
-            (friends, error) -> Void in
-            for friend in friends {
-                if friend.isMember {
-                    self.friends.append(friend)
-                }
-            }
-            print(friends.count)
-            self.carouselView.reloadData()
-            
-        }
+
     }
     
     // reloads the tableview data and task array
@@ -81,7 +87,16 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
             self.activityView.hidden = true
         })
         
-
+        FacebookClient.sharedInstance().searchForFriendsList(event.ref!.child("members/"), controller: self) {
+            (friends, error) -> Void in
+            self.friends = []
+            for friend in friends {
+                if friend.isMember {
+                    self.friends.append(friend)
+                }
+            }
+            self.carouselView.reloadData()
+        }
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -99,16 +114,9 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
         label.text = event.title
         navigationItem.titleView = label
         
-        let addFriendsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 65, height: 44))
-        addFriendsButton.titleLabel?.numberOfLines = 2
-        addFriendsButton.setTitle("Add Friends", forState: .Normal)
-        addFriendsButton.addTarget(self, action: "addFriends", forControlEvents: .TouchUpInside)
-        addFriendsButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        addFriendsButton.titleLabel?.textAlignment = .Center
-        let addFriends = UIBarButtonItem.init(customView: addFriendsButton)
         
         let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addTask")
-        navigationItem.rightBarButtonItems = [addFriends, addButton]
+        navigationItem.rightBarButtonItem = addButton
     }
     
     // MARK: - Take task and Quit task button
@@ -211,11 +219,10 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
     }
     
     // goes to friend view controller to see which friends can be added
-    func addFriends() {
+    @IBAction func addFriends(sender: AnyObject) {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("FriendsViewController") as! FriendsViewController
         controller.membersRef = event.ref!.child("members/")
         controller.taskCounterRef = self.taskCounterRef
-
         self.navigationController!.pushViewController(controller, animated: true)
     }
     
@@ -403,32 +410,29 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
     // MARK - iCarousel
     
     func numberOfItemsInCarousel(carousel: iCarousel) -> Int {
-        print("number of items in carousel:" + String(friends.count + 1))
-        return friends.count + 1
+        return friends.count
     }
     
     func carousel(carousel: iCarousel, viewForItemAtIndex index: Int, reusingView view: UIView?) -> UIView {
         var imageView : UIImageView!
         
         if view == nil {
-            imageView = UIImageView(frame: CGRectMake(0,0,100,100))
+            imageView = UIImageView(frame: CGRectMake(0,0,75,75))
             imageView.contentMode = .ScaleAspectFit
         } else {
             imageView = view as! UIImageView
         }
-        
-        print("index is: " + String(index))
-        if index > 0 {
-            imageView.image = friends[index-1].image
-        } else {
-            //imageView.image = image of add button
-            imageView = UIImageView(frame: CGRectMake(0,0,50,50))
-            imageView.image = UIImage(named: "plusSign.png")
-            imageView.backgroundColor = UIColor.clearColor()
+
+        var testIndex = index % 2
+        if friends.count == 1 {
+            testIndex = 0
         }
         
-        //imageView.layer.cornerRadius = imageView.image!.size.width / 6
-        //imageView.layer.masksToBounds = true
+        imageView.image = friends[testIndex].image
+        imageView.layer.cornerRadius = imageView.image!.size.width / 5.5
+        imageView.layer.masksToBounds = true
+        imageView.layer.borderColor = UIColor.blackColor().CGColor
+        imageView.layer.borderWidth = 2.0
         return imageView
         
     }

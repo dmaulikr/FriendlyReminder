@@ -273,17 +273,38 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="VCu-Ng-glQ" customClass="iCarousel">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="98"/>
+                        <view key="tableHeaderView" clipsSubviews="YES" contentMode="scaleToFill" id="VCu-Ng-glQ" customClass="iCarousel">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="93"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="swn-5N-U2x">
+                                    <rect key="frame" x="8" y="25" width="60" height="43"/>
+                                    <color key="backgroundColor" red="0.23137254900000001" green="0.53333333329999999" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="60" id="XJa-Uv-oze"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="13"/>
+                                    <state key="normal" title="Add Friends">
+                                        <color key="titleColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="addFriends:" destination="f3S-QD-KIo" eventType="touchUpInside" id="Xmy-w0-gut"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="0.79069996840000001" green="0.49149779630000001" blue="0.31719981479999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="swn-5N-U2x" firstAttribute="centerY" secondItem="VCu-Ng-glQ" secondAttribute="centerY" id="2iP-h3-c1Y"/>
+                                <constraint firstItem="swn-5N-U2x" firstAttribute="top" secondItem="VCu-Ng-glQ" secondAttribute="top" constant="25" id="H9A-ix-xOX"/>
+                                <constraint firstItem="swn-5N-U2x" firstAttribute="leading" secondItem="VCu-Ng-glQ" secondAttribute="leadingMargin" id="z7s-Pf-99N"/>
+                            </constraints>
                             <connections>
                                 <outlet property="dataSource" destination="f3S-QD-KIo" id="Eig-do-aqC"/>
                                 <outlet property="delegate" destination="f3S-QD-KIo" id="3Rk-1S-NUY"/>
                             </connections>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="FSR-p1-GGw">
-                            <rect key="frame" x="0.0" y="225" width="600" height="144"/>
+                            <rect key="frame" x="0.0" y="220" width="600" height="144"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="X9o-Ai-bCb">
@@ -309,7 +330,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="99" id="t46-vU-2ax" customClass="TaskCell" customModule="FriendlyReminder" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="126" width="600" height="99"/>
+                                <rect key="frame" x="0.0" y="121" width="600" height="99"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="t46-vU-2ax" id="bPi-4A-9R0">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="98"/>
@@ -442,6 +463,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activityView" destination="FSR-p1-GGw" id="Lop-2c-dvS"/>
+                        <outlet property="addFriendsButton" destination="swn-5N-U2x" id="Sob-J4-oHg"/>
                         <outlet property="carouselView" destination="VCu-Ng-glQ" id="48X-VA-g9u"/>
                     </connections>
                 </tableViewController>
