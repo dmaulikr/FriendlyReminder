@@ -39,6 +39,7 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
         carouselView.scrollToItemBoundary = false
         
         // TODO: create custombutton class for buttons
+        // test comment
         addFriendsButton.layer.cornerRadius = 10.0
         addFriendsButton.layer.borderWidth = 0.5
         addFriendsButton.layer.borderColor = UIColor.blueColor().CGColor
