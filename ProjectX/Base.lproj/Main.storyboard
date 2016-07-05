@@ -708,8 +708,8 @@
         <scene sceneID="IA7-ak-cKh">
             <objects>
                 <navigationController storyboardIdentifier="NavController" id="Fnd-hX-8RW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Personal" id="zOb-Bf-5OE">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-15"/>
+                    <tabBarItem key="tabBarItem" title="Personal" image="personalIcon" id="zOb-Bf-5OE">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="RGi-R7-jfK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -731,8 +731,8 @@
         <scene sceneID="r0o-R1-qEk">
             <objects>
                 <navigationController id="v8q-4d-bjj" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Group" id="oxk-Ms-6Fw">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-15"/>
+                    <tabBarItem key="tabBarItem" title="Group" image="groupIcon" id="oxk-Ms-6Fw">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YEC-4a-rI8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -837,6 +837,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="groupIcon" width="30" height="30"/>
+        <image name="personalIcon" width="30" height="30"/>
         <image name="pinkCheck" width="33" height="33"/>
     </resources>
 </document>
