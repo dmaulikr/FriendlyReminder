@@ -357,7 +357,7 @@
                                             <color key="textColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hb6-UU-Vwf">
+                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hb6-UU-Vwf">
                                             <rect key="frame" x="64" y="62" width="69" height="30"/>
                                             <color key="backgroundColor" red="0.3657764543" green="0.43284350529999999" blue="0.57761205810000005" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
@@ -367,11 +367,17 @@
                                             <state key="normal" title="Take task">
                                                 <color key="titleColor" red="0.14653439139999999" green="0.1873240581" blue="0.31926688759999999" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <action selector="takeTask:" destination="f3S-QD-KIo" eventType="touchUpInside" id="ywi-vh-R9A"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cja-0b-xI2">
+                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cja-0b-xI2">
                                             <rect key="frame" x="8" y="62" width="48" height="30"/>
                                             <color key="backgroundColor" red="0.3657764543" green="0.43284350529999999" blue="0.57761205810000005" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
@@ -381,6 +387,12 @@
                                             <state key="normal" title="Assign">
                                                 <color key="titleColor" red="0.14653439139999999" green="0.1873240581" blue="0.31926688759999999" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <action selector="assignTask:" destination="f3S-QD-KIo" eventType="touchUpInside" id="VNT-La-SXy"/>
                                             </connections>
@@ -391,7 +403,7 @@
                                             <color key="textColor" red="0.79069996840000001" green="0.49149779630000001" blue="0.31719981479999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zpY-Ni-JbI">
+                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zpY-Ni-JbI">
                                             <rect key="frame" x="141" y="62" width="33" height="30"/>
                                             <color key="backgroundColor" red="0.3657764543" green="0.43284350529999999" blue="0.57761205810000005" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
@@ -401,6 +413,12 @@
                                             <state key="normal" image="pinkCheck">
                                                 <color key="titleColor" red="0.14653439139999999" green="0.1873240581" blue="0.31926688759999999" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <action selector="completeTask:" destination="f3S-QD-KIo" eventType="touchUpInside" id="87G-b7-L2l"/>
                                             </connections>
@@ -674,6 +692,12 @@
                                 <state key="normal" title="Login">
                                     <color key="titleColor" red="0.4324987394" green="0.75248579550000005" blue="0.51696666520000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="loginButtonTouch:" destination="mES-dq-jEz" eventType="touchUpInside" id="sx8-Gh-7Uf"/>
                                     <segue destination="AsQ-KS-iRL" kind="show" identifier="Login" id="XDq-PO-R6e"/>

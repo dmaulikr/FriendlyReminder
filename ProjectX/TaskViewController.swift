@@ -36,7 +36,7 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
         // position offset from center
         carouselView.contentOffset = CGSize(width: 50, height: 0)
         
-        carouselView.scrollToItemBoundary = false
+        //carouselView.scrollToItemBoundary = false
         
         // TODO: create custombutton class for buttons
         addFriendsButton.layer.cornerRadius = 10.0
@@ -94,6 +94,11 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
                 if friend.isMember {
                     self.friends.append(friend)
                 }
+            }
+            if self.friends.count <= 1 {
+                self.carouselView.scrollEnabled = false
+            } else {
+                self.carouselView.scrollEnabled = true
             }
             self.carouselView.reloadData()
         }
