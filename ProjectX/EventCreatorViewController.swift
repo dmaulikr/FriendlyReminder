@@ -79,12 +79,30 @@ class EventCreatorViewController: UIViewController, UITextFieldDelegate {
             // save to Firebase
             let event = Event(title: eventTitle.text!, date: dateString, members: [user.id: true], taskCounter: [user.name: 0], creator: user.name)
             let eventRef = FirebaseClient.Constants.EVENT_REF.child(eventTitle.text!.lowercaseString + "/")
-            eventRef.setValue(event.toAnyObject())
+            eventRef.setValue(event.toAnyObject()) {
+                error, ref in
+                if (error != nil) {
+                    // throw alert here
+                    
+                    let alert = UIAlertController(title: "Event title error",
+                        message: "Event title has been taken",
+                        preferredStyle: .Alert)
+                    
+                    let cancelAction = UIAlertAction(title: "OK",
+                        style: .Default) { (action: UIAlertAction) -> Void in
+                    }
+                    alert.addAction(cancelAction)
+                    
+                    self.presentViewController(alert, animated: true, completion: nil)
+                } else {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+            }
         } else {
             // create UserEvent, gets saved in UserEventViewController (on insert)
             let _ = UserEvent(title: eventTitle.text!, date: dateString, context: self.sharedContext)
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
-        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     // MARK: - Core Data Convenience.
