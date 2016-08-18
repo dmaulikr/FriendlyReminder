@@ -11,11 +11,10 @@ import Firebase
 
 class AssignFriendsViewController: UITableViewController {
     
-    var friends = [Friend]()
+    var friendMems = [Friend]()
     var membersRef: FIRDatabaseReference?
     var task: Task!
     var selectedFriends: [Friend] = []
-    var counter: Int = 0
     var taskCounterRef: FIRDatabaseReference!
         
     @IBOutlet weak var activityView: UIView!
@@ -31,25 +30,16 @@ class AssignFriendsViewController: UITableViewController {
         
         FacebookClient.sharedInstance().searchForFriendsList(self.membersRef!, controller: self) {
             (friends, error) -> Void in
-            self.friends = friends
             self.activityView.hidden = true
             for friend in friends {
                 if friend.isMember {
-                    self.counter++
+                    self.friendMems.append(friend)
                 }
             }
             // if no friends found, present an alert
-            if self.counter == 0 {
-                let alert = UIAlertController(title: "No Friends Found",
-                    message: "Add friends to the event first!",
-                    preferredStyle: .Alert)
-                
-                let cancelAction = UIAlertAction(title: "OK",
-                    style: .Default) { (action: UIAlertAction) -> Void in
-                        self.navigationController?.popViewControllerAnimated(true)
-                }
-                alert.addAction(cancelAction)
-                self.presentViewController(alert, animated: true, completion: nil)
+            if self.friendMems.count == 0 {
+                Alerts.sharedInstance().createAlert("No Friends Found",
+                    message: "Add friends to the event first!", VC: self, withReturn: true)
             }
             self.tableView.reloadData()
         }
@@ -69,15 +59,8 @@ class AssignFriendsViewController: UITableViewController {
     func assignFriends() {
         // use selectedFriends to add to task.incharge
         if selectedFriends.isEmpty {
-            let alert = UIAlertController(title: "No Friends Selected",
-                message: "Select friends to add!",
-                preferredStyle: .Alert)
-            
-            let cancelAction = UIAlertAction(title: "OK",
-                style: .Default) { (action: UIAlertAction) -> Void in
-            }
-            alert.addAction(cancelAction)
-            self.presentViewController(alert, animated: true, completion: nil)
+            Alerts.sharedInstance().createAlert("No Friends Selected",
+                message: "Select friends to add!", VC: self, withReturn: false)
             return
         }
         for friend in selectedFriends {
@@ -103,7 +86,7 @@ class AssignFriendsViewController: UITableViewController {
 
     
     func configureCell(cell: FriendCell, indexPath: NSIndexPath) {
-        let friend = friends[indexPath.row]
+        let friend = friendMems[indexPath.row]
         var isAssigned: Bool = false
         
         // only if friend has been added to the event
@@ -146,7 +129,7 @@ class AssignFriendsViewController: UITableViewController {
     
     // only account for user's friends that are also members of the event
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return counter
+        return friendMems.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -159,7 +142,7 @@ class AssignFriendsViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let friend = friends[indexPath.row]
+        let friend = friendMems[indexPath.row]
         var delete = false
         // removes friend from selection if user taps again
         for thisFriend in selectedFriends {

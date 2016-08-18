@@ -32,16 +32,8 @@ class EventViewController: UITableViewController {
             FirebaseClient.sharedInstance().checkPresence() {
                 connected in
                 if !connected {
-                    let alert = UIAlertController(title: "Lost Connection",
-                        message: "Data will be refreshed once connection has been established!",
-                        preferredStyle: .Alert)
-                    
-                    let cancelAction = UIAlertAction(title: "OK",
-                        style: .Default) { (action: UIAlertAction) -> Void in
-                    }
-                    alert.addAction(cancelAction)
-                    
-                    self.presentViewController(alert, animated: true, completion: nil)
+                    Alerts.sharedInstance().createAlert("Lost Connection",
+                        message: "Data will be refreshed once connection has been established!", VC: self, withReturn: false)
                 }
             }
         }

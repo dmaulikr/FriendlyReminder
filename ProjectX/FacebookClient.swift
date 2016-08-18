@@ -19,15 +19,8 @@ class FacebookClient {
         facebookLogin.logInWithReadPermissions(["public_profile", "user_friends"], fromViewController: controller,handler: {
             (facebookResult, facebookError) -> Void in
             if facebookError != nil {
-                let alert = UIAlertController(title: "Facebook Login Failed",
-                    message: facebookError.localizedDescription,
-                    preferredStyle: .Alert)
-                
-                let cancelAction = UIAlertAction(title: "OK",
-                    style: .Default) { (action: UIAlertAction) -> Void in
-                }
-                alert.addAction(cancelAction)
-                controller.presentViewController(alert, animated: true, completion: nil)
+                Alerts.sharedInstance().createAlert("Facebook Login Failed",
+                    message: facebookError.localizedDescription, VC: controller, withReturn: false)
             } else if facebookResult.isCancelled {
                 // was cancelled, need this to do nothing
             } else {
@@ -36,15 +29,8 @@ class FacebookClient {
                 FIRAuth.auth()?.signInWithCredential(credential) {
                     (user, error) in
                     if error != nil {
-                        let alert = UIAlertController(title: "Login Failed",
-                            message: error!.localizedDescription,
-                            preferredStyle: .Alert)
-                        
-                        let cancelAction = UIAlertAction(title: "OK",
-                            style: .Default) { (action: UIAlertAction) -> Void in
-                        }
-                        alert.addAction(cancelAction)
-                        controller.presentViewController(alert, animated: true, completion: nil)
+                        Alerts.sharedInstance().createAlert("Login Failed",
+                            message: error!.localizedDescription, VC: controller, withReturn: false)
                     } else {
                         // update user data on firebase
                         for profile in user!.providerData {
@@ -74,17 +60,8 @@ class FacebookClient {
             if ((error) != nil)
             {
                 // shows error for internet connection failure
-                let alert = UIAlertController(title: "Error",
-                    message: "Search failed. \(error.localizedDescription)",
-                    preferredStyle: .Alert)
-                
-                let cancelAction = UIAlertAction(title: "OK",
-                    style: .Default) { (action: UIAlertAction) -> Void in
-                        controller.navigationController?.popViewControllerAnimated(true)
-                }
-                alert.addAction(cancelAction)
-                
-                controller.presentViewController(alert, animated: true, completion: nil)
+                Alerts.sharedInstance().createAlert("Error",
+                    message: "Search failed.", VC: controller, withReturn: true)
             } else if result["data"] as! NSArray == [] {
                 completionHandler(result: [], error: error)
             }

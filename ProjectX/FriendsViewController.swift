@@ -30,17 +30,8 @@ class FriendsViewController: UITableViewController {
         FacebookClient.sharedInstance().searchForFriendsList(self.membersRef!, controller: self) {
             (friends, error) -> Void in
             if friends.isEmpty {
-                let alert = UIAlertController(title: "No Friends Found",
-                    message: "No friends found with the app installed!",
-                    preferredStyle: .Alert)
-                
-                let cancelAction = UIAlertAction(title: "OK",
-                    style: .Default) { (action: UIAlertAction) -> Void in
-                        self.navigationController?.popViewControllerAnimated(true)
-                }
-                
-                alert.addAction(cancelAction)
-                self.presentViewController(alert, animated: true, completion: nil)
+                Alerts.sharedInstance().createAlert("No Friends Found",
+                    message: "No friends found with the app installed!", VC: self, withReturn: true)
             }
             self.friends = friends
             self.tableView.reloadData()
@@ -59,16 +50,8 @@ class FriendsViewController: UITableViewController {
     }
     
     func showInfo() {
-        let alert = UIAlertController(title: "Instructions",
-            message: "Tap friends to add them to the event!",
-            preferredStyle: .Alert)
-        
-        let cancelAction = UIAlertAction(title: "OK",
-            style: .Default) { (action: UIAlertAction) -> Void in
-        }
-        
-        alert.addAction(cancelAction)
-        presentViewController(alert, animated: true, completion: nil)
+        Alerts.sharedInstance().createAlert("Instructions",
+            message: "Tap friends to add them to the event!", VC: self, withReturn: false)
     }
     
     func configureCell(cell: FriendCell, indexPath: NSIndexPath) {

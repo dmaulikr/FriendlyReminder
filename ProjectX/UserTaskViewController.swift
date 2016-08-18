@@ -36,16 +36,8 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
             style: .Default) { (action: UIAlertAction) -> Void in
                 
                 if alert.textFields![0].text == "" {
-                    let alert2 = UIAlertController(title: "Task title",
-                        message: "Task title can't be empty!",
-                        preferredStyle: .Alert)
-                    
-                    let cancelAction = UIAlertAction(title: "OK",
-                        style: .Default) { (action: UIAlertAction) -> Void in
-                    }
-                    alert2.addAction(cancelAction)
-                    
-                    self.presentViewController(alert2, animated: true, completion: nil)
+                    Alerts.sharedInstance().createAlert("Task title",
+                        message: "Task title can't be empty!", VC: self, withReturn: false)
                     return
                 }
                 let textField = alert.textFields![0]

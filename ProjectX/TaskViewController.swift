@@ -53,20 +53,10 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
         FirebaseClient.sharedInstance().checkPresence() {
             connected in
             if !connected {
-                let alert = UIAlertController(title: "Lost Connection",
-                    message: "Data will be refreshed once connection has been established!",
-                    preferredStyle: .Alert)
-                
-                let cancelAction = UIAlertAction(title: "OK",
-                    style: .Default) { (action: UIAlertAction) -> Void in
-                }
-                alert.addAction(cancelAction)
-                
-                self.presentViewController(alert, animated: true, completion: nil)
+                Alerts.sharedInstance().createAlert("Lost Connection",
+                    message: "Data will be refreshed once connection has been established!", VC: self, withReturn: false)
             }
         }
-        
-
     }
     
     // reloads the tableview data and task array
@@ -242,16 +232,8 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
                 
                 if alert.textFields![0].text == "" {
                     // creates another alert if task title is empty
-                    let alert2 = UIAlertController(title: "Task title",
-                        message: "Task title can't be empty!",
-                        preferredStyle: .Alert)
-                    
-                    let cancelAction = UIAlertAction(title: "OK",
-                        style: .Default) { (action: UIAlertAction) -> Void in
-                    }
-                    alert2.addAction(cancelAction)
-                    
-                    self.presentViewController(alert2, animated: true, completion: nil)
+                    Alerts.sharedInstance().createAlert("Task title",
+                        message: "Task title can't be empty!", VC: self, withReturn: false)
                     return
                 }
                 let textField = alert.textFields![0]
@@ -259,16 +241,8 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
                 for character in textField.text!.characters {
                     if self.isInvalid(character) {
                         // throws an alert for invalid characters
-                        let alert2 = UIAlertController(title: "Invalid task",
-                            message: "Task description cannot contain '.' '#' '$' '/' '[' or ']'",
-                            preferredStyle: .Alert)
-                        
-                        let cancelAction = UIAlertAction(title: "OK",
-                            style: .Default) { (action: UIAlertAction) -> Void in
-                        }
-                        alert2.addAction(cancelAction)
-                        
-                        self.presentViewController(alert2, animated: true, completion: nil)
+                        Alerts.sharedInstance().createAlert("Invalid task",
+                            message: "Task description cannot contain '.' '#' '$' '/' '[' or ']'", VC: self, withReturn: false)
                         return
                     }
                 }

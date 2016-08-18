@@ -44,16 +44,8 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
     }
     
     func showInfo() {
-        let alert = UIAlertController(title: "Instructions",
-            message: "Swipe left to delete",
-            preferredStyle: .Alert)
-        
-        let cancelAction = UIAlertAction(title: "OK",
-            style: .Default) { (action: UIAlertAction) -> Void in
-        }
-        
-        alert.addAction(cancelAction)
-        presentViewController(alert, animated: true, completion: nil)
+        Alerts.sharedInstance().createAlert("Instructions",
+            message: "Swipe left to delete", VC: self, withReturn: false)
     }
     
     func addUserEvent() {

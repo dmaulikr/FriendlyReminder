@@ -56,16 +56,8 @@ class EventCreatorViewController: UIViewController, UITextFieldDelegate {
     @IBAction func createEvent(sender: AnyObject) {
         // Throw alert if title is empty
         if eventTitle.text == "" {
-            let alert = UIAlertController(title: "Event title",
-                message: "Event title can't be empty!",
-                preferredStyle: .Alert)
-            
-            let cancelAction = UIAlertAction(title: "OK",
-                style: .Default) { (action: UIAlertAction) -> Void in
-            }
-            alert.addAction(cancelAction)
-            
-            presentViewController(alert, animated: true, completion: nil)
+            Alerts.sharedInstance().createAlert("Event title",
+                message: "Event title can't be empty!", VC: self, withReturn: false)
             return
         }
         
@@ -82,18 +74,8 @@ class EventCreatorViewController: UIViewController, UITextFieldDelegate {
             eventRef.setValue(event.toAnyObject()) {
                 error, ref in
                 if (error != nil) {
-                    // throw alert here
-                    
-                    let alert = UIAlertController(title: "Event title error",
-                        message: "Event title has been taken",
-                        preferredStyle: .Alert)
-                    
-                    let cancelAction = UIAlertAction(title: "OK",
-                        style: .Default) { (action: UIAlertAction) -> Void in
-                    }
-                    alert.addAction(cancelAction)
-                    
-                    self.presentViewController(alert, animated: true, completion: nil)
+                    Alerts.sharedInstance().createAlert("Event title error",
+                        message: "Event title has been taken", VC: self, withReturn: false)
                 } else {
                     self.dismissViewControllerAnimated(true, completion: nil)
                 }
