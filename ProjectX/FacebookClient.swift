@@ -12,6 +12,10 @@ import Firebase
 
 class FacebookClient {
     
+    enum InputError: ErrorType {
+        
+    }
+    
     func login(controller: UIViewController, completionHandler: (user: User) -> Void) {
         let facebookLogin = FBSDKLoginManager()
         

@@ -23,6 +23,7 @@ class EventCreatorViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         eventTitle.delegate = self
+        eventTitle.becomeFirstResponder()
         
         // set minimum date to today (can't go back in time)
         let date = NSDate()
@@ -71,15 +72,16 @@ class EventCreatorViewController: UIViewController, UITextFieldDelegate {
             // save to Firebase
             let event = Event(title: eventTitle.text!, date: dateString, members: [user.id: true], taskCounter: [user.name: 0], creator: user.name)
             let eventRef = FirebaseClient.Constants.EVENT_REF.child(eventTitle.text!.lowercaseString + "/")
-            eventRef.setValue(event.toAnyObject()) {
-                error, ref in
-                if (error != nil) {
-                    Alerts.sharedInstance().createAlert("Event title error",
-                        message: "Event title has been taken", VC: self, withReturn: false)
+            eventRef.observeSingleEventOfType(.Value, withBlock: {
+                snapshot in
+                if snapshot.exists() {
+                    Alerts.sharedInstance().createAlert("Event title taken",
+                        message: "Please use a different event title.", VC: self, withReturn: false)
                 } else {
+                    eventRef.setValue(event.toAnyObject())
                     self.dismissViewControllerAnimated(true, completion: nil)
                 }
-            }
+            })
         } else {
             // create UserEvent, gets saved in UserEventViewController (on insert)
             let _ = UserEvent(title: eventTitle.text!, date: dateString, context: self.sharedContext)

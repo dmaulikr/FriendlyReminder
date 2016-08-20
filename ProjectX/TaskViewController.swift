@@ -249,7 +249,17 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
                 // create task on Firebase
                 let taskRef = self.ref!.child(textField.text!.lowercaseString + "/")
                 let task = Task(title: textField.text!, creator: self.user.name, ref: taskRef)
-                taskRef.setValue(task.toAnyObject())
+                taskRef.observeSingleEventOfType(.Value, withBlock: {
+                    snapshot in
+                    if snapshot.exists() {
+                        Alerts.sharedInstance().createAlert("Task title taken",
+                            message: "Please use a different task title.", VC: self, withReturn: false)
+                    } else {
+                        taskRef.setValue(task.toAnyObject())
+                        //self.dismissViewControllerAnimated(true, completion: nil)
+                    }
+                })
+                //taskRef.setValue(task.toAnyObject())
         }
         
         let cancelAction = UIAlertAction(title: "Cancel",
