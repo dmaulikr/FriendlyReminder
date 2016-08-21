@@ -126,14 +126,16 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
                 task.inCharge = [user.name]
             }
             button.setTitle("Quit task", forState: .Normal)
-            taskCounterRef.updateChildValues([user.name: ++taskCounter])
+            taskCounter += 1
+            taskCounterRef.updateChildValues([user.name: taskCounter])
         } else {
             // Quit task
             // remove user from inCharge list
             task.inCharge = task.inCharge!.filter{$0 != user.name}
 
             button.setTitle("Take task", forState: .Normal)
-            taskCounterRef.updateChildValues([user.name: --taskCounter])
+            taskCounter -= 1
+            taskCounterRef.updateChildValues([user.name: taskCounter])
         }
         task.ref?.child("inCharge").setValue(task.inCharge)
     }
@@ -176,7 +178,8 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
             taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
                 for name in task.inCharge! {
                     var newCounter = snapshot.value![name] as! Int
-                    self.taskCounterRef.updateChildValues([name: ++newCounter])
+                    newCounter += 1
+                    self.taskCounterRef.updateChildValues([name: newCounter])
                     if name == self.user.name {
                         self.taskCounter = newCounter
                     }
@@ -194,7 +197,8 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
             taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
                 for name in task.inCharge! {
                     var newCounter = snapshot.value![name] as! Int
-                    self.taskCounterRef.updateChildValues([name: --newCounter])
+                    newCounter -= 1
+                    self.taskCounterRef.updateChildValues([name: newCounter])
                     if name == self.user.name {
                         self.taskCounter = newCounter
                     }
@@ -259,7 +263,6 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
                         //self.dismissViewControllerAnimated(true, completion: nil)
                     }
                 })
-                //taskRef.setValue(task.toAnyObject())
         }
         
         let cancelAction = UIAlertAction(title: "Cancel",
@@ -382,7 +385,8 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
                     taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
                         for name in task.inCharge! {
                             var newCounter = snapshot.value![name] as! Int
-                            self.taskCounterRef.updateChildValues([name: --newCounter])
+                            newCounter -= 1
+                            self.taskCounterRef.updateChildValues([name: newCounter])
                             if name == self.user.name {
                                 self.taskCounter = newCounter
                             }

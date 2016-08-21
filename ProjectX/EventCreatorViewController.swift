@@ -98,7 +98,7 @@ class EventCreatorViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Keyboard Tap Recognizer
     
     func configureTapRecognizer() {
-        tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
+        tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleSingleTap(_:)))
         tapRecognizer?.numberOfTapsRequired = 1
     }
     

@@ -44,7 +44,7 @@ class FriendsViewController: UITableViewController {
         let infoButton = UIButton(type: UIButtonType.InfoLight) as UIButton
         let rightBarButton = UIBarButtonItem()
         infoButton.frame = CGRectMake(0,0,30,30)
-        infoButton.addTarget(self, action: "showInfo", forControlEvents: .TouchUpInside)
+        infoButton.addTarget(self, action: #selector(self.showInfo), forControlEvents: .TouchUpInside)
         rightBarButton.customView = infoButton
         navigationItem.rightBarButtonItem = rightBarButton
     }

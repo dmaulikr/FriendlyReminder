@@ -27,11 +27,11 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
     func initUI() {
         // init navbar
         navigationItem.title = "Personal"
-        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addUserEvent")
+        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(self.addUserEvent))
         let infoButton = UIButton(type: UIButtonType.InfoLight) as UIButton
         let leftBarButton = UIBarButtonItem()
         infoButton.frame = CGRectMake(0,0,30,30)
-        infoButton.addTarget(self, action: "showInfo", forControlEvents: .TouchUpInside)
+        infoButton.addTarget(self, action: #selector(self.showInfo), forControlEvents: .TouchUpInside)
         leftBarButton.customView = infoButton
         navigationItem.rightBarButtonItem = addButton
         navigationItem.leftBarButtonItem = leftBarButton

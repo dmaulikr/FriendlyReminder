@@ -76,7 +76,8 @@ class AssignFriendsViewController: UITableViewController {
         taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
             for friend in self.selectedFriends {
                 var taskCounter = snapshot.value![friend.name] as! Int
-                self.taskCounterRef.updateChildValues([friend.name: ++taskCounter])
+                taskCounter += 1
+                self.taskCounterRef.updateChildValues([friend.name: taskCounter])
             }
         })
 
