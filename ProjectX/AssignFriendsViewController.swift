@@ -47,8 +47,8 @@ class AssignFriendsViewController: UITableViewController {
     
     func initNavBar() {
         navigationItem.title = "Assign Friends"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Assign", style: .Plain, target: self, action: "assignFriends")
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: "cancel")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Assign", style: .Plain, target: self, action: #selector(self.assignFriends))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: #selector(self.cancel))
     }
     
     func cancel() {

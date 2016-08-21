@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1808" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mES-dq-jEz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mES-dq-jEz">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -13,7 +13,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="51" sectionHeaderHeight="28" sectionFooterHeight="28" id="BUz-ML-Ih4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.23137254900000001" green="0.53333333329999999" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Zx9-i0-lUr">
                             <rect key="frame" x="0.0" y="64" width="600" height="44"/>
@@ -26,7 +26,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="0.3657764543" green="0.43284350529999999" blue="0.57761205810000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.14653439139999999" green="0.1873240581" blue="0.31926688759999999" alpha="0.75293661347517726" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="sJG-gp-Xrx" firstAttribute="top" secondItem="Zx9-i0-lUr" secondAttribute="top" constant="5" id="GMI-Vw-VfC"/>
                                 <constraint firstItem="sJG-gp-Xrx" firstAttribute="leading" secondItem="Zx9-i0-lUr" secondAttribute="leading" constant="10" id="Ipc-Pp-Xw5"/>
@@ -50,7 +50,6 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="J2U-L1-lxQ" firstAttribute="centerX" secondItem="97H-WA-23P" secondAttribute="centerX" id="1uG-HS-dqU"/>
                                 <constraint firstItem="J2U-L1-lxQ" firstAttribute="top" secondItem="UXU-l8-ilv" secondAttribute="bottom" constant="8" symbolic="YES" id="GgL-th-S4E"/>
@@ -159,7 +158,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Vni-ou-mrA">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.23137254900000001" green="0.53333333329999999" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="rOF-6B-aQT">
                             <rect key="frame" x="0.0" y="64" width="600" height="44"/>
@@ -172,7 +171,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="0.3657764543" green="0.43284350529999999" blue="0.57761205810000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.14653439139999999" green="0.1873240581" blue="0.31926688759999999" alpha="0.75432180851063835" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="Mxg-aU-Ho0" firstAttribute="top" secondItem="rOF-6B-aQT" secondAttribute="top" constant="5" id="Fd8-cm-6hc"/>
                                 <constraint firstItem="Mxg-aU-Ho0" firstAttribute="leading" secondItem="rOF-6B-aQT" secondAttribute="leading" constant="10" id="mok-jz-HI2"/>
@@ -232,7 +231,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="40" sectionHeaderHeight="28" sectionFooterHeight="28" id="53t-fF-fns">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.23137254900000001" green="0.53333333329999999" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserTaskCell" textLabel="9aH-ym-IFR" rowHeight="40" style="IBUITableViewCellStyleDefault" id="0eg-F9-gry">
@@ -271,7 +270,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="99" sectionHeaderHeight="28" sectionFooterHeight="28" id="FTP-RM-HPr">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.23137254900000001" green="0.53333333329999999" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="1" green="0.94509803920000002" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableHeaderView" clipsSubviews="YES" contentMode="scaleToFill" id="VCu-Ng-glQ" customClass="iCarousel">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="93"/>
@@ -284,18 +283,29 @@
                                         <constraint firstAttribute="width" constant="60" id="XJa-Uv-oze"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="13"/>
-                                    <state key="normal" title="Add Friends">
+                                    <state key="normal" title="+/- Friends">
                                         <color key="titleColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                     <connections>
                                         <action selector="addFriends:" destination="f3S-QD-KIo" eventType="touchUpInside" id="Xmy-w0-gut"/>
                                     </connections>
                                 </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This person's name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YWr-4r-5FG">
+                                    <rect key="frame" x="440" y="83" width="100" height="10"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="100" id="aRK-07-qYD"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                                    <color key="textColor" red="0.41703906299999999" green="0.81002040639999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
-                            <color key="backgroundColor" red="0.79069996840000001" green="0.49149779630000001" blue="0.31719981479999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.14653439139999999" green="0.1873240581" blue="0.31926688759999999" alpha="0.74886414007092195" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="swn-5N-U2x" firstAttribute="centerY" secondItem="VCu-Ng-glQ" secondAttribute="centerY" id="2iP-h3-c1Y"/>
+                                <constraint firstAttribute="bottom" secondItem="YWr-4r-5FG" secondAttribute="bottom" id="Gtu-iN-LST"/>
                                 <constraint firstItem="swn-5N-U2x" firstAttribute="top" secondItem="VCu-Ng-glQ" secondAttribute="top" constant="25" id="H9A-ix-xOX"/>
+                                <constraint firstAttribute="trailing" secondItem="YWr-4r-5FG" secondAttribute="trailing" constant="60" id="rou-rA-KeV"/>
                                 <constraint firstItem="swn-5N-U2x" firstAttribute="leading" secondItem="VCu-Ng-glQ" secondAttribute="leadingMargin" id="z7s-Pf-99N"/>
                             </constraints>
                             <connections>
@@ -320,7 +330,6 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="X9o-Ai-bCb" firstAttribute="centerX" secondItem="FSR-p1-GGw" secondAttribute="centerX" id="9ki-kQ-AGS"/>
                                 <constraint firstItem="CEn-xg-Jij" firstAttribute="centerX" secondItem="X9o-Ai-bCb" secondAttribute="centerX" id="Guf-6o-dfK"/>
@@ -482,6 +491,7 @@
                     <connections>
                         <outlet property="activityView" destination="FSR-p1-GGw" id="Lop-2c-dvS"/>
                         <outlet property="addFriendsButton" destination="swn-5N-U2x" id="Sob-J4-oHg"/>
+                        <outlet property="carouselFriendName" destination="YWr-4r-5FG" id="ye6-F1-Wih"/>
                         <outlet property="carouselView" destination="VCu-Ng-glQ" id="48X-VA-g9u"/>
                     </connections>
                 </tableViewController>
@@ -496,7 +506,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="76" sectionHeaderHeight="28" sectionFooterHeight="28" id="qFJ-4U-IK1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.23137254900000001" green="0.53333333329999999" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="X5M-5f-SzS">
                             <rect key="frame" x="0.0" y="104" width="600" height="144"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -514,7 +524,6 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="CyT-QS-meB" firstAttribute="bottom" secondItem="X5M-5f-SzS" secondAttribute="bottomMargin" id="9Ov-No-QER"/>
                                 <constraint firstItem="CyT-QS-meB" firstAttribute="top" secondItem="jfO-cM-K6K" secondAttribute="bottom" constant="8" symbolic="YES" id="Fxo-M8-dYb"/>
@@ -713,7 +722,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.64577479680000005" green="0.77583932619999996" blue="0.89234138259999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.23137254900000001" green="0.53333333329999999" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="zLk-Ej-AK4" firstAttribute="top" secondItem="hbr-fX-Wby" secondAttribute="bottom" constant="68" id="AEX-G4-NMq"/>
                             <constraint firstItem="zLk-Ej-AK4" firstAttribute="centerX" secondItem="kRP-vc-vuf" secondAttribute="centerX" id="e5Q-RP-ogX"/>
@@ -782,7 +791,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="76" sectionHeaderHeight="28" sectionFooterHeight="28" id="iPD-1k-o2j">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.23137254900000001" green="0.53333333329999999" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="KUe-IM-yQb">
                             <rect key="frame" x="0.0" y="104" width="600" height="144"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -800,7 +809,6 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="0.63823935119999997" green="0.76375709290000005" blue="0.80464804290000003" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="9CA-0G-5oY" firstAttribute="bottom" secondItem="KUe-IM-yQb" secondAttribute="bottomMargin" id="4hD-dJ-HOP"/>
                                 <constraint firstItem="9CA-0G-5oY" firstAttribute="top" secondItem="RDX-yI-tLz" secondAttribute="bottom" constant="8" symbolic="YES" id="4r4-9L-LKe"/>

@@ -22,6 +22,7 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
     @IBOutlet weak var activityView: UIView!
     @IBOutlet weak var carouselView: iCarousel!
     @IBOutlet weak var addFriendsButton: UIButton!
+    @IBOutlet weak var carouselFriendName: UILabel!
 
     
     override func viewDidLoad() {
@@ -91,6 +92,7 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
                 self.carouselView.scrollEnabled = true
             }
             self.carouselView.reloadData()
+            self.carouselCurrentItemIndexDidChange(self.carouselView)
         }
     }
     
@@ -110,7 +112,7 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
         navigationItem.titleView = label
         
         
-        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addTask")
+        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(self.addTask))
         navigationItem.rightBarButtonItem = addButton
     }
     
@@ -428,6 +430,14 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
         imageView.layer.borderWidth = 2.0
         return imageView
         
+    }
+    
+    func carouselCurrentItemIndexDidChange(carousel: iCarousel) {
+        if(carousel.currentItemIndex >= 0 && carousel.currentItemIndex < friends.count) {
+            carouselFriendName.text = friends[carousel.currentItemIndex].name
+        } else {
+            carouselFriendName.text = ""
+        }
     }
     
 }
