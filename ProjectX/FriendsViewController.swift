@@ -12,8 +12,9 @@ import Firebase
 class FriendsViewController: UITableViewController {
     
     var friends = [Friend]()
-    var membersRef: FIRDatabaseReference?
+    var membersRef: FIRDatabaseReference!
     var taskCounterRef: FIRDatabaseReference!
+    var taskRef: FIRDatabaseReference?
     
     @IBOutlet weak var activityView: UIView!
     
@@ -100,6 +101,25 @@ class FriendsViewController: UITableViewController {
             // removing friend from event
             self.membersRef?.updateChildValues([friend.id: false])
             friend.isMember = false
+            // also remove from all tasks
+            
+            taskRef!.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                for task in snapshot.children {
+                    //print(task)
+                    let task = Task(snapshot: task as! FIRDataSnapshot)
+                    if task.inCharge != nil {
+                        for person in task.inCharge! {
+                            if person == friend.name {
+                                let newRef = self.taskRef!.child(task.title)
+                                newRef.updateChildValues(["inCharge": task.inCharge!.filter{$0 != person}])
+                                break
+                            }
+                        }
+                    }
+                }
+            })
+            // also update friend's taskcounter
+            taskCounterRef.updateChildValues([friend.name: 0])
         }
         tableView.reloadData()
     }

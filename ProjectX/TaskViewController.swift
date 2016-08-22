@@ -224,6 +224,7 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("FriendsViewController") as! FriendsViewController
         controller.membersRef = event.ref!.child("members/")
         controller.taskCounterRef = self.taskCounterRef
+        controller.taskRef = event.ref!.child("tasks/")
         self.navigationController!.pushViewController(controller, animated: true)
     }
     
