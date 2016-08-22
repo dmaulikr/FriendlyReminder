@@ -34,9 +34,6 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
         
         carouselView.type = iCarouselType.Rotary
         
-        // position offset from center
-        carouselView.contentOffset = CGSize(width: 50, height: 0)
-        
         //carouselView.scrollToItemBoundary = false
         
         // TODO: create custombutton class for buttons
@@ -44,6 +41,15 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
         addFriendsButton.layer.borderWidth = 0.5
         addFriendsButton.layer.borderColor = UIColor.blueColor().CGColor
         addFriendsButton.titleLabel?.textAlignment = .Center
+        
+        // hide addFriendsButton if not creator
+        if event.creator != user.name {
+            addFriendsButton.hidden = true
+            // can also adjust icarousel?
+        } else {
+            // position offset from center
+            //carouselView.contentOffset = CGSize(width: 30, height: 0)
+        }
         
         // get task counter to update user's task counter for this event
         FirebaseClient.sharedInstance().getTaskCounter(taskCounterRef, userName: user.name) {
@@ -120,6 +126,8 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
     @IBAction func takeTask(sender: AnyObject) {
         let task = getTask(sender)
         let button = sender as! UIButton
+        let view = button.superview!
+        let cell = view.superview as! TaskCell
         
         // assign user to task and increase user's task counter
         if button.titleLabel!.text == "Take task" {
@@ -138,6 +146,14 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
             button.setTitle("Take task", forState: .Normal)
             taskCounter -= 1
             taskCounterRef.updateChildValues([user.name: taskCounter])
+            /*
+            UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveLinear, animations: {
+                    print(cell.checkmarkButton.transform)
+                    cell.checkmarkButton.transform = CGAffineTransformScale(cell.checkmarkButton.transform, 0.6, 0.6)
+                    //self.carouselFriendName.transform = CGAffineTransformScale(self.carouselFriendName.transform, 0.6, 0.6)
+                }, completion: nil)
+            */
+            cell.checkmarkButton.hidden = true
         }
         task.ref?.child("inCharge").setValue(task.inCharge)
     }
@@ -301,7 +317,6 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
         cell.taskDescription.lineBreakMode = NSLineBreakMode.ByTruncatingMiddle
         cell.creator.text = task.creator
         cell.selectionStyle = .None
-        cell.checkmarkButton.hidden = true
         
         // if task is done, show check button that is green and strikethrough description
         // cant interact with cell unless you are part of the assigned people
@@ -342,7 +357,25 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
             for name in task.inCharge! {
                 if name == user.name {
                     cell.takeTask.setTitle("Quit task", forState: .Normal)
-                    cell.checkmarkButton.hidden = false
+                    // animate button here?
+                    cell.takeTask.enabled = false
+                    if cell.checkmarkButton.hidden == true {
+                        cell.checkmarkButton.hidden = false
+                        UIView.animateWithDuration(0.5, delay: 0.0, options: .CurveLinear, animations: {
+                            cell.checkmarkButton.transform = CGAffineTransformScale(cell.checkmarkButton.transform, 2.0, 2.0)
+                            }, completion: {
+                                _ in
+                                UIView.animateWithDuration(0.5, animations: {
+                                    cell.checkmarkButton.transform = CGAffineTransformIdentity
+                                    }, completion: {
+                                        _ in
+                                        cell.takeTask.enabled = true
+                                })
+                        })
+ 
+                    }
+
+
                 }
                 cell.assignedPeople.text?.appendContentsOf(name + ", ")
             }

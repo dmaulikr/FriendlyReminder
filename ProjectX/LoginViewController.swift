@@ -15,6 +15,9 @@ class LoginViewController: UIViewController {
     var returningUser: Bool = false
     var newUser: Bool = false
 
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var appTitle: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,6 +44,7 @@ class LoginViewController: UIViewController {
             self.performSegueWithIdentifier("Login", sender: nil)
         } else {
             newUser = true
+            animView()
         }
     }
 
@@ -61,6 +65,17 @@ class LoginViewController: UIViewController {
                 self.performSegueWithIdentifier("Login", sender: nil)
             }
         }
+    }
+    
+    func animView() {
+        appTitle.alpha = 0.0
+        loginButton.frame.origin.y += 1000
+        UIView.animateWithDuration(3.0, animations: {
+            self.appTitle.alpha = 1.0
+            }, completion: nil)
+        UIView.animateWithDuration(2.0, delay: 0.0, usingSpringWithDamping: 0.65, initialSpringVelocity: 0, options: .CurveEaseIn, animations: {
+                self.loginButton.frame.origin.y -= 1000
+            }, completion: nil)
     }
     
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
