@@ -129,6 +129,8 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
         let view = button.superview!
         let cell = view.superview as! TaskCell
         
+        cell.checkmarkButton.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        
         // assign user to task and increase user's task counter
         if button.titleLabel!.text == "Take task" {
             // appends to task.inCharge if it's nil
@@ -138,6 +140,21 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
             button.setTitle("Quit task", forState: .Normal)
             taskCounter += 1
             taskCounterRef.updateChildValues([user.name: taskCounter])
+
+            button.enabled = false
+            cell.checkmarkButton.hidden = false
+            
+            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveLinear, animations: {
+                cell.checkmarkButton.transform = CGAffineTransformScale(cell.checkmarkButton.transform, 1.3, 1.3)
+                }, completion: {
+                    _ in
+                    UIView.animateWithDuration(0.5, delay: 0.0, options: .CurveEaseOut, animations: {
+                        cell.checkmarkButton.transform = CGAffineTransformIdentity
+                        }, completion: {
+                            _ in
+                            button.enabled = true
+                    })
+            })
         } else {
             // Quit task
             // remove user from inCharge list
@@ -146,14 +163,22 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
             button.setTitle("Take task", forState: .Normal)
             taskCounter -= 1
             taskCounterRef.updateChildValues([user.name: taskCounter])
+            button.enabled = false
+            //still doesn't animate properly
             /*
-            UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveLinear, animations: {
-                    print(cell.checkmarkButton.transform)
-                    cell.checkmarkButton.transform = CGAffineTransformScale(cell.checkmarkButton.transform, 0.6, 0.6)
-                    //self.carouselFriendName.transform = CGAffineTransformScale(self.carouselFriendName.transform, 0.6, 0.6)
-                }, completion: nil)
-            */
-            cell.checkmarkButton.hidden = true
+            UIView.animateWithDuration(0.5, delay: 0.0, options: .BeginFromCurrentState, animations: {
+                cell.checkmarkButton.transform = CGAffineTransformScale(cell.checkmarkButton.transform, 0.2, 0.2)
+                },  completion: {
+                    _ in
+                    cell.checkmarkButton.hidden = true
+                    cell.checkmarkButton.transform = CGAffineTransformIdentity
+                    button.enabled = true
+                    
+            })
+ */
+
+
+            
         }
         task.ref?.child("inCharge").setValue(task.inCharge)
     }
@@ -321,7 +346,7 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
         // if task is done, show check button that is green and strikethrough description
         // cant interact with cell unless you are part of the assigned people
         if task.complete {
-            cell.checkmarkButton.hidden = false
+            //cell.checkmarkButton.hidden = false
             cell.checkmarkButton.backgroundColor = UIColor.greenColor()
             let attributes = [
                 NSStrikethroughStyleAttributeName: NSNumber(integer: NSUnderlineStyle.StyleSingle.rawValue)
@@ -340,7 +365,6 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
         // if no one is in charge, reset the cell
         if task.inCharge == nil {
             // reset the cell
-            cell.takeTask.hidden = false
             cell.takeTask.setTitle("Take task", forState: .Normal)
             cell.assignedToLabel.hidden = true
             cell.assignedPeople.hidden = true
@@ -357,25 +381,7 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
             for name in task.inCharge! {
                 if name == user.name {
                     cell.takeTask.setTitle("Quit task", forState: .Normal)
-                    // animate button here?
-                    cell.takeTask.enabled = false
-                    if cell.checkmarkButton.hidden == true {
-                        cell.checkmarkButton.hidden = false
-                        UIView.animateWithDuration(0.5, delay: 0.0, options: .CurveLinear, animations: {
-                            cell.checkmarkButton.transform = CGAffineTransformScale(cell.checkmarkButton.transform, 2.0, 2.0)
-                            }, completion: {
-                                _ in
-                                UIView.animateWithDuration(0.5, animations: {
-                                    cell.checkmarkButton.transform = CGAffineTransformIdentity
-                                    }, completion: {
-                                        _ in
-                                        cell.takeTask.enabled = true
-                                })
-                        })
- 
-                    }
-
-
+                    cell.checkmarkButton.hidden = false
                 }
                 cell.assignedPeople.text?.appendContentsOf(name + ", ")
             }
