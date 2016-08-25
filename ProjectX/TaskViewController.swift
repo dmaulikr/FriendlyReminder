@@ -129,8 +129,6 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
         let view = button.superview!
         let cell = view.superview as! TaskCell
         
-        cell.checkmarkButton.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        
         // assign user to task and increase user's task counter
         if button.titleLabel!.text == "Take task" {
             // appends to task.inCharge if it's nil
@@ -140,21 +138,7 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
             button.setTitle("Quit task", forState: .Normal)
             taskCounter += 1
             taskCounterRef.updateChildValues([user.name: taskCounter])
-
-            button.enabled = false
-            cell.checkmarkButton.hidden = false
-            
-            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveLinear, animations: {
-                cell.checkmarkButton.transform = CGAffineTransformScale(cell.checkmarkButton.transform, 1.3, 1.3)
-                }, completion: {
-                    _ in
-                    UIView.animateWithDuration(0.5, delay: 0.0, options: .CurveEaseOut, animations: {
-                        cell.checkmarkButton.transform = CGAffineTransformIdentity
-                        }, completion: {
-                            _ in
-                            button.enabled = true
-                    })
-            })
+            self.enhanceAnim(cell, button: button)
         } else {
             // Quit task
             // remove user from inCharge list
@@ -163,22 +147,7 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
             button.setTitle("Take task", forState: .Normal)
             taskCounter -= 1
             taskCounterRef.updateChildValues([user.name: taskCounter])
-            button.enabled = false
-            //still doesn't animate properly
-            /*
-            UIView.animateWithDuration(0.5, delay: 0.0, options: .BeginFromCurrentState, animations: {
-                cell.checkmarkButton.transform = CGAffineTransformScale(cell.checkmarkButton.transform, 0.2, 0.2)
-                },  completion: {
-                    _ in
-                    cell.checkmarkButton.hidden = true
-                    cell.checkmarkButton.transform = CGAffineTransformIdentity
-                    button.enabled = true
-                    
-            })
- */
-
-
-            
+            self.shrinkAnim(cell, button: button)
         }
         task.ref?.child("inCharge").setValue(task.inCharge)
     }
@@ -205,9 +174,13 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
         let cell = view.superview as! TaskCell
         let indexPath = tableView.indexPathForCell(cell)
         let task = tasks[indexPath!.row]
-        
+        //cell.takeTask.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        //UIView.setAnimationsEnabled(true)
+
         // to make task incomplete
         if task.complete {
+            cell.assignButton.alpha = 1.0
+            cell.takeTask.alpha = 1.0
             // pinkColor values obtained from printing out the background color
             //let pinkColor = UIColor(colorLiteralRed: 1, green: 0.481462, blue: 0.53544, alpha: 1)
             let darkPurpleColor = UIColor(colorLiteralRed: 0.365776, green: 0.432844, blue: 0.577612, alpha: 1)
@@ -246,6 +219,17 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
                         self.taskCounter = newCounter
                     }
                 }
+            })
+            
+            // animate other buttons disappearing
+            button.enabled = false
+            
+            UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveLinear, animations: {
+                cell.takeTask.alpha = 0.0
+                cell.assignButton.alpha = 0.0
+                }, completion: {
+                    _ in
+                    button.enabled = true
             })
         }
     }
@@ -346,7 +330,8 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
         // if task is done, show check button that is green and strikethrough description
         // cant interact with cell unless you are part of the assigned people
         if task.complete {
-            //cell.checkmarkButton.hidden = false
+            cell.checkmarkButton.hidden = false
+            cell.checkmarkButton.enabled = true
             cell.checkmarkButton.backgroundColor = UIColor.greenColor()
             let attributes = [
                 NSStrikethroughStyleAttributeName: NSNumber(integer: NSUnderlineStyle.StyleSingle.rawValue)
@@ -478,6 +463,45 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
         } else {
             carouselFriendName.text = ""
         }
+    }
+    
+    // MARK - Animations
+    
+    func shrinkAnim(cell: TaskCell, button: UIButton) {
+        button.enabled = false
+        UIView.animateWithDuration(0.5, delay: 0.0, options: .BeginFromCurrentState, animations: {
+            cell.checkmarkButton.transform = CGAffineTransformScale(cell.checkmarkButton.transform, 0.2, 0.2)
+            },  completion: {
+                check in
+                cell.checkmarkButton.transform = CGAffineTransformIdentity
+                if(check) {
+                    cell.checkmarkButton.hidden = true
+                    button.enabled = true
+                } else {
+                    self.shrinkAnim(cell, button: button)
+                }
+        })
+    }
+    
+    func enhanceAnim(cell: TaskCell, button: UIButton) {
+        button.enabled = false
+        cell.checkmarkButton.hidden = false
+        UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveLinear, animations: {
+            cell.checkmarkButton.transform = CGAffineTransformScale(cell.checkmarkButton.transform, 1.3, 1.3)
+            }, completion: {
+                check in
+                if(check) {
+                    UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseOut, animations: {
+                        cell.checkmarkButton.transform = CGAffineTransformIdentity
+                        }, completion: {
+                            _ in
+                            button.enabled = true
+                    })
+                } else {
+                    cell.checkmarkButton.transform = CGAffineTransformIdentity
+                    self.enhanceAnim(cell, button: button)
+                }
+        })
     }
     
 }

@@ -69,12 +69,12 @@ class LoginViewController: UIViewController {
     
     func animView() {
         appTitle.alpha = 0.0
-        loginButton.frame.origin.y += 1000
+        loginButton.frame.origin.y += self.view.bounds.height
         UIView.animateWithDuration(3.0, animations: {
             self.appTitle.alpha = 1.0
             }, completion: nil)
         UIView.animateWithDuration(2.0, delay: 0.0, usingSpringWithDamping: 0.65, initialSpringVelocity: 0, options: .CurveEaseIn, animations: {
-                self.loginButton.frame.origin.y -= 1000
+                self.loginButton.frame.origin.y -= self.view.bounds.height
             }, completion: nil)
     }
     
