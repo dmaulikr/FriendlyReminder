@@ -14,6 +14,7 @@ class LoginViewController: UIViewController {
     var user: User?
     var returningUser: Bool = false
     var newUser: Bool = false
+    var loggingIn: Bool = false
 
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var appTitle: UILabel!
@@ -42,7 +43,7 @@ class LoginViewController: UIViewController {
         super.viewDidAppear(animated)
         if returningUser {
             self.performSegue(withIdentifier: "Login", sender: nil)
-        } else {
+        } else if !loggingIn{
             newUser = true
             animView()
         }
@@ -54,6 +55,7 @@ class LoginViewController: UIViewController {
         let group = DispatchGroup()
         group.enter()
 
+        loggingIn = true
         FacebookClient.sharedInstance().login(self) {
             user in
             self.user = user
@@ -94,5 +96,7 @@ class LoginViewController: UIViewController {
         eventVC.user = self.user
         returningUser = false
         newUser = false
+        loggingIn = false
+
     }
 }
