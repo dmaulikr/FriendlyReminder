@@ -25,7 +25,7 @@ class Event {
         self.creator = creator
     }
     
-    func toAnyObject() -> AnyObject {
+    func toAnyObject() -> Any {
         return [
             "title": title,
             "date": date,
@@ -36,11 +36,19 @@ class Event {
     }
     
     init(snapshot: FIRDataSnapshot) {
-        title = snapshot.value!["title"] as! String
-        date = snapshot.value!["date"] as! String
+        let dict = snapshot.value as? NSDictionary
+        title = dict?["title"] as! String
+        date = dict?["date"] as! String
+        members = dict?["members"] as! NSDictionary
+        taskCounter = dict?["taskCounter"] as! NSDictionary
+        creator = dict?["creator"] as! String
+        
+        
+ //       title = snapshot.value!["title"] as! String
+ //       date = snapshot.value!["date"] as! String
         ref = snapshot.ref
-        members = snapshot.value!["members"] as! NSDictionary
-        taskCounter = snapshot.value!["taskCounter"] as! NSDictionary
-        creator = snapshot.value!["creator"] as! String
+ //       members = snapshot.value!["members"] as! NSDictionary
+ //       taskCounter = snapshot.value!["taskCounter"] as! NSDictionary
+  //      creator = snapshot.value!["creator"] as! String
     }
 }

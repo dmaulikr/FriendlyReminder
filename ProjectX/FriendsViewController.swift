@@ -24,7 +24,7 @@ class FriendsViewController: UITableViewController {
     }
     
     // reloads the tableview data and task array
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         // searches for user's friends list
@@ -36,16 +36,16 @@ class FriendsViewController: UITableViewController {
             }
             self.friends = friends
             self.tableView.reloadData()
-            self.activityView.hidden = true
+            self.activityView.isHidden = true
         }
     }
     
     func initNavBar() {
         navigationItem.title = "Friends"
-        let infoButton = UIButton(type: UIButtonType.InfoLight) as UIButton
+        let infoButton = UIButton(type: UIButtonType.infoLight) as UIButton
         let rightBarButton = UIBarButtonItem()
-        infoButton.frame = CGRectMake(0,0,30,30)
-        infoButton.addTarget(self, action: #selector(self.showInfo), forControlEvents: .TouchUpInside)
+        infoButton.frame = CGRect(x: 0,y: 0,width: 30,height: 30)
+        infoButton.addTarget(self, action: #selector(self.showInfo), for: .touchUpInside)
         rightBarButton.customView = infoButton
         navigationItem.rightBarButtonItem = rightBarButton
     }
@@ -55,8 +55,8 @@ class FriendsViewController: UITableViewController {
             message: "Tap friends to add them to the event!", VC: self, withReturn: false)
     }
     
-    func configureCell(cell: FriendCell, indexPath: NSIndexPath) {
-        let friend = friends[indexPath.row]
+    func configureCell(_ cell: FriendCell, indexPath: IndexPath) {
+        let friend = friends[(indexPath as NSIndexPath).row]
         let orangeColor = UIColor(colorLiteralRed: 0.891592, green: 0.524435, blue: 0.008936, alpha: 1)
         let darkBlueColor = UIColor(colorLiteralRed: 0.146534, green: 0.187324, blue: 0.319267, alpha: 1)
 
@@ -66,32 +66,32 @@ class FriendsViewController: UITableViewController {
         cell.tintColor = orangeColor
         cell.backgroundColor = darkBlueColor
         if friend.isMember {
-            cell.accessoryType = .Checkmark
-            cell.addedLabel.hidden = false
+            cell.accessoryType = .checkmark
+            cell.addedLabel.isHidden = false
         } else {
             // remove checkmark
-            cell.accessoryType = .None
-            cell.addedLabel.hidden = true
+            cell.accessoryType = .none
+            cell.addedLabel.isHidden = true
         }
     }
     
     // MARK: - Table View
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return friends.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let CellIdentifier = "FriendCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! FriendCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier) as! FriendCell
         
         configureCell(cell, indexPath: indexPath)
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let friend = friends[indexPath.row]
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let friend = friends[(indexPath as NSIndexPath).row]
         if friend.isMember == false {
             self.membersRef?.updateChildValues([friend.id: true])
             // initializes path to taskCounter in Firebase
@@ -103,7 +103,7 @@ class FriendsViewController: UITableViewController {
             friend.isMember = false
             // also remove from all tasks
             
-            taskRef!.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            taskRef!.observeSingleEvent(of: .value, with: { snapshot in
                 for task in snapshot.children {
                     //print(task)
                     let task = Task(snapshot: task as! FIRDataSnapshot)
@@ -124,7 +124,7 @@ class FriendsViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return UITableViewCellEditingStyle.None
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return UITableViewCellEditingStyle.none
     }
 }

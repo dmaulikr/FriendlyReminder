@@ -10,8 +10,8 @@ import Firebase
 
 class FirebaseClient {
     
-    func getEvents(authID: String, completionHandler: (newEvents: [Event]) -> Void) {
-        Constants.EVENT_REF.queryOrderedByChild("date").observeEventType(.Value, withBlock: {
+    func getEvents(_ authID: String, completionHandler: @escaping (_ newEvents: [Event]) -> Void) {
+        Constants.EVENT_REF.queryOrdered(byChild: "date").observe(.value, with: {
             snapshot in
             var newEvents = [Event]()
             
@@ -21,24 +21,25 @@ class FirebaseClient {
                     newEvents.append(event)
                 }
             }
-            completionHandler(newEvents: newEvents)
+            completionHandler(newEvents)
         })
     }
     
-    func getTaskCounter(taskCounterRef: FIRDatabaseReference, userName: String, completionHandler: (taskCounter: Int) -> Void) {
-        taskCounterRef.observeSingleEventOfType(.Value, withBlock: {
+    func getTaskCounter(_ taskCounterRef: FIRDatabaseReference, userName: String, completionHandler: @escaping (_ taskCounter: Int) -> Void) {
+        taskCounterRef.observeSingleEvent(of: .value, with: {
             snapshot in
-            let value = snapshot.value![userName] as! Int
-            completionHandler(taskCounter: value)
+            //let value = snapshot.value![userName] as! Int
+            let value = (snapshot.value as? NSDictionary)?[userName] as? Int ?? 0
+            completionHandler(value)
         })
     }
     
     // initializes the user's presence
-    func createPresence(myConnectionsRef: FIRDatabaseReference, completionHandler: () -> Void) {
-        let group = dispatch_group_create()
-        dispatch_group_enter(group)
+    func createPresence(_ myConnectionsRef: FIRDatabaseReference, completionHandler: @escaping () -> Void) {
+        let group = DispatchGroup()
+        group.enter()
 
-        Constants.CONNECT_REF.observeEventType(.Value, withBlock: {
+        Constants.CONNECT_REF.observe(.value, with: {
             snapshot in
             let connected = snapshot.value as? Bool
             if connected != nil && connected! {
@@ -48,24 +49,24 @@ class FirebaseClient {
                 con.setValue("YES")
                 // when this device disconnects, remove it
                 con.onDisconnectRemoveValue()
-                dispatch_group_leave(group)
+                group.leave()
             }
         })
         
-        dispatch_group_notify(group, dispatch_get_main_queue()) {
+        group.notify(queue: DispatchQueue.main) {
             completionHandler()
         }
     }
     
     // checks to see if the user is connected
-    func checkPresence(completionHandler: (connected: Bool) -> Void) {
-        Constants.CONNECT_REF.observeEventType(.Value, withBlock: {
+    func checkPresence(_ completionHandler: @escaping (_ connected: Bool) -> Void) {
+        Constants.CONNECT_REF.observe(.value, with: {
             snapshot in
             let connected = snapshot.value as? Bool
             if connected != nil && connected! {
-                completionHandler(connected: true)
+                completionHandler(true)
             } else {
-                completionHandler(connected: false)
+                completionHandler(false)
             }
         })
     }

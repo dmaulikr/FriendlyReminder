@@ -8,24 +8,24 @@
 
 class Alerts {
     
-    func createAlert(title: String, message: String, VC: UIViewController, withReturn: Bool) {
+    func createAlert(_ title: String, message: String, VC: UIViewController, withReturn: Bool) {
         let alert = UIAlertController(title: title,
             message: message,
-            preferredStyle: .Alert)
+            preferredStyle: .alert)
         
         if(withReturn) {
             let cancelAction = UIAlertAction(title: "OK",
-                style: .Default) { (action: UIAlertAction) -> Void in
-                    VC.navigationController?.popViewControllerAnimated(true)
+                style: .default) { (action: UIAlertAction) -> Void in
+                    VC.navigationController?.popViewController(animated: true)
             }
             alert.addAction(cancelAction)
         } else {
             let cancelAction = UIAlertAction(title: "OK",
-                style: .Default) { (action: UIAlertAction) -> Void in}
+                style: .default) { (action: UIAlertAction) -> Void in}
             alert.addAction(cancelAction)
         }
 
-        VC.presentViewController(alert, animated: true, completion: nil)
+        VC.present(alert, animated: true, completion: nil)
     }
     
     class func sharedInstance() -> Alerts {

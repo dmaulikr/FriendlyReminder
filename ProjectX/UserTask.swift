@@ -14,13 +14,13 @@ class UserTask: NSManagedObject {
     @NSManaged var isDone: Bool
     @NSManaged var event: UserEvent
     
-    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
-        super.init(entity: entity, insertIntoManagedObjectContext: context)
+    override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertInto: context)
     }
     
     init(title: String, created: String, event: UserEvent, context: NSManagedObjectContext) {
-        let entity =  NSEntityDescription.entityForName("UserTask", inManagedObjectContext: context)!
-        super.init(entity: entity,insertIntoManagedObjectContext: context)
+        let entity =  NSEntityDescription.entity(forEntityName: "UserTask", in: context)!
+        super.init(entity: entity,insertInto: context)
         self.title = title
         self.created = created
         self.event = event

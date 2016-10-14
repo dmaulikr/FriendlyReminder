@@ -24,14 +24,19 @@ class Task {
     }
     
     init(snapshot: FIRDataSnapshot) {
-        title = snapshot.value!["title"] as! String
+        let dict = snapshot.value as? NSDictionary
+        title = dict?["title"] as! String
+        creator = dict?["creator"] as! String
+        inCharge = dict?["inCharge"] as? [String]
+        complete = dict?["complete"] as! Bool
+   //     title = snapshot.value!["title"] as! String
         ref = snapshot.ref
-        creator = snapshot.value!["creator"] as! String
-        inCharge = snapshot.value!["inCharge"] as? [String]
-        complete = snapshot.value!["complete"] as! Bool
+   //     creator = snapshot.value!["creator"] as! String
+   //     inCharge = snapshot.value!["inCharge"] as? [String]
+   //     complete = snapshot.value!["complete"] as! Bool
     }
     
-    func toAnyObject() -> AnyObject {
+    func toAnyObject() -> Any {
         return [
             "title": title,
             "creator": creator,

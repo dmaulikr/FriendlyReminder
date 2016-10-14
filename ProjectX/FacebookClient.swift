@@ -12,25 +12,25 @@ import Firebase
 
 class FacebookClient {
     
-    enum InputError: ErrorType {
+    enum InputError: Error {
         
     }
     
-    func login(controller: UIViewController, completionHandler: (user: User) -> Void) {
+    func login(_ controller: UIViewController, completionHandler: @escaping (_ user: User) -> Void) {
         let facebookLogin = FBSDKLoginManager()
         
         // gets the name and user's friends
-        facebookLogin.logInWithReadPermissions(["public_profile", "user_friends"], fromViewController: controller,handler: {
+        facebookLogin.logIn(withReadPermissions: ["public_profile", "user_friends"], from: controller,handler: {
             (facebookResult, facebookError) -> Void in
             if facebookError != nil {
                 Alerts.sharedInstance().createAlert("Facebook Login Failed",
-                    message: facebookError.localizedDescription, VC: controller, withReturn: false)
-            } else if facebookResult.isCancelled {
+                    message: (facebookError?.localizedDescription)!, VC: controller, withReturn: false)
+            } else if (facebookResult?.isCancelled)! {
                 // was cancelled, need this to do nothing
             } else {
-                let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
+                let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
                 
-                FIRAuth.auth()?.signInWithCredential(credential) {
+                FIRAuth.auth()?.signIn(with: credential) {
                     (user, error) in
                     if error != nil {
                         Alerts.sharedInstance().createAlert("Login Failed",
@@ -43,11 +43,11 @@ class FacebookClient {
                             userRef.setValue(myUser.toAnyObject())
                             
                             // save user onto the phone
-                            let prefs = NSUserDefaults.standardUserDefaults()
-                            let encodedData = NSKeyedArchiver.archivedDataWithRootObject(myUser)
-                            prefs.setObject(encodedData, forKey: "user")
+                            let prefs = UserDefaults.standard
+                            let encodedData = NSKeyedArchiver.archivedData(withRootObject: myUser)
+                            prefs.set(encodedData, forKey: "user")
                             prefs.synchronize()
-                            completionHandler(user: myUser)
+                            completionHandler(myUser)
                         }
                     }
                 }
@@ -55,65 +55,69 @@ class FacebookClient {
         })
     }
     
-    func searchForFriendsList(membersRef: FIRDatabaseReference, controller: UIViewController, completionHandler: (result: [Friend], error: NSError?) ->  Void) {
-        let group = dispatch_group_create()
+    func searchForFriendsList(_ membersRef: FIRDatabaseReference, controller: UIViewController, completionHandler: @escaping (_ result: [Friend], _ error: NSError?) ->  Void) {
+        let group = DispatchGroup()
         let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me/friends", parameters: ["fields": "name, picture.type(large)"])
         
-        graphRequest.startWithCompletionHandler({
+        graphRequest.start(completionHandler: {
             (connection, result, error) -> Void in
+            let dict = result as? NSDictionary
+
             if ((error) != nil)
             {
                 // shows error for internet connection failure
                 Alerts.sharedInstance().createAlert("Error",
                     message: "Search failed.", VC: controller, withReturn: true)
-            } else if result["data"] as! NSArray == [] {
-                completionHandler(result: [], error: error)
+            } else if dict?["data"] as! NSArray == [] {
+                completionHandler([], error as NSError?)
             }
             else
             {
                 // get friend's id and profile picture
                 var newFriends = [Friend]()
-                for friend in result["data"] as! NSArray {
+                for friend in dict?["data"] as! [[String: AnyObject]] {
                     var profileImage: UIImage?
                     var id: String?
                     if let friendID = friend["id"] {
                         id = "facebook:" + (friendID as! String)
                     }
-                    if let friendPicture = friend["picture"]! {
-                        if let pictureData = friendPicture["data"]! {
+                    if let friendPicture = friend["picture"] as? NSDictionary {
+                        if let pictureData = friendPicture["data"] as? NSDictionary {
                             let pictureURLString = pictureData["url"] as! String
-                            let pictureURL = NSURL(string: pictureURLString)
+                            let pictureURL = URL(string: pictureURLString)
 
-                            if let image = NSData(contentsOfURL: pictureURL!) {
+                            if let image = try? Data(contentsOf: pictureURL!) {
                                 profileImage = UIImage(data: image)!
                             }
                         }
                     }
                     // enters a group so that I know when I finish executing firebase call
                     // checks if the id is a member of the group already
-                    dispatch_group_enter(group)
+                    group.enter()
                     self.isMember(membersRef, id: id!) {
                         isMember in
                         let friend = Friend(name: friend["name"] as! String, id: id!, image: profileImage, isMember: isMember)
                         newFriends.append(friend)
-                        dispatch_group_leave(group)
+                        group.leave()
                     }
                 }
                 // gets notified once firebase finishes call
-                dispatch_group_notify(group, dispatch_get_main_queue()) {
-                    completionHandler(result: newFriends, error: error)
+                group.notify(queue: DispatchQueue.main) {
+                    completionHandler(newFriends, error as NSError?)
                 }
             }
         })
     }
     
-    func isMember(membersRef: FIRDatabaseReference, id: String, completionHandler: (isMember: Bool) -> Void){
-        membersRef.observeSingleEventOfType(.Value, withBlock: {
+    func isMember(_ membersRef: FIRDatabaseReference, id: String, completionHandler: @escaping (_ isMember: Bool) -> Void){
+        membersRef.observeSingleEvent(of: .value, with: {
             snapshot in
-            if snapshot.value![id] as? Bool == true {
-                completionHandler(isMember: true)
+            let dict = snapshot.value as? NSDictionary
+
+            if dict?[id] as? Bool == true {
+                completionHandler(true)
             } else {
-                completionHandler(isMember: false)
+                completionHandler(false)
             }
         })
     }

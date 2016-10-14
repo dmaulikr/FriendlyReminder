@@ -30,21 +30,21 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
         initNavBar()
         
         // TODO: create a carouselview init?
-        carouselView.bringSubviewToFront(addFriendsButton)
+        carouselView.bringSubview(toFront: addFriendsButton)
         
-        carouselView.type = iCarouselType.Rotary
+        carouselView.type = iCarouselType.rotary
         
         //carouselView.scrollToItemBoundary = false
         
         // TODO: create custombutton class for buttons
         addFriendsButton.layer.cornerRadius = 10.0
         addFriendsButton.layer.borderWidth = 0.5
-        addFriendsButton.layer.borderColor = UIColor.blueColor().CGColor
-        addFriendsButton.titleLabel?.textAlignment = .Center
+        addFriendsButton.layer.borderColor = UIColor.blue.cgColor
+        addFriendsButton.titleLabel?.textAlignment = .center
         
         // hide addFriendsButton if not creator
         if event.creator != user.name {
-            addFriendsButton.hidden = true
+            addFriendsButton.isHidden = true
             // can also adjust icarousel?
         } else {
             // position offset from center
@@ -67,10 +67,10 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
     }
     
     // reloads the tableview data and task array
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        ref!.observeEventType(.Value, withBlock: { snapshot in
+        ref!.observe(.value, with: { snapshot in
             
             var newTasks = [Task]()
             
@@ -81,7 +81,7 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
             
             self.tasks = newTasks
             self.tableView.reloadData()
-            self.activityView.hidden = true
+            self.activityView.isHidden = true
         })
         
         FacebookClient.sharedInstance().searchForFriendsList(event.ref!.child("members/"), controller: self) {
@@ -93,37 +93,37 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
                 }
             }
             if self.friends.count <= 1 {
-                self.carouselView.scrollEnabled = false
+                self.carouselView.isScrollEnabled = false
             } else {
-                self.carouselView.scrollEnabled = true
+                self.carouselView.isScrollEnabled = true
             }
             self.carouselView.reloadData()
             self.carouselCurrentItemIndexDidChange(self.carouselView)
         }
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         FirebaseClient.Constants.CONNECT_REF.removeAllObservers()
     }
     
     func initNavBar() {
         // initialize nav bar
-        let label = UILabel(frame: CGRectMake(0, 0, 440, 44))
-        label.backgroundColor = UIColor.clearColor()
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 440, height: 44))
+        label.backgroundColor = UIColor.clear
         label.numberOfLines = 2
-        label.textAlignment = NSTextAlignment.Center
-        label.lineBreakMode = NSLineBreakMode.ByTruncatingMiddle
+        label.textAlignment = NSTextAlignment.center
+        label.lineBreakMode = NSLineBreakMode.byTruncatingMiddle
         label.text = event.title
         navigationItem.titleView = label
         
         
-        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(self.addTask))
+        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(self.addTask))
         navigationItem.rightBarButtonItem = addButton
     }
     
     // MARK: - Take task and Quit task button
-    @IBAction func takeTask(sender: AnyObject) {
+    @IBAction func takeTask(_ sender: AnyObject) {
         let task = getTask(sender)
         let button = sender as! UIButton
         let view = button.superview!
@@ -135,7 +135,7 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
             if task.inCharge?.append(user.name) == nil {
                 task.inCharge = [user.name]
             }
-            button.setTitle("Quit task", forState: .Normal)
+            button.setTitle("Quit task", for: UIControlState())
             taskCounter += 1
             taskCounterRef.updateChildValues([user.name: taskCounter])
             self.enhanceAnim(cell, button: button)
@@ -144,7 +144,7 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
             // remove user from inCharge list
             task.inCharge = task.inCharge!.filter{$0 != user.name}
 
-            button.setTitle("Take task", forState: .Normal)
+            button.setTitle("Take task", for: UIControlState())
             taskCounter -= 1
             taskCounterRef.updateChildValues([user.name: taskCounter])
             self.shrinkAnim(cell, button: button)
@@ -153,9 +153,9 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
     }
     
     // shows view controller which allows user to assign friends to task
-    @IBAction func assignTask(sender: AnyObject) {
+    @IBAction func assignTask(_ sender: AnyObject) {
         let task = getTask(sender)
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("AssignFriendsViewController") as! AssignFriendsViewController
+        let controller = self.storyboard!.instantiateViewController(withIdentifier: "AssignFriendsViewController") as! AssignFriendsViewController
         controller.membersRef = event.ref!.child("members/")
         controller.task = task
         controller.taskCounterRef = self.taskCounterRef
@@ -167,13 +167,13 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
     // button that completes the task
     // changes background of button to green
     // strikethrough task description
-    @IBAction func completeTask(sender: AnyObject) {
+    @IBAction func completeTask(_ sender: AnyObject) {
 
         let button = sender as! UIButton
         let view = button.superview!
         let cell = view.superview as! TaskCell
-        let indexPath = tableView.indexPathForCell(cell)
-        let task = tasks[indexPath!.row]
+        let indexPath = tableView.indexPath(for: cell)
+        let task = tasks[(indexPath! as NSIndexPath).row]
         //cell.takeTask.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         //UIView.setAnimationsEnabled(true)
 
@@ -186,14 +186,15 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
             let darkPurpleColor = UIColor(colorLiteralRed: 0.365776, green: 0.432844, blue: 0.577612, alpha: 1)
             cell.checkmarkButton.backgroundColor = darkPurpleColor
             cell.taskDescription.attributedText = nil
-            cell.takeTask.userInteractionEnabled = true
-            cell.assignButton.userInteractionEnabled = true
+            cell.takeTask.isUserInteractionEnabled = true
+            cell.assignButton.isUserInteractionEnabled = true
             
             task.ref?.child("complete").setValue(false)
             // update counters for all other people in charge
-            taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            taskCounterRef.observeSingleEvent(of: .value, with: { snapshot in
                 for name in task.inCharge! {
-                    var newCounter = snapshot.value![name] as! Int
+                    //var newCounter = snapshot.value![name] as! Int
+                    var newCounter = (snapshot.value as? NSDictionary)?[name] as? Int ?? 0
                     newCounter += 1
                     self.taskCounterRef.updateChildValues([name: newCounter])
                     if name == self.user.name {
@@ -203,16 +204,18 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
             })
         } else { // complete task
             let attributes = [
-                NSStrikethroughStyleAttributeName: NSNumber(integer: NSUnderlineStyle.StyleSingle.rawValue)
+                NSStrikethroughStyleAttributeName: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue as Int)
             ]
             cell.taskDescription.attributedText = NSAttributedString(string: cell.taskDescription.text!, attributes: attributes)
-            cell.checkmarkButton.backgroundColor = UIColor.greenColor()
-            cell.userInteractionEnabled = false
+            cell.checkmarkButton.backgroundColor = UIColor.green
+            cell.isUserInteractionEnabled = false
             
             task.ref?.child("complete").setValue(true)
-            taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            taskCounterRef.observeSingleEvent(of: .value, with: { snapshot in
                 for name in task.inCharge! {
-                    var newCounter = snapshot.value![name] as! Int
+                    //var newCounter = snapshot.value![name] as! Int
+                    var newCounter = (snapshot.value as? NSDictionary)?[name] as? Int ?? 0
+
                     newCounter -= 1
                     self.taskCounterRef.updateChildValues([name: newCounter])
                     if name == self.user.name {
@@ -222,31 +225,31 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
             })
             
             // animate other buttons disappearing
-            button.enabled = false
+            button.isEnabled = false
             
-            UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveLinear, animations: {
+            UIView.animate(withDuration: 1.0, delay: 0.0, options: .curveLinear, animations: {
                 cell.takeTask.alpha = 0.0
                 cell.assignButton.alpha = 0.0
                 }, completion: {
                     _ in
-                    button.enabled = true
+                    button.isEnabled = true
             })
         }
     }
     
     // returns the current task from button press
-    func getTask(sender: AnyObject) -> Task {
+    func getTask(_ sender: AnyObject) -> Task {
         let button = sender as! UIButton
         let view = button.superview!
         let cell = view.superview as! TaskCell
-        let indexPath = tableView.indexPathForCell(cell)
-        let task = tasks[indexPath!.row]
+        let indexPath = tableView.indexPath(for: cell)
+        let task = tasks[(indexPath! as NSIndexPath).row]
         return task
     }
     
     // goes to friend view controller to see which friends can be added
-    @IBAction func addFriends(sender: AnyObject) {
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("FriendsViewController") as! FriendsViewController
+    @IBAction func addFriends(_ sender: AnyObject) {
+        let controller = self.storyboard!.instantiateViewController(withIdentifier: "FriendsViewController") as! FriendsViewController
         controller.membersRef = event.ref!.child("members/")
         controller.taskCounterRef = self.taskCounterRef
         controller.taskRef = event.ref!.child("tasks/")
@@ -257,10 +260,10 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
     func addTask() {
         let alert = UIAlertController(title: "Task creation",
             message: "Add a task",
-            preferredStyle: .Alert)
+            preferredStyle: .alert)
         
         let createAction = UIAlertAction(title: "Create",
-            style: .Default) { (action: UIAlertAction) -> Void in
+            style: .default) { (action: UIAlertAction) -> Void in
                 
                 if alert.textFields![0].text == "" {
                     // creates another alert if task title is empty
@@ -279,9 +282,9 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
                     }
                 }
                 // create task on Firebase
-                let taskRef = self.ref!.child(textField.text!.lowercaseString + "/")
+                let taskRef = self.ref!.child(textField.text!.lowercased() + "/")
                 let task = Task(title: textField.text!, creator: self.user.name, ref: taskRef)
-                taskRef.observeSingleEventOfType(.Value, withBlock: {
+                taskRef.observeSingleEvent(of: .value, with: {
                     snapshot in
                     if snapshot.exists() {
                         Alerts.sharedInstance().createAlert("Task title taken",
@@ -294,10 +297,10 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
         }
         
         let cancelAction = UIAlertAction(title: "Cancel",
-            style: .Default) { (action: UIAlertAction) -> Void in
+            style: .default) { (action: UIAlertAction) -> Void in
         }
         
-        alert.addTextFieldWithConfigurationHandler {
+        alert.addTextField {
             (textField: UITextField!) -> Void in
         }
         
@@ -307,68 +310,68 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
         // fixes collection view error
         alert.view.setNeedsLayout()
         
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
     // checks to see if characters are invalid
-    func isInvalid(myChar: Character) -> Bool {
+    func isInvalid(_ myChar: Character) -> Bool {
         if myChar == "." || myChar == "#" || myChar == "$" || myChar == "/" || myChar == "[" || myChar == "]" {
             return true
         }
         return false
     }
     
-    func configureCell(cell: TaskCell, indexPath: NSIndexPath) {
-        let task = tasks[indexPath.row]
+    func configureCell(_ cell: TaskCell, indexPath: IndexPath) {
+        let task = tasks[(indexPath as NSIndexPath).row]
 
         // initial configuration
         cell.taskDescription.text = task.title
-        cell.taskDescription.lineBreakMode = NSLineBreakMode.ByTruncatingMiddle
+        cell.taskDescription.lineBreakMode = NSLineBreakMode.byTruncatingMiddle
         cell.creator.text = task.creator
-        cell.selectionStyle = .None
+        cell.selectionStyle = .none
         
         // if task is done, show check button that is green and strikethrough description
         // cant interact with cell unless you are part of the assigned people
         if task.complete {
-            cell.checkmarkButton.hidden = false
-            cell.checkmarkButton.enabled = true
-            cell.checkmarkButton.backgroundColor = UIColor.greenColor()
+            cell.checkmarkButton.isHidden = false
+            cell.checkmarkButton.isEnabled = true
+            cell.checkmarkButton.backgroundColor = UIColor.green
             let attributes = [
-                NSStrikethroughStyleAttributeName: NSNumber(integer: NSUnderlineStyle.StyleSingle.rawValue)
+                NSStrikethroughStyleAttributeName: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue as Int)
             ]
             cell.taskDescription.attributedText = NSAttributedString(string: cell.taskDescription.text!, attributes: attributes)
-            cell.userInteractionEnabled = false
+            cell.isUserInteractionEnabled = false
             for name in task.inCharge! {
                 // can interact with only checkmark button
                 if name == user.name {
-                    cell.userInteractionEnabled = true
-                    cell.takeTask.userInteractionEnabled = false
-                    cell.assignButton.userInteractionEnabled = false
+                    cell.isUserInteractionEnabled = true
+                    cell.takeTask.isUserInteractionEnabled = false
+                    cell.assignButton.isUserInteractionEnabled = false
                 }
             }
         }
         // if no one is in charge, reset the cell
         if task.inCharge == nil {
             // reset the cell
-            cell.takeTask.setTitle("Take task", forState: .Normal)
-            cell.assignedToLabel.hidden = true
-            cell.assignedPeople.hidden = true
-            cell.userInteractionEnabled = true
-            cell.takeTask.userInteractionEnabled = true
-            cell.assignButton.userInteractionEnabled = true
+            cell.takeTask.setTitle("Take task", for: UIControlState())
+            cell.assignedToLabel.isHidden = true
+            cell.assignedPeople.isHidden = true
+            cell.isUserInteractionEnabled = true
+            cell.takeTask.isUserInteractionEnabled = true
+            cell.assignButton.isUserInteractionEnabled = true
 
         } else {
             cell.assignedPeople.text? = ""
-            cell.assignedToLabel.hidden = false
-            cell.assignedPeople.hidden = false
+            cell.assignedToLabel.isHidden = false
+            cell.assignedPeople.isHidden = false
             
             // appends names to the assignedPeople label
             for name in task.inCharge! {
                 if name == user.name {
-                    cell.takeTask.setTitle("Quit task", forState: .Normal)
-                    cell.checkmarkButton.hidden = false
+                    cell.takeTask.setTitle("Quit task", for: UIControlState())
+                    cell.checkmarkButton.isHidden = false
                 }
-                cell.assignedPeople.text?.appendContentsOf(name + ", ")
+                cell.assignedPeople.text?.append(name + ", ")
             }
             // drops the last comma
             cell.assignedPeople.text? = String(cell.assignedPeople.text!.characters.dropLast().dropLast())
@@ -378,40 +381,42 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
     
     // MARK: - Table View
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasks.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let CellIdentifier = "TaskCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! TaskCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier) as! TaskCell
         
         configureCell(cell, indexPath: indexPath)
 
         return cell
     }
     
-    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        let task = tasks[indexPath.row]
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        let task = tasks[(indexPath as NSIndexPath).row]
         // only creator can delete task
         if task.creator == user.name {
-            return UITableViewCellEditingStyle.Delete
+            return UITableViewCellEditingStyle.delete
         } else {
-            return UITableViewCellEditingStyle.None
+            return UITableViewCellEditingStyle.none
         }
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,
-        forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle,
+        forRowAt indexPath: IndexPath) {
             
             switch (editingStyle) {
-            case .Delete:
-                let task = tasks[indexPath.row]
+            case .delete:
+                let task = tasks[(indexPath as NSIndexPath).row]
                 
                 if task.inCharge != nil {
-                    taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                    taskCounterRef.observeSingleEvent(of: .value, with: { snapshot in
                         for name in task.inCharge! {
-                            var newCounter = snapshot.value![name] as! Int
+                           // var newCounter = snapshot.value![name] as! Int
+                            var newCounter = (snapshot.value as? NSDictionary)?[name] as? Int ?? 0
+
                             newCounter -= 1
                             self.taskCounterRef.updateChildValues([name: newCounter])
                             if name == self.user.name {
@@ -429,16 +434,16 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
     
     // MARK - iCarousel
     
-    func numberOfItemsInCarousel(carousel: iCarousel) -> Int {
+    func numberOfItems(in carousel: iCarousel) -> Int {
         return friends.count
     }
     
-    func carousel(carousel: iCarousel, viewForItemAtIndex index: Int, reusingView view: UIView?) -> UIView {
+    func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
         var imageView : UIImageView!
         
         if view == nil {
-            imageView = UIImageView(frame: CGRectMake(0,0,75,75))
-            imageView.contentMode = .ScaleAspectFit
+            imageView = UIImageView(frame: CGRect(x: 0,y: 0,width: 75,height: 75))
+            imageView.contentMode = .scaleAspectFit
         } else {
             imageView = view as! UIImageView
         }
@@ -451,13 +456,13 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
         imageView.image = friends[testIndex].image
         imageView.layer.cornerRadius = imageView.image!.size.width / 5.5
         imageView.layer.masksToBounds = true
-        imageView.layer.borderColor = UIColor.blackColor().CGColor
+        imageView.layer.borderColor = UIColor.black.cgColor
         imageView.layer.borderWidth = 2.0
         return imageView
         
     }
     
-    func carouselCurrentItemIndexDidChange(carousel: iCarousel) {
+    func carouselCurrentItemIndexDidChange(_ carousel: iCarousel) {
         if(carousel.currentItemIndex >= 0 && carousel.currentItemIndex < friends.count) {
             carouselFriendName.text = friends[carousel.currentItemIndex].name
         } else {
@@ -467,38 +472,38 @@ class TaskViewController: UITableViewController, iCarouselDataSource, iCarouselD
     
     // MARK - Animations
     
-    func shrinkAnim(cell: TaskCell, button: UIButton) {
-        button.enabled = false
-        UIView.animateWithDuration(0.5, delay: 0.0, options: .BeginFromCurrentState, animations: {
-            cell.checkmarkButton.transform = CGAffineTransformScale(cell.checkmarkButton.transform, 0.2, 0.2)
+    func shrinkAnim(_ cell: TaskCell, button: UIButton) {
+        button.isEnabled = false
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: .beginFromCurrentState, animations: {
+            cell.checkmarkButton.transform = cell.checkmarkButton.transform.scaledBy(x: 0.2, y: 0.2)
             },  completion: {
                 check in
-                cell.checkmarkButton.transform = CGAffineTransformIdentity
+                cell.checkmarkButton.transform = CGAffineTransform.identity
                 if(check) {
-                    cell.checkmarkButton.hidden = true
-                    button.enabled = true
+                    cell.checkmarkButton.isHidden = true
+                    button.isEnabled = true
                 } else {
                     self.shrinkAnim(cell, button: button)
                 }
         })
     }
     
-    func enhanceAnim(cell: TaskCell, button: UIButton) {
-        button.enabled = false
-        cell.checkmarkButton.hidden = false
-        UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveLinear, animations: {
-            cell.checkmarkButton.transform = CGAffineTransformScale(cell.checkmarkButton.transform, 1.3, 1.3)
+    func enhanceAnim(_ cell: TaskCell, button: UIButton) {
+        button.isEnabled = false
+        cell.checkmarkButton.isHidden = false
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveLinear, animations: {
+            cell.checkmarkButton.transform = cell.checkmarkButton.transform.scaledBy(x: 1.3, y: 1.3)
             }, completion: {
                 check in
                 if(check) {
-                    UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseOut, animations: {
-                        cell.checkmarkButton.transform = CGAffineTransformIdentity
+                    UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseOut, animations: {
+                        cell.checkmarkButton.transform = CGAffineTransform.identity
                         }, completion: {
                             _ in
-                            button.enabled = true
+                            button.isEnabled = true
                     })
                 } else {
-                    cell.checkmarkButton.transform = CGAffineTransformIdentity
+                    cell.checkmarkButton.transform = CGAffineTransform.identity
                     self.enhanceAnim(cell, button: button)
                 }
         })

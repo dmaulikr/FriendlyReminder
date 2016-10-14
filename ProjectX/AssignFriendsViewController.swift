@@ -25,12 +25,12 @@ class AssignFriendsViewController: UITableViewController {
     }
     
     // reloads the tableview data and friends array
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         FacebookClient.sharedInstance().searchForFriendsList(self.membersRef!, controller: self) {
             (friends, error) -> Void in
-            self.activityView.hidden = true
+            self.activityView.isHidden = true
             for friend in friends {
                 if friend.isMember {
                     self.friendMems.append(friend)
@@ -47,12 +47,12 @@ class AssignFriendsViewController: UITableViewController {
     
     func initNavBar() {
         navigationItem.title = "Assign Friends"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Assign", style: .Plain, target: self, action: #selector(self.assignFriends))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: #selector(self.cancel))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Assign", style: .plain, target: self, action: #selector(self.assignFriends))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancel))
     }
     
     func cancel() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // assigns friends to the task
@@ -73,21 +73,24 @@ class AssignFriendsViewController: UITableViewController {
 
         }
         // increase task counter for selected friends
-        taskCounterRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+        taskCounterRef.observeSingleEvent(of: .value, with: { snapshot in
             for friend in self.selectedFriends {
-                var taskCounter = snapshot.value![friend.name] as! Int
+               // var taskCounter = snapshot.value![friend.name] as! Int
+                var taskCounter = (snapshot.value as? NSDictionary)?[friend.name] as? Int ?? 0
+
+                
                 taskCounter += 1
                 self.taskCounterRef.updateChildValues([friend.name: taskCounter])
             }
         })
 
         task.ref?.child("inCharge").setValue(task.inCharge)
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
 
     
-    func configureCell(cell: FriendCell, indexPath: NSIndexPath) {
-        let friend = friendMems[indexPath.row]
+    func configureCell(_ cell: FriendCell, indexPath: IndexPath) {
+        let friend = friendMems[(indexPath as NSIndexPath).row]
         var isAssigned: Bool = false
         
         // only if friend has been added to the event
@@ -100,7 +103,7 @@ class AssignFriendsViewController: UITableViewController {
                     if name == friend.name {
                         isAssigned = true
                         // disable cell if friend has already been added to the task
-                        cell.userInteractionEnabled = false
+                        cell.isUserInteractionEnabled = false
                     }
                 }
             }
@@ -114,14 +117,14 @@ class AssignFriendsViewController: UITableViewController {
     }
     
     
-    func toggleCellCheckbox(cell: UITableViewCell, isAssigned: Bool) {
+    func toggleCellCheckbox(_ cell: UITableViewCell, isAssigned: Bool) {
         let orangeColor = UIColor(colorLiteralRed: 0.891592, green: 0.524435, blue: 0.008936, alpha: 1)
         let darkBlueColor = UIColor(colorLiteralRed: 0.146534, green: 0.187324, blue: 0.319267, alpha: 1)
         if !isAssigned {
-            cell.accessoryType = UITableViewCellAccessoryType.None
+            cell.accessoryType = UITableViewCellAccessoryType.none
         } else {
             cell.tintColor = orangeColor
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            cell.accessoryType = UITableViewCellAccessoryType.checkmark
             cell.backgroundColor = darkBlueColor
         }
     }
@@ -129,21 +132,21 @@ class AssignFriendsViewController: UITableViewController {
     // MARK: - Table View
     
     // only account for user's friends that are also members of the event
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return friendMems.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let CellIdentifier = "FriendCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! FriendCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier) as! FriendCell
         
         configureCell(cell, indexPath: indexPath)
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let friend = friendMems[indexPath.row]
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let friend = friendMems[(indexPath as NSIndexPath).row]
         var delete = false
         // removes friend from selection if user taps again
         for thisFriend in selectedFriends {
@@ -159,8 +162,8 @@ class AssignFriendsViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return UITableViewCellEditingStyle.None
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return UITableViewCellEditingStyle.none
     }
 }
 

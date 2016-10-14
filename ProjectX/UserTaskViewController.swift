@@ -17,7 +17,7 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
         super.viewDidLoad()
         
         navigationItem.title = userEvent.title
-        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(self.addTask))
+        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(self.addTask))
         navigationItem.rightBarButtonItems = [addButton]
         
         do {
@@ -30,10 +30,10 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
     func addTask() {
         let alert = UIAlertController(title: "Task creation",
             message: "Add a task",
-            preferredStyle: .Alert)
+            preferredStyle: .alert)
         
         let createAction = UIAlertAction(title: "Create",
-            style: .Default) { (action: UIAlertAction) -> Void in
+            style: .default) { (action: UIAlertAction) -> Void in
                 
                 if alert.textFields![0].text == "" {
                     Alerts.sharedInstance().createAlert("Task title",
@@ -41,19 +41,19 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
                     return
                 }
                 let textField = alert.textFields![0]
-                let dateFormatter = NSDateFormatter()
+                let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                let createdAt = dateFormatter.stringFromDate(NSDate())
+                let createdAt = dateFormatter.string(from: Date())
                 // create a UserTask into CoreData
                 let _ = UserTask(title: textField.text!, created: createdAt, event: self.userEvent,
                                  context: self.sharedContext)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel",
-            style: .Default) { (action: UIAlertAction) -> Void in
+            style: .default) { (action: UIAlertAction) -> Void in
         }
         
-        alert.addTextFieldWithConfigurationHandler {
+        alert.addTextField {
             (textField: UITextField!) -> Void in
         }
         
@@ -63,7 +63,7 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
         // fixes collection view error
         alert.view.setNeedsLayout()
         
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
     // MARK: - Core Data Convenience.
@@ -72,9 +72,8 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
         return CoreDataStackManager.sharedInstance().managedObjectContext
     }
     
-    lazy var fetchedResultsController: NSFetchedResultsController = {
-        
-        let fetchRequest = NSFetchRequest(entityName: "UserTask")
+    lazy var fetchedResultsController: NSFetchedResultsController<UserTask> = {
+        let fetchRequest = NSFetchRequest<UserTask>(entityName: "UserTask")
         
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "created", ascending: true)]
         fetchRequest.predicate = NSPredicate(format: "event == %@", self.userEvent)
@@ -90,19 +89,19 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
     
     // MARK: - Fetched Results Controller Delegate
     
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
         switch type {
-            case .Update:
-                let cell = tableView.cellForRowAtIndexPath(indexPath!)!
-                let task = controller.objectAtIndexPath(indexPath!) as! UserTask
+            case .update:
+                let cell = tableView.cellForRow(at: indexPath!)!
+                let task = controller.object(at: indexPath!) as! UserTask
                 toggleCellCheckbox(cell, completed: task.isDone)
             default:
                 break
         }
     }
     
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         // need to reload tableView and save changes to core data
         tableView.reloadData()
         CoreDataStackManager.sharedInstance().saveContext()
@@ -110,55 +109,55 @@ class UserTaskViewController: UITableViewController, NSFetchedResultsControllerD
     
     // MARK: - Table View
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionInfo = self.fetchedResultsController.sections![section]
         return sectionInfo.numberOfObjects
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let CellIdentifier = "UserTaskCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier)! as UITableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier)! as UITableViewCell
         
         configureCell(cell, indexPath: indexPath)
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let userTask = fetchedResultsController.objectAtIndexPath(indexPath) as! UserTask
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let userTask = fetchedResultsController.object(at: indexPath) as! UserTask
         // triggers update
         userTask.isDone = !userTask.isDone
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,
-        forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle,
+        forRowAt indexPath: IndexPath) {
             
         switch (editingStyle) {
-            case .Delete:
-                let userTask = fetchedResultsController.objectAtIndexPath(indexPath) as! UserTask
+            case .delete:
+                let userTask = fetchedResultsController.object(at: indexPath) as! UserTask
                 
                 // delete object from fetchedResultsController
-                sharedContext.deleteObject(userTask)
+                sharedContext.delete(userTask)
             default:
                 break
         }
     }
     
-    func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) {
-        let task = fetchedResultsController.objectAtIndexPath(indexPath) as! UserTask
+    func configureCell(_ cell: UITableViewCell, indexPath: IndexPath) {
+        let task = fetchedResultsController.object(at: indexPath) as! UserTask
         toggleCellCheckbox(cell, completed: task.isDone)
         cell.textLabel?.text = task.title
     }
     
-    func toggleCellCheckbox(cell: UITableViewCell, completed: Bool) {
+    func toggleCellCheckbox(_ cell: UITableViewCell, completed: Bool) {
         if !completed {
             cell.textLabel?.attributedText = nil
-            cell.accessoryType = UITableViewCellAccessoryType.None
+            cell.accessoryType = UITableViewCellAccessoryType.none
         } else {
-            cell.tintColor = UIColor.orangeColor()
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            cell.tintColor = UIColor.orange
+            cell.accessoryType = UITableViewCellAccessoryType.checkmark
             let attributes = [
-                NSStrikethroughStyleAttributeName: NSNumber(integer: NSUnderlineStyle.StyleSingle.rawValue)
+                NSStrikethroughStyleAttributeName: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue as Int)
             ]
             cell.textLabel?.attributedText = NSAttributedString(string: cell.textLabel!.text!, attributes: attributes)
 

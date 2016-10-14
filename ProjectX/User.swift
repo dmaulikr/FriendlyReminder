@@ -20,17 +20,17 @@ class User: NSObject, NSCoding {
     }
     
     required convenience init(coder aDecoder: NSCoder) {
-        let name = aDecoder.decodeObjectForKey("name") as! String
-        let id = aDecoder.decodeObjectForKey("id") as! String
+        let name = aDecoder.decodeObject(forKey: "name") as! String
+        let id = aDecoder.decodeObject(forKey: "id") as! String
         self.init(name: name, id: id)
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(id, forKey: "id")
-        aCoder.encodeObject(name, forKey: "name")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(id, forKey: "id")
+        aCoder.encode(name, forKey: "name")
     }
     
-    func toAnyObject() -> AnyObject {
+    func toAnyObject() -> Any {
         return [
             "name": name,
             "id": id
@@ -38,8 +38,12 @@ class User: NSObject, NSCoding {
     }
     
     init(snapshot: FIRDataSnapshot) {
-        name = snapshot.value!["name"] as! String
-        id = snapshot.value!["id"] as! String
+        let dict = snapshot.value as? NSDictionary
+        name = dict?["name"] as! String
+        id = dict?["id"] as! String
+        
+ //       name = snapshot.value!["name"] as! String
+ //       id = snapshot.value!["id"] as! String
         ref = snapshot.ref
     }
 }

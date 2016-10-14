@@ -27,19 +27,19 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
     func initUI() {
         // init navbar
         navigationItem.title = "Personal"
-        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(self.addUserEvent))
-        let infoButton = UIButton(type: UIButtonType.InfoLight) as UIButton
+        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(self.addUserEvent))
+        let infoButton = UIButton(type: UIButtonType.infoLight) as UIButton
         let leftBarButton = UIBarButtonItem()
-        infoButton.frame = CGRectMake(0,0,30,30)
-        infoButton.addTarget(self, action: #selector(self.showInfo), forControlEvents: .TouchUpInside)
+        infoButton.frame = CGRect(x: 0,y: 0,width: 30,height: 30)
+        infoButton.addTarget(self, action: #selector(self.showInfo), for: .touchUpInside)
         leftBarButton.customView = infoButton
         navigationItem.rightBarButtonItem = addButton
         navigationItem.leftBarButtonItem = leftBarButton
         
         // init date
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM d, y"
-        let today = dateFormatter.stringFromDate(NSDate())
+        let today = dateFormatter.string(from: Date())
         dateLabel.text = today
     }
     
@@ -49,11 +49,11 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
     }
     
     func addUserEvent() {
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("EventCreatorViewController") as! EventCreatorViewController
+        let controller = self.storyboard!.instantiateViewController(withIdentifier: "EventCreatorViewController") as! EventCreatorViewController
         
         controller.groupEvent = false
         
-        self.presentViewController(controller, animated: true, completion: nil)
+        self.present(controller, animated: true, completion: nil)
     }
     
     // MARK: - Core Data Convenience.
@@ -64,9 +64,9 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
     
     // MARK: - Fetched Results Controller
     
-    lazy var fetchedResultsController: NSFetchedResultsController = {
+    lazy var fetchedResultsController: NSFetchedResultsController<UserEvent> = {
         
-        let fetchRequest = NSFetchRequest(entityName: "UserEvent")
+        let fetchRequest = NSFetchRequest<UserEvent>(entityName: "UserEvent")
         
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         
@@ -81,7 +81,7 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
     
     // MARK: - Fetched Results Controller Delegate
     
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         // reload tableView and save changes to core data
         tableView.reloadData()
         CoreDataStackManager.sharedInstance().saveContext()
@@ -89,15 +89,15 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
     
     // MARK: - Configure Cell
     
-    func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) {
-        let event = fetchedResultsController.objectAtIndexPath(indexPath) as! UserEvent
+    func configureCell(_ cell: UITableViewCell, indexPath: IndexPath) {
+        let event = fetchedResultsController.object(at: indexPath) 
         
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.timeStyle = .LongStyle
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .long
         dateFormatter.dateFormat = "yyyyMMdd h:mm a"
-        let oldDate = dateFormatter.dateFromString(event.date)
+        let oldDate = dateFormatter.date(from: event.date)
         dateFormatter.dateFormat = "MMMM d, y h:mm a"
-        let dateString = dateFormatter.stringFromDate(oldDate!)
+        let dateString = dateFormatter.string(from: oldDate!)
         
         cell.textLabel?.text = event.title
         cell.detailTextLabel?.text = "Date of Event: " + dateString
@@ -105,35 +105,35 @@ class UserEventViewController: UITableViewController, NSFetchedResultsController
     
     // MARK: - Table View
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionInfo = self.fetchedResultsController.sections![section]
         return sectionInfo.numberOfObjects
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let CellIdentifier = "EventCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier)! as UITableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier)! as UITableViewCell
         
         configureCell(cell, indexPath: indexPath)
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let controller = storyboard!.instantiateViewControllerWithIdentifier("UserTaskViewController") as! UserTaskViewController
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let controller = storyboard!.instantiateViewController(withIdentifier: "UserTaskViewController") as! UserTaskViewController
         
-        controller.userEvent = fetchedResultsController.objectAtIndexPath(indexPath) as! UserEvent
+        controller.userEvent = fetchedResultsController.object(at: indexPath) 
         self.navigationController!.pushViewController(controller, animated: true)
     }
 
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,
-        forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle,
+        forRowAt indexPath: IndexPath) {
         switch (editingStyle) {
-            case .Delete:
-                let userEvent = fetchedResultsController.objectAtIndexPath(indexPath) as! UserEvent
+            case .delete:
+                let userEvent = fetchedResultsController.object(at: indexPath) 
                 
                 // delete object from fetchedResultsController
-                sharedContext.deleteObject(userEvent)
+                sharedContext.delete(userEvent)
             default:
                 break
         }

@@ -26,35 +26,35 @@ class EventCreatorViewController: UIViewController, UITextFieldDelegate {
         eventTitle.becomeFirstResponder()
         
         // set minimum date to today (can't go back in time)
-        let date = NSDate()
+        let date = Date()
         datePicker.minimumDate = date
         configureTapRecognizer()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         addKeyboardDismissRecognizer()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         removeKeyboardDismissRecognizer()
     }
     
     // MARK: - TextFieldDelegate
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         eventTitle.resignFirstResponder()
         return true
     }
     
     // MARK: - Buttons
 
-    @IBAction func cancelEvent(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func cancelEvent(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     // creates an event
-    @IBAction func createEvent(sender: AnyObject) {
+    @IBAction func createEvent(_ sender: AnyObject) {
         // Throw alert if title is empty
         if eventTitle.text == "" {
             Alerts.sharedInstance().createAlert("Event title",
@@ -63,29 +63,29 @@ class EventCreatorViewController: UIViewController, UITextFieldDelegate {
         }
         
         let date = datePicker.date
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.timeStyle = .LongStyle
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .long
         dateFormatter.dateFormat = "yyyyMMdd h:mm a"
-        let dateString = dateFormatter.stringFromDate(date)
+        let dateString = dateFormatter.string(from: date)
         
         if groupEvent == true {
             // save to Firebase
             let event = Event(title: eventTitle.text!, date: dateString, members: [user.id: true], taskCounter: [user.name: 0], creator: user.name)
-            let eventRef = FirebaseClient.Constants.EVENT_REF.child(eventTitle.text!.lowercaseString + "/")
-            eventRef.observeSingleEventOfType(.Value, withBlock: {
+            let eventRef = FirebaseClient.Constants.EVENT_REF.child(eventTitle.text!.lowercased() + "/")
+            eventRef.observeSingleEvent(of: .value, with: {
                 snapshot in
                 if snapshot.exists() {
                     Alerts.sharedInstance().createAlert("Event title taken",
                         message: "Please use a different event title.", VC: self, withReturn: false)
                 } else {
                     eventRef.setValue(event.toAnyObject())
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
                 }
             })
         } else {
             // create UserEvent, gets saved in UserEventViewController (on insert)
             let _ = UserEvent(title: eventTitle.text!, date: dateString, context: self.sharedContext)
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -110,7 +110,7 @@ class EventCreatorViewController: UIViewController, UITextFieldDelegate {
         view.removeGestureRecognizer(tapRecognizer!)
     }
     
-    func handleSingleTap(recognizer: UITapGestureRecognizer) {
+    func handleSingleTap(_ recognizer: UITapGestureRecognizer) {
         view.endEditing(true)
     }
 }
